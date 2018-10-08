@@ -1,0 +1,23 @@
+/* here you can put your own css to customize and override the theme */
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	vertical-align: middle;
+}
+
+.table .btn {
+    margin-bottom: 5px;
+}
+
+.modal {
+    z-index: 1040;
+}
+
+.modal-backdrop{
+	z-index: 1039;
+}
+
+.portlet.calendar .mobile .fc-button{
+	background-color:#FFF;
+}
+.portlet.calendar .mobile .fc-button.fc-state-active, .portlet.calendar .mobile .fc-button.fc-state-hover{
+	background-color:#FFF;
+}
