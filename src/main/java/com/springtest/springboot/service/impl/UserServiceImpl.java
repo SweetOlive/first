@@ -2,7 +2,9 @@ package com.springtest.springboot.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.springtest.springboot.dao.HelloMapper;
 import com.springtest.springboot.dao.UserMapper;
+import com.springtest.springboot.po.Hello;
 import com.springtest.springboot.po.UserDomain;
 import com.springtest.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;//这里会报错，但是并不会影响
+
+    @Autowired
+    private HelloMapper helloMapper;
 
     @Override
     public int addUser(UserDomain user) {
@@ -40,5 +45,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDomain> findAll(){
         return userMapper.selectAll();
+    }
+
+    @Override
+    public int add(Hello hello){
+        return  helloMapper.insert(hello);
     }
 }
