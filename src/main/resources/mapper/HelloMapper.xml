@@ -18,7 +18,8 @@
     delete from hello
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.springtest.springboot.po.Hello" >
+  <!--useGeneratedKeys="true" 表示给主键设置自增长,keyProperty="id"  表示将自增长后的Id赋值给实体类中的userId字段。-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.springtest.springboot.po.Hello" >
     insert into hello (id, name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>

@@ -20,9 +20,10 @@ public class helloController {
     @RequestMapping(value = "addHello")
     public void addHello(Integer id, String name, HttpServletRequest request){
         Hello hello = new Hello();
-        hello.setId(id);
         hello.setName(name);
-        userService.add(hello);
+        int a = userService.add(hello);
+        System.out.println("a:"+a+",id"+hello.getId());
+
     }
 
 
