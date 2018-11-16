@@ -51,4 +51,9 @@ public class helloController {
         request.setAttribute("userDomainList", userDomainList);
         return "/index";
     }
+
+    @RequestMapping(value = "test")
+    public String test(HttpServletRequest request) {
+        return "/test/index";
+    }
 }
