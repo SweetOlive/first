@@ -22,7 +22,7 @@
         <!-- JDBC连接 其中connectionURL后面的newtest改为你创建的数据库，紧跟在后面是数据库连接的账户和密码-->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://localhost:3306/edu?characterEncoding=UTF8"
+                connectionURL="jdbc:mysql://localhost:3306/mysql?characterEncoding=UTF8"
                 userId="root"
                 password="">
         </jdbcConnection>
