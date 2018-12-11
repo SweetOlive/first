@@ -13,7 +13,7 @@
 	                        </li> -->
 
 			<li class="nav-item">
-				<a href="#${pageContext.request.contextPath}/admin/home" class="nav-link nav-toggle"> <i class="icon-layers"></i>
+				<a href="#" class="nav-link nav-toggle"> <i class="icon-layers"></i>
 					<span class="title">首页</span> 
 				</a>
 			</li>
