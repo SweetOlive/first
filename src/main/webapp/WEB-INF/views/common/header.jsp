@@ -7,7 +7,7 @@
 	<div class="page-header-inner ">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a> <img height="30" src="${pageContext.request.contextPath}/static/images/logo.png" alt="logo" class="logo-default" />
+			<a> <img height="50" width="150" src="${pageContext.request.contextPath}/static/images/young.jpg" alt="logo" class="logo-default" />
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -22,14 +22,14 @@
 		    <ul class="nav navbar-nav">
 		        <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the horizontal opening on mouse hover -->
 		        <li class="classic-menu-dropdown active" style="margin-top: 10px">
-		            <c:choose>
+		            <%--<c:choose>
 		            	<c:when test="${!empty userId && !empty examToken}">
 		           			 <a href="${examUrl}admin/index?userId=${userId}&token=${examToken}">考试中心系统<span class="selected"></span></a>
 		            	</c:when>
 		            	<c:otherwise>
 		            		 <a href="${examUrl}admin/index">考试中心系统<span class="selected"></span></a>
 		            	</c:otherwise>
-		            </c:choose>
+		            </c:choose>--%>
 		        </li>
 
 		    </ul>

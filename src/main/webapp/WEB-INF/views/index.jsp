@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>教学资源管理系统</title>
+    <title>青年之家铁路物资管理系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit" />
     <meta
@@ -52,7 +52,7 @@
                 <!-- BEGIN PAGE TITLE -->
                 <div class="page-title">
                     <h1>工作台
-                        <small>欢迎使用教学资源管理系统</small>
+                        <small>欢迎使用青年之家铁路物资管理系统</small>
                     </h1>
                 </div>
                 <!-- END PAGE TITLE -->
@@ -73,8 +73,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="m-heading-1 border-green m-bordered">
-                        <p> 欢迎使用 <a href="#" target="_blank">教学资源管理系统</a>
-                            <br>如在使用过程中遇到问题，请随时与我们联系：support@shadowedu.net </p>
+                        <p> 欢迎使用 <a href="#" target="_blank">青年之家铁路物资管理系统</a>
+                            <br>如在使用过程中遇到问题，请随时与我们联系：603656949@qq.com </p>
                     </div>
                 </div>
 
