@@ -42,12 +42,15 @@
 			<div class="top-menu">
 				<ul class="nav navbar-nav pull-right">
 					<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-					<li class="dropdown dropdown-user dropdown-dark"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> <span class="username username-hide-on-mobile"> <i class="fa fa-user"></i>${currentUser.username} </span> <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+					<li class="dropdown dropdown-user dropdown-dark"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+						<span class="username username-hide-on-mobile">
+							<i class="fa fa-user"></i>${nowUser.name} </span>
+						<!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
 					</a>
 						<ul class="dropdown-menu dropdown-menu-default">
-							<li><a href="${pageContext.request.contextPath}/admin/user/changePassword" target="dialog"> <i class="icon-lock"></i> 修改密码
+							<li><a href="${pageContext.request.contextPath}/login/changePasswordLoad" target="dialog"> <i class="icon-lock"></i> 修改密码
 							</a></li>
-							<li><a href="${pageContext.request.contextPath}/logout"> <i class="icon-key"></i> 退出登录
+							<li><a href="${pageContext.request.contextPath}/login/logout"> <i class="icon-key"></i> 退出登录
 							</a></li>
 						</ul></li>
 					<!-- END USER LOGIN DROPDOWN -->

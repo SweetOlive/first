@@ -30,6 +30,19 @@
     where account_number = #{number}
   </select>
 
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT *
+    from sys_user
+    where 1=1
+    <if test="sysUser.name != null and sysUser.name != ''">
+      AND name LIKE '%${sysUser.name}%'
+    </if>
+    <if test="sysUser.accountNumber != null and sysUser.accountNumber != ''">
+      AND account_number LIKE '%${sysUser.accountNumber}%'
+    </if>
+
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
