@@ -18,10 +18,11 @@
     <result column="update_user_id" property="updateUserId" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, account_number, password, name, sex, birthday, tel, department_id, role_id, power_mid_id, 
-    create_time, update_time, create_user_id, update_user_id, remark, count
+    create_time, update_time, create_user_id, update_user_id, remark, count, img_path
   </sql>
 
   <select id="findByAccountNumber" resultMap="BaseResultMap">
@@ -53,19 +54,19 @@
     delete from sys_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.springtest.springboot.po.SysUser" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.springtest.springboot.po.SysUser" >
     insert into sys_user (id, account_number, password, 
       name, sex, birthday, 
       tel, department_id, role_id, 
       power_mid_id, create_time, update_time, 
       create_user_id, update_user_id, remark, 
-      count)
+      count, img_path)
     values (#{id,jdbcType=INTEGER}, #{accountNumber,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, 
       #{tel,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
       #{powerMidId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{createUserId,jdbcType=INTEGER}, #{updateUserId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
-      #{count,jdbcType=INTEGER})
+      #{count,jdbcType=INTEGER}, #{imgPath,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.springtest.springboot.po.SysUser" >
     insert into sys_user
@@ -118,6 +119,9 @@
       <if test="count != null" >
         count,
       </if>
+      <if test="imgPath != null" >
+        img_path,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -167,6 +171,9 @@
       </if>
       <if test="count != null" >
         #{count,jdbcType=INTEGER},
+      </if>
+      <if test="imgPath != null" >
+        #{imgPath,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -218,6 +225,9 @@
       <if test="count != null" >
         count = #{count,jdbcType=INTEGER},
       </if>
+      <if test="imgPath != null" >
+        img_path = #{imgPath,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -237,7 +247,8 @@
       create_user_id = #{createUserId,jdbcType=INTEGER},
       update_user_id = #{updateUserId,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
-      count = #{count,jdbcType=INTEGER}
+      count = #{count,jdbcType=INTEGER},
+      img_path = #{imgPath,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

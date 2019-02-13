@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service(value = "SysUserService")
 public class SysUserServiceImpl implements SysUserService {
 
@@ -46,5 +45,10 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public int update(SysUser sysUser){
         return sysUserMapper.updateByPrimaryKeySelective(sysUser);
+    }
+
+    @Override
+    public int delete(Integer id){
+        return  sysUserMapper.deleteByPrimaryKey(id);
     }
 }

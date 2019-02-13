@@ -77,7 +77,7 @@
 							<tr>
 							    <th>用户名</th>
 								<th>账号</th>
-								<th>联系电话</th>
+								<th>登录次数</th>
 								<th width="30%">操作</th>
 							</tr>
 						</thead>
@@ -86,13 +86,13 @@
 								<tr>
 									<td>${item.name}</td>
 									<td>${item.accountNumber}</td>
-									<td>${item.tel}</td>
+									<td>${item.count}</td>
 									<security:authorize ifAnyGranted="P_AREA_MANAGE">	
 									<td>
 										<a href="${pageContext.request.contextPath}/sysUser/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
 											<i class="fa fa-asterisk"></i>&nbsp;修改
 										</a>
-										<a target="ajaxTodo" todoMsg="是否确定删除这个用户？" href="${pageContext.request.contextPath}/sysUser/delete?id=${item.id}" class="btn red btn-sm">
+										<a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个用户？" href="${pageContext.request.contextPath}/sysUser/delete?id=${item.id}" class="btn red btn-sm">
 											<i class="fa fa-trash-o"></i>&nbsp;删除
 										</a>
 									</td>

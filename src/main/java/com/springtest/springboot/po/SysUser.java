@@ -35,6 +35,8 @@ public class SysUser {
 
     private Integer count;
 
+    private String imgPath;
+
     public Integer getId() {
         return id;
     }
@@ -163,4 +165,11 @@ public class SysUser {
         this.count = count;
     }
 
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath == null ? null : imgPath.trim();
+    }
 }

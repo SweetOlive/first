@@ -21,4 +21,7 @@ public interface SysUserService {
 
     //修改更新用户信息
     public int update(SysUser sysUser);
+
+    //根据id删除用户
+    public int delete(Integer id);
 }

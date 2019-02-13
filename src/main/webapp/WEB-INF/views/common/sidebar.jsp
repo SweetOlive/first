@@ -14,7 +14,7 @@
 	                        </li> -->
 
 			<li class="nav-item">
-				<a href="#" class="nav-link nav-toggle"> <i class="icon-layers"></i>
+				<a href="${pageContext.request.contextPath}/login/index" class="nav-link nav-toggle"> <i class="icon-layers"></i>
 					<span class="title">首页</span> 
 				</a>
 			</li>

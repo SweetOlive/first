@@ -9,7 +9,8 @@
 		</div>
 		<form id="userForm" action="${pageContext.request.contextPath}/sysUser/save" method="post" class="form-horizontal" id="form_sample_1" enctype="multipart/form-data">
 			<div class="modal-body">
-				<input type="hidden" id="id" name="id" value="${sysUser.id}">
+				<input type="hidden" name="id" value="${sysUser.id}">
+				<input type="hidden" name="nowId" value="${nowUser.id}">
 				<!-- BEGIN FORM-->
 				<div class="form-body">
 					<div class="alert alert-danger display-hide">
@@ -38,6 +39,7 @@
 							<span class="help-block"></span>
 						</div>
 					</div>
+					<%--<c:if test="${sysUser.id==null}"></c:if>
 					<div class="form-group form-md-line-input ">
 						<label class="col-md-3 control-label" for="">密码 <span class="required">*</span>
 						</label>
@@ -46,7 +48,7 @@
 							<div class="form-control-focus"></div>
 							<span class="help-block"></span>
 						</div>
-					</div>
+					</div>--%>
 					<!-- END FORM-->
 				</div>
 			</div>

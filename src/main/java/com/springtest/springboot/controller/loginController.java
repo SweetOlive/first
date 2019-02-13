@@ -47,6 +47,9 @@ public class loginController {
                 System.out.println("账号存在，密码正确，登录成功！");
                 //保存当前登录用户信息实体
                 request.getSession(true).setAttribute("nowUser",sysUser);
+                //增加登录次数
+                sysUser.setCount(sysUser.getCount()+1);
+                sysUserService.update(sysUser);
                 return  "/index";
             }else{
                 System.out.println("账号存在，密码错误，登录失败！");
@@ -90,5 +93,12 @@ public class loginController {
         }
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
+    }
+
+    //首页
+    @RequestMapping(value = "/index")
+    public String index(){
+        System.out.println("跳转首页！");
+        return "/index";
     }
 }
