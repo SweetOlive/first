@@ -16,7 +16,7 @@
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb">
 	<li><a href="#">首页</a> <i class="fa fa-angle-right"></i></li>
-	<li><a href="#">系统管理</a> <i class="fa fa-angle-right"></i></li>
+	<li><a href="#">基础管理</a> <i class="fa fa-angle-right"></i></li>
 	<li><span class="active">用户列表</span></li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
