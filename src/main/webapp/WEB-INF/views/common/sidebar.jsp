@@ -29,6 +29,11 @@
 							class="badge badge-danger" id="_menu_badge_user"></span>
 					</a></li>
 					<li><a
+							href="#${pageContext.request.contextPath}/sysRole/list"> <i
+							class="fa fa-user"></i> <span class="title">角色管理</span> <span
+							class="badge badge-danger" id="_menu_badge_role"></span>
+					</a></li>
+					<li><a
 							href="#${pageContext.request.contextPath}/sysDepartment/list">
 						<i class="fa fa-sitemap"></i> <span class="title">部门管理</span>
 						<span class="badge badge-danger" id="_menu_badge_resource"></span>
@@ -37,11 +42,6 @@
 						<a href="#${pageContext.request.contextPath}/hello/test">
 						<i class="fa fa-gear"></i><span class="title"> 系统设置</span>
 						<span class="badge badge-danger" id="_menu_badge_sysinfo"></span>
-					</a></li>
-					<li><a
-						href="#${pageContext.request.contextPath}/hello/test"> <i
-							class="fa fa-user"></i> <span class="title">角色管理</span> <span
-							class="badge badge-danger" id="_menu_badge_role"></span>
 					</a></li>
 				</ul></li>
 		</ul>

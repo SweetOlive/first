@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/sysUser")
-public class sysUserController {
+public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
@@ -46,7 +46,7 @@ public class sysUserController {
         return "/sysUser/sysUserLoad";
     }
 
-    //保存用户
+    //保存/修改 用户
     @RequestMapping(value = "save")
     public String save(Integer nowId,Integer id,String accountNumber,String name,
                        String password,String repassword,
@@ -63,11 +63,8 @@ public class sysUserController {
             sysUser.setCreateUserId(nowId);
             sysUser.setUpdateUserId(nowId);
             int a = sysUserService.add(sysUser);
-            if (a == 1){
-                System.out.println("新增成功！ "+sysUser.getName());
-            }else{
-                System.out.println("新增失败！ "+sysUser.getName());
-            }
+            if (a == 1){ System.out.println("新增成功！ "+sysUser.getName()); }
+            else{ System.out.println("新增失败！ "+sysUser.getName()); }
         }else{
             SysUser sysUser = sysUserService.findById(id);
             sysUser.setName(name);
