@@ -44,6 +44,113 @@
 						<span class="badge badge-danger" id="_menu_badge_sysinfo"></span>
 					</a></li>
 				</ul></li>
+			<li class="nav-item">
+			<a href="" class="nav-link nav-toggle"><i class="fa fa-bookmark-o"></i>
+				<span class="title">价格目录管理</span><span class="arrow"></span>
+			</a>
+			<ul class="sub-menu">
+				<li>
+					<a href="#${pageContext.request.contextPath}/hello/test">
+						<i class="fa fa-book"></i>
+						<span class="title">物资目录管理</span>
+					</a>
+				</li>
+				<li>
+					<a href="#${pageContext.request.contextPath}/hello/test">
+						<i class="fa fa-balance-scale"></i>
+						<span class="title">限价管理</span>
+					</a>
+				</li>
+			</ul>
+		    </li>
+			<li class="nav-item">
+				<a href="" class="nav-link nav-toggle"><i class="fa fa-shopping-cart"></i>
+					<span class="title">供应商管理</span><span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-shopping-cart"></i>
+							<span class="title">供应商管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-sign-in"></i>
+							<span class="title">供应商准入管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="" class="nav-link nav-toggle"><i class="fa fa-rocket"></i>
+					<span class="title">供应管理</span><span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-print"></i>
+							<span class="title">计划管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-random"></i>
+							<span class="title">发料管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="" class="nav-link nav-toggle"><i class="fa fa-dollar"></i>
+					<span class="title">采购管理</span><span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-list-alt"></i>
+							<span class="title">订单管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-strikethrough"></i>
+							<span class="title">询价单管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-table"></i>
+							<span class="title">收料管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="" class="nav-link nav-toggle"><i class="fa fa-paste"></i>
+					<span class="title">合同管理</span><span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-file"></i>
+							<span class="title">招标合同</span>
+						</a>
+					</li>
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-file-o"></i>
+							<span class="title">询价合同</span>
+						</a>
+					</li>
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-file-text-o"></i>
+							<span class="title">报价管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
 		</ul>
 		<!-- END SIDEBAR MENU -->
 	</div>
