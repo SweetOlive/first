@@ -50,7 +50,7 @@
 			</a>
 			<ul class="sub-menu">
 				<li>
-					<a href="#${pageContext.request.contextPath}/hello/test">
+					<a href="#${pageContext.request.contextPath}/priceGoodsCatalog/list">
 						<i class="fa fa-book"></i>
 						<span class="title">物资目录管理</span>
 					</a>

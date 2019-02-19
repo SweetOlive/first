@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springtest.springboot.dao.PriceGoodsContactMapper" >
+  <resultMap id="BaseResultMap" type="com.springtest.springboot.po.PriceGoodsContact" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="catalog_id" property="catalogId" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="variety" property="variety" jdbcType="VARCHAR" />
+    <result column="large_clacc" property="largeClacc" jdbcType="VARCHAR" />
+    <result column="small_clacc" property="smallClacc" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="DOUBLE" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="volume" property="volume" jdbcType="DOUBLE" />
+    <result column="is_ limit" property="isLimit" jdbcType="VARCHAR" />
+    <result column="limit_start_time" property="limitStartTime" jdbcType="TIMESTAMP" />
+    <result column="limit_end_time" property="limitEndTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="update_user_id" property="updateUserId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parent_id, catalog_id, company_id, department_id, name, introduce, variety, large_clacc, 
+    small_clacc, code, version, size, unit, count, img_path, price, weight, volume, "is_ limit", 
+    limit_start_time, limit_end_time, create_time, update_time, create_user_id, update_user_id, 
+    remark
+  </sql>
+
+  <select id="findSmallParentId" resultMap="BaseResultMap">
+    SELECT *,MIN(parent_id)
+    FROM price_goods_contact
+    WHERE catalog_id = #{catalogId}
+  </select>
+
+  <select id="findByParentId" resultMap="BaseResultMap">
+    SELECT *
+    FROM price_goods_contact
+    WHERE parent_id = #{parentId} and catalog_id = #{catalogId}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from price_goods_contact
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from price_goods_contact
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.springtest.springboot.po.PriceGoodsContact" >
+    insert into price_goods_contact (id, parent_id, catalog_id, 
+      company_id, department_id, name, 
+      introduce, variety, large_clacc, 
+      small_clacc, code, version, 
+      size, unit, count, img_path, 
+      price, weight, volume, 
+      "is_ limit", limit_start_time, limit_end_time, 
+      create_time, update_time, create_user_id, 
+      update_user_id, remark)
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{catalogId,jdbcType=INTEGER}, 
+      #{companyId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{introduce,jdbcType=VARCHAR}, #{variety,jdbcType=VARCHAR}, #{largeClacc,jdbcType=VARCHAR}, 
+      #{smallClacc,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{size,jdbcType=DOUBLE}, #{unit,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{imgPath,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, #{volume,jdbcType=DOUBLE}, 
+      #{isLimit,jdbcType=VARCHAR}, #{limitStartTime,jdbcType=TIMESTAMP}, #{limitEndTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{updateUserId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.springtest.springboot.po.PriceGoodsContact" >
+    insert into price_goods_contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="catalogId != null" >
+        catalog_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="variety != null" >
+        variety,
+      </if>
+      <if test="largeClacc != null" >
+        large_clacc,
+      </if>
+      <if test="smallClacc != null" >
+        small_clacc,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="imgPath != null" >
+        img_path,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+      <if test="isLimit != null" >
+        "is_ limit",
+      </if>
+      <if test="limitStartTime != null" >
+        limit_start_time,
+      </if>
+      <if test="limitEndTime != null" >
+        limit_end_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="catalogId != null" >
+        #{catalogId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="variety != null" >
+        #{variety,jdbcType=VARCHAR},
+      </if>
+      <if test="largeClacc != null" >
+        #{largeClacc,jdbcType=VARCHAR},
+      </if>
+      <if test="smallClacc != null" >
+        #{smallClacc,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="imgPath != null" >
+        #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="isLimit != null" >
+        #{isLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="limitStartTime != null" >
+        #{limitStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitEndTime != null" >
+        #{limitEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springtest.springboot.po.PriceGoodsContact" >
+    update price_goods_contact
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="catalogId != null" >
+        catalog_id = #{catalogId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="variety != null" >
+        variety = #{variety,jdbcType=VARCHAR},
+      </if>
+      <if test="largeClacc != null" >
+        large_clacc = #{largeClacc,jdbcType=VARCHAR},
+      </if>
+      <if test="smallClacc != null" >
+        small_clacc = #{smallClacc,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="imgPath != null" >
+        img_path = #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="isLimit != null" >
+        "is_ limit" = #{isLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="limitStartTime != null" >
+        limit_start_time = #{limitStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitEndTime != null" >
+        limit_end_time = #{limitEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springtest.springboot.po.PriceGoodsContact" >
+    update price_goods_contact
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      catalog_id = #{catalogId,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=INTEGER},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      variety = #{variety,jdbcType=VARCHAR},
+      large_clacc = #{largeClacc,jdbcType=VARCHAR},
+      small_clacc = #{smallClacc,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      size = #{size,jdbcType=DOUBLE},
+      unit = #{unit,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      img_path = #{imgPath,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      weight = #{weight,jdbcType=DOUBLE},
+      volume = #{volume,jdbcType=DOUBLE},
+      "is_ limit" = #{isLimit,jdbcType=VARCHAR},
+      limit_start_time = #{limitStartTime,jdbcType=TIMESTAMP},
+      limit_end_time = #{limitEndTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      update_user_id = #{updateUserId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

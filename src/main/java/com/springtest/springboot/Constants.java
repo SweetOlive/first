@@ -125,4 +125,6 @@ public class Constants {
 		resourceFileMap.put(RESOURCE_FILE_TYPE_ZIP, ZIP);
 		resourceFileMap.put(RESOURCE_FILE_TYPE_IMG, IMG);
 	}
+
+	public static final String FORM_PAGE_SCUSER_CONTENT = "page-scuser-content";// 刷新
 }
