@@ -13,6 +13,7 @@ public class PriceGoodsContactServiceImpl implements PriceGoodsContactService {
 
     @Autowired
     private PriceGoodsContactMapper priceGoodsContactMapper;
+    
 
     @Override
     public PriceGoodsContact findSmallParentId(Integer catalogId){
