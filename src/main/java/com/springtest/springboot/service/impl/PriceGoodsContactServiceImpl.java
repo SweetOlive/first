@@ -21,6 +21,11 @@ public class PriceGoodsContactServiceImpl implements PriceGoodsContactService {
     }
 
     @Override
+    public PriceGoodsContact findByCode(String code){
+        return priceGoodsContactMapper.getByCode(code);
+    }
+
+    @Override
     public PriceGoodsContact findById(Integer id){
         return priceGoodsContactMapper.selectByPrimaryKey(id);
     }

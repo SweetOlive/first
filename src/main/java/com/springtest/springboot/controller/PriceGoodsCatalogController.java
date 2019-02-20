@@ -42,7 +42,7 @@ public class PriceGoodsCatalogController {
     private PriceGoodsContactService priceGoodsContactService;
 
     //物资目录列表
-    @RequestMapping(value = "list")
+    @RequestMapping(value = "/list")
     public String list(@ModelAttribute(value = "priceGoodsCatalog") PriceGoodsCatalog priceGoodsCatalog,
                        @RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
                        @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize,

@@ -12,6 +12,8 @@ public interface PriceGoodsContactService {
     //根据目录id查找底下所有物资list
     public List<PriceGoodsContact> findAllByCatalogId(Integer catalogId);
 
+    public PriceGoodsContact findByCode(String code);
+
     public PriceGoodsContact findById(Integer id);
 
     public int add(PriceGoodsContact priceGoodsContact);

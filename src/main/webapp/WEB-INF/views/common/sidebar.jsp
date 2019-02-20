@@ -56,7 +56,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#${pageContext.request.contextPath}/hello/test">
+					<a href="#${pageContext.request.contextPath}/priceGoodsLimit/list">
 						<i class="fa fa-balance-scale"></i>
 						<span class="title">限价管理</span>
 					</a>
