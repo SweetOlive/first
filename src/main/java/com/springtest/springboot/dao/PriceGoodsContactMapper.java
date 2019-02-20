@@ -18,9 +18,9 @@ public interface PriceGoodsContactMapper {
 
     int updateByPrimaryKey(PriceGoodsContact record);
 
-    public PriceGoodsContact findSmallParentId(@Param("catalogId") Integer catalogId);
+    public PriceGoodsContact getSmallParentId(@Param("catalogId") Integer catalogId);
 
     public List<PriceGoodsContact> findByParentId(@Param("parentId")Integer parentId,@Param("catalogId") Integer catalogId);
 
-    public List<PriceGoodsContact> findByCatalogId(@Param("catalogId") Integer catalogId);
+    public List<PriceGoodsContact> getByCatalogId(@Param("catalogId") Integer catalogId);
 }

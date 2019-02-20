@@ -13,11 +13,11 @@ public class PriceGoodsContactServiceImpl implements PriceGoodsContactService {
 
     @Autowired
     private PriceGoodsContactMapper priceGoodsContactMapper;
-    
+
 
     @Override
     public PriceGoodsContact findSmallParentId(Integer catalogId){
-        return priceGoodsContactMapper.findSmallParentId(catalogId);
+        return priceGoodsContactMapper.getSmallParentId(catalogId);
     }
 
     @Override
@@ -42,6 +42,6 @@ public class PriceGoodsContactServiceImpl implements PriceGoodsContactService {
 
     @Override
     public List<PriceGoodsContact> findAllByCatalogId(Integer catalogId){
-        return priceGoodsContactMapper.findByCatalogId(catalogId);
+        return priceGoodsContactMapper.getByCatalogId(catalogId);
     }
 }
