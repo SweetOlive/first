@@ -11,7 +11,7 @@
 			<div class="modal-body">
 				<input type="hidden"  name="nowId" value="${nowUser.id}">
 				<input type="hidden" id="id" name="id" value="${priceGoodsContact.id}">
-				<input type="hidden" id="parentId" name="parentId" value="${parentSysDepartment.id}">
+				<input type="hidden" id="parentId" name="parentId" value="${parentPriceGoodsContact.id}">
 				<input type="hidden" id="catalogId" name="catalogId" value="${catalogId}">
 				<!-- BEGIN FORM-->
 				<div class="form-body">
@@ -45,12 +45,12 @@
 						
 						
 						<div class="form-group form-md-line-input ">
-							<label class="col-md-3 control-label">部门名 <span class="required">*</span>
+							<label class="col-md-3 control-label">物资名 <span class="required">*</span>
 							</label>
 							<div class="col-md-8">
 								<input type="text" class="form-control required" placeholder="" value="${priceGoodsContact.name}" name="name">
 								<div class="form-control-focus"></div>
-								<span class="help-block">部门名</span>
+								<span class="help-block">物资名</span>
 							</div>
 						</div>
 						<div class="form-group form-md-line-input">

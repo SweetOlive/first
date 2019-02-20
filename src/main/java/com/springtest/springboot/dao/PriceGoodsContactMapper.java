@@ -21,4 +21,6 @@ public interface PriceGoodsContactMapper {
     PriceGoodsContact findSmallParentId(@Param("catalogId") Integer catalogId);
 
     List<PriceGoodsContact> findByParentId(@Param("parentId")Integer parentId,@Param("catalogId") Integer catalogId);
+
+    List<PriceGoodsContact> findByCatalogId(@Param("catalogId") Integer catalogId);
 }

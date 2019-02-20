@@ -23,7 +23,7 @@
 	
 </ul>
 <!-- END PAGE BREADCRUMB -->
-<form class="form-horizontal" id="pagerForm" method="post" action="${pageContext.request.contextPath}/priceGoodsCatalog/loadCatalog" onsubmit="return divSearch(this,'page-content')">
+<form class="form-horizontal" id="pagerForm" method="post" action="${pageContext.request.contextPath}/priceGoodsCatalog/loadCatalog?id=${priceGoodsCatalog.id}" onsubmit="return divSearch(this,'page-content')">
 </form>
 <div class="">
 		<div class="row col-md-12">
@@ -35,7 +35,7 @@
 					</div>
 					<security:authorize ifAnyGranted="P_DEPARTMENT_MANAGE">
 					<div class="actions">
-						<a id="seaDepartmentAddUser" href="${pageContext.request.contextPath}/admin/seaDepartment/loadDepartmentUser?id=" target="ajax" class="btn blue btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;分配用户</a>
+						<%--<a id="seaDepartmentAddUser" href="${pageContext.request.contextPath}/admin/seaDepartment/loadDepartmentUser?id=" target="ajax" class="btn blue btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;分配用户</a>--%>
 						<a id="seaDepartmentCreate" class="btn green btn-sm"
 							href="${pageContext.request.contextPath}/priceGoodsCatalog/goodsLoad?parentId="
 							target="dialog"><i class="fa fa-plus"></i>&nbsp;新增</a> 
@@ -44,7 +44,7 @@
 							href="${pageContext.request.contextPath}/priceGoodsCatalog/goodsLoad?id="
 							target="dialog"><i class="fa fa-asterisk"></i>&nbsp;修改</a> 
 						<a
-							id="seaDepartmentDelete" class="btn red btn-sm" todoMsg="确定删除部门？"
+							id="seaDepartmentDelete" class="btn red btn-sm" todoMsg="确定删除物资？"
 							href="${pageContext.request.contextPath}/priceGoodsCatalog/goodsDelete?id="
 							target="ajaxTodo"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 					</div>

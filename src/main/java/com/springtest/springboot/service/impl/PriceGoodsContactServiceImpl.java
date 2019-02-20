@@ -6,6 +6,8 @@ import com.springtest.springboot.service.PriceGoodsContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "priceGoodsContactService")
 public class PriceGoodsContactServiceImpl implements PriceGoodsContactService {
 
@@ -35,5 +37,10 @@ public class PriceGoodsContactServiceImpl implements PriceGoodsContactService {
     @Override
     public int detele (Integer id){
         return  priceGoodsContactMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<PriceGoodsContact> findAllByCatalogId(Integer catalogId){
+        return priceGoodsContactMapper.findByCatalogId(catalogId);
     }
 }

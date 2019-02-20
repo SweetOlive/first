@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -90,7 +91,11 @@ public class PriceGoodsCatalogController {
     //删除目录
     @RequestMapping(value = "/delete")
     public  String delete(Integer id,HttpServletRequest request){
-       int cnt = priceGoodsCatalogService.delete(id);
+        int cnt = priceGoodsCatalogService.delete(id);
+        List<PriceGoodsContact> list = priceGoodsContactService.findAllByCatalogId(id);
+        for (PriceGoodsContact priceGoodsContact : list){
+            priceGoodsContactService.detele(priceGoodsContact.getId());
+        }
         if (cnt == 1){
             System.out.println("删除成功！ ");
         } else{
@@ -107,11 +112,24 @@ public class PriceGoodsCatalogController {
         if (id != null){
             PriceGoodsCatalog priceGoodsCatalog = priceGoodsCatalogService.findById(id);
             request.setAttribute("priceGoodsCatalog",priceGoodsCatalog);
+            List<PriceGoodsContact> list = priceGoodsContactService.findAllByCatalogId(id);
+            //判断物资列表是否为空，空的话新建第一个物资
+            if (list.size()==0){
+                PriceGoodsContact priceGoodsContact = new PriceGoodsContact();
+                priceGoodsContact.setName(priceGoodsCatalog.getName());
+                priceGoodsContact.setCatalogId(id);
+                priceGoodsContact.setParentId(-1);
+                priceGoodsContact.setCode(codeGeneratorService.gen());
+                priceGoodsContact.setCreateTime(new Date());priceGoodsContact.setUpdateTime(new Date());
+                priceGoodsContact.setCreateUserId(priceGoodsCatalog.getCreateUserId());
+                priceGoodsContact.setUpdateUserId(priceGoodsCatalog.getCreateUserId());
+                priceGoodsContactService.add(priceGoodsContact);
+            }
         }
         return "/priceGoodsCatalog/goodsList";
     }
 
-    //获取全部部门接口（json格式数据）
+    //（json格式数据）
     @RequestMapping(value = "/jsonList")
     public void jsonList(Integer id ,HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("catalogId: "+ id);
@@ -126,6 +144,7 @@ public class PriceGoodsCatalogController {
     @RequestMapping(value = "/goodsLoad")
     public String goodsLoad(Integer id,Integer parentId,HttpServletRequest request){
         if (id !=null){
+            System.out.println("物资修改：id = "+ id);
             PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(id);
             PriceGoodsContact parentPriceGoodsContact = priceGoodsContactService.findById(priceGoodsContact.getParentId());
             request.setAttribute("priceGoodsContact",priceGoodsContact);
@@ -133,6 +152,7 @@ public class PriceGoodsCatalogController {
             request.setAttribute("catalogId",priceGoodsContact.getCatalogId());
         }
         if(parentId !=null){
+            System.out.println("物资新增：parentId = "+ parentId);
             PriceGoodsContact parentPriceGoodsContact = priceGoodsContactService.findById(parentId);
             request.setAttribute("parentPriceGoodsContact",parentPriceGoodsContact);
             request.setAttribute("catalogId",parentPriceGoodsContact.getCatalogId());
@@ -145,17 +165,44 @@ public class PriceGoodsCatalogController {
     public String save(Integer nowId,Integer catalogId,Integer id,Integer parentId,
                        String name,String introduce,
                        HttpServletRequest request){
+        System.out.println("++++++++++++++++++");
         System.out.println("当前登录用户nowId : "+ nowId);
-        System.out.println("部门id : "+ id);
-        System.out.println("父部门parentId : "+parentId);
+        System.out.println("当前id : "+ id);
+        System.out.println("父parentId : "+parentId);
+        System.out.println("catalogId : "+catalogId);
+        System.out.println("++++++++++++++++++");
 
-        Map<String, String> map = new HashMap<>();
-        String url = request.getContextPath() +"priceGoodsCatalog/jsonList?id=" + catalogId;
-        //map.put(Constants.DEFAULT_DATAS, imagePath+seaStudentDTO.getHeadImgPath());
-        map.put(NUIResponseUtils.REL,Constants.FORM_PAGE_SCUSER_CONTENT);
-        map.put(NUIResponseUtils.DEFAULT_STATUS_CODE, url);
+        if (id==null && parentId !=null){
+            PriceGoodsContact priceGoodsContact = new PriceGoodsContact();
+            priceGoodsContact.setParentId(parentId);
+            priceGoodsContact.setName(name);
+            priceGoodsContact.setIntroduce(introduce);
+            priceGoodsContact.setCatalogId(catalogId);
+            priceGoodsContact.setCreateUserId(nowId);priceGoodsContact.setUpdateUserId(nowId);
+            priceGoodsContact.setCreateTime(new Date());priceGoodsContact.setUpdateTime(new Date());
+            priceGoodsContact.setCode(codeGeneratorService.gen());
+            int cnt = priceGoodsContactService.add(priceGoodsContact);
+        }
+        if (id!=null && parentId !=null){
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(id);
+            priceGoodsContact.setName(name);
+            priceGoodsContact.setIntroduce(introduce);
+            priceGoodsContact.setUpdateUserId(nowId);
+            priceGoodsContact.setUpdateTime(new Date());
+            int cnt = priceGoodsContactService.update(priceGoodsContact);
+        }
         request.setAttribute("message","操作成功");
-        NUIResponseUtils.setNUIResponse(request, map);
+        NUIResponseUtils.setDefaultValues(request);
+        return "/common/nui.response";
+    }
+    //删除
+    @RequestMapping(value = "/goodsDelete")
+    public  String goodsDelete(Integer id,HttpServletRequest request){
+        System.out.println("物资id："+ id);
+        int cnt = priceGoodsContactService.detele(id);
+
+        request.setAttribute("message","操作成功");
+        NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }
 

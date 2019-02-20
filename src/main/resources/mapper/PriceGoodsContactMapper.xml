@@ -21,7 +21,7 @@
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="weight" property="weight" jdbcType="DOUBLE" />
     <result column="volume" property="volume" jdbcType="DOUBLE" />
-    <result column="is_ limit" property="isLimit" jdbcType="VARCHAR" />
+    <result column="is_limit" property="isLimit" jdbcType="VARCHAR" />
     <result column="limit_start_time" property="limitStartTime" jdbcType="TIMESTAMP" />
     <result column="limit_end_time" property="limitEndTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -32,7 +32,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, parent_id, catalog_id, company_id, department_id, name, introduce, variety, large_clacc, 
-    small_clacc, code, version, size, unit, count, img_path, price, weight, volume, "is_ limit", 
+    small_clacc, code, version, size, unit, count, img_path, price, weight, volume, is_limit,
     limit_start_time, limit_end_time, create_time, update_time, create_user_id, update_user_id, 
     remark
   </sql>
@@ -47,6 +47,12 @@
     SELECT *
     FROM price_goods_contact
     WHERE parent_id = #{parentId} and catalog_id = #{catalogId}
+  </select>
+
+  <select id="findByCatalogId" resultMap="BaseResultMap">
+    SELECT *
+    FROM price_goods_contact
+    WHERE catalog_id = #{catalogId}
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -66,7 +72,7 @@
       small_clacc, code, version, 
       size, unit, count, img_path, 
       price, weight, volume, 
-      "is_ limit", limit_start_time, limit_end_time, 
+      is_limit, limit_start_time, limit_end_time,
       create_time, update_time, create_user_id, 
       update_user_id, remark)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{catalogId,jdbcType=INTEGER}, 
@@ -140,7 +146,7 @@
         volume,
       </if>
       <if test="isLimit != null" >
-        "is_ limit",
+        is_limit,
       </if>
       <if test="limitStartTime != null" >
         limit_start_time,
@@ -306,7 +312,7 @@
         volume = #{volume,jdbcType=DOUBLE},
       </if>
       <if test="isLimit != null" >
-        "is_ limit" = #{isLimit,jdbcType=VARCHAR},
+        is_limit = #{isLimit,jdbcType=VARCHAR},
       </if>
       <if test="limitStartTime != null" >
         limit_start_time = #{limitStartTime,jdbcType=TIMESTAMP},
@@ -352,7 +358,7 @@
       price = #{price,jdbcType=DOUBLE},
       weight = #{weight,jdbcType=DOUBLE},
       volume = #{volume,jdbcType=DOUBLE},
-      "is_ limit" = #{isLimit,jdbcType=VARCHAR},
+      is_limit = #{isLimit,jdbcType=VARCHAR},
       limit_start_time = #{limitStartTime,jdbcType=TIMESTAMP},
       limit_end_time = #{limitEndTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},

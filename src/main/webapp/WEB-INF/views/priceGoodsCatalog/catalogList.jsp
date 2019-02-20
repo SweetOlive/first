@@ -110,7 +110,7 @@
 										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
 											<i class="fa fa-asterisk"></i>&nbsp;修改
 										</a>
-										<a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个目录？" href="${pageContext.request.contextPath}/priceGoodsCatalog/delete?id=${item.id}" class="btn red btn-sm">
+										<a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个目录？ 以及其所有物资信息？" href="${pageContext.request.contextPath}/priceGoodsCatalog/delete?id=${item.id}" class="btn red btn-sm">
 											<i class="fa fa-trash-o"></i>&nbsp;删除
 										</a>
 									</td>
