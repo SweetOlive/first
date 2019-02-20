@@ -32,10 +32,11 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, parent_id, catalog_id, company_id, department_id, name, introduce, variety, large_clacc, 
-    small_clacc, code, version, size, unit, count, img_path, price, weight, volume, is_limit,
+    small_clacc, code, version, size, unit, count, img_path, price, weight, volume, is_limit, 
     limit_start_time, limit_end_time, create_time, update_time, create_user_id, update_user_id, 
     remark
   </sql>
+
   <select id="getSmallParentId" resultMap="BaseResultMap">
     SELECT *,MIN(parent_id)
     FROM price_goods_contact
@@ -69,7 +70,7 @@
       small_clacc, code, version, 
       size, unit, count, img_path, 
       price, weight, volume, 
-      is_limit, limit_start_time, limit_end_time,
+      is_limit, limit_start_time, limit_end_time, 
       create_time, update_time, create_user_id, 
       update_user_id, remark)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{catalogId,jdbcType=INTEGER}, 

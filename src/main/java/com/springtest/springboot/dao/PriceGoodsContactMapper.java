@@ -20,7 +20,7 @@ public interface PriceGoodsContactMapper {
 
     public PriceGoodsContact getSmallParentId(@Param("catalogId") Integer catalogId);
 
-    public List<PriceGoodsContact> findByParentId(@Param("parentId")Integer parentId,@Param("catalogId") Integer catalogId);
+    public List<PriceGoodsContact> findByParentId(@Param("parentId")Integer parentId, @Param("catalogId") Integer catalogId);
 
     public List<PriceGoodsContact> getByCatalogId(@Param("catalogId") Integer catalogId);
 }
