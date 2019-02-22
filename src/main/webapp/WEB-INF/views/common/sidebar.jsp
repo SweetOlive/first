@@ -69,13 +69,13 @@
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
+						<a href="#${pageContext.request.contextPath}/supplierCompany/passAndFailList">
 							<i class="fa fa-shopping-cart"></i>
 							<span class="title">供应商管理</span>
 						</a>
 					</li>
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
+						<a href="#${pageContext.request.contextPath}/supplierCompany/list">
 							<i class="fa fa-sign-in"></i>
 							<span class="title">供应商准入管理</span>
 						</a>
