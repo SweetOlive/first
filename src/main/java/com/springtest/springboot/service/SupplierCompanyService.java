@@ -3,6 +3,8 @@ package com.springtest.springboot.service;
 import com.springtest.springboot.po.SupplierCompany;
 import com.springtest.springboot.util.page.PageList;
 
+import java.util.List;
+
 public interface SupplierCompanyService {
 
     //认证状态为通过、作废的
@@ -18,4 +20,6 @@ public interface SupplierCompanyService {
     public int delete(Integer id);
 
     public SupplierCompany findById(Integer id);
+
+    public List<SupplierCompany> findAllWithP();
 }

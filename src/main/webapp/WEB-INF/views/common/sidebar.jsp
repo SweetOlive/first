@@ -107,13 +107,13 @@
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
+						<a href="#${pageContext.request.contextPath}/purchaseOrder/list">
 							<i class="fa fa-list-alt"></i>
 							<span class="title">订单管理</span>
 						</a>
 					</li>
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
+						<a href="#${pageContext.request.contextPath}/purchaseInquiry/list">
 							<i class="fa fa-strikethrough"></i>
 							<span class="title">询价单管理</span>
 						</a>

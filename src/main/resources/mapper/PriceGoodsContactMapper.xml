@@ -59,6 +59,11 @@
     WHERE code = #{code}
   </select>
 
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT *
+    FROM price_goods_contact
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

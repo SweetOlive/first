@@ -25,4 +25,6 @@ public interface PriceGoodsContactMapper {
     public List<PriceGoodsContact> getByCatalogId(@Param("catalogId") Integer catalogId);
 
     public PriceGoodsContact getByCode(@Param("code")String code);
+
+    List<PriceGoodsContact> findAll();
 }

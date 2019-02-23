@@ -1,123 +1,104 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.springtest.springboot.dao.SupplierCompanyMapper" >
-  <resultMap id="BaseResultMap" type="com.springtest.springboot.po.SupplierCompany" >
+<mapper namespace="com.springtest.springboot.dao.PurchaseOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.springtest.springboot.po.PurchaseOrder" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="inquiry_id" property="inquiryId" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="code" property="code" jdbcType="VARCHAR" />
-    <result column="mail" property="mail" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="transport" property="transport" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="credit_rating" property="creditRating" jdbcType="VARCHAR" />
-    <result column="production_capacity" property="productionCapacity" jdbcType="VARCHAR" />
-    <result column="quality" property="quality" jdbcType="VARCHAR" />
+    <result column="arriveTime" property="arrivetime" jdbcType="TIMESTAMP" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
     <result column="update_user_id" property="updateUserId" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="companyName" property="companyName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, code, mail, address, tel, status, credit_rating, production_capacity, quality, 
-    create_time, update_time, create_user_id, update_user_id, remark
+    id, inquiry_id, company_id, name, introduce, address, transport, status, arriveTime, 
+    code, create_time, update_time, create_user_id, update_user_id, remark
   </sql>
 
-  <select id="findAllWithOutSA" resultMap="BaseResultMap">
-    select s.*
-    from supplier_company s
-    where s.status != 'A'
+  <select id="findAll" resultMap="BaseResultMap">
+    select s.*,c.name companyName
+    from purchase_order s
+    join supplier_company c
+    where s.company_id = c.id
     <if test="param.name != null and param.name != ''">
       AND s.name LIKE '%${param.name}%'
     </if>
     <if test="param.code != null and param.code != ''">
       AND s.code LIKE '%${param.code}%'
-    </if>
-    <if test="param.creditRating != null and param.creditRating != ''">
-    AND s.credit_rating = #{param.creditRating}
     </if>
     <if test="param.status != null and param.status != ''">
       AND s.status = #{param.status}
     </if>
-  </select>
-
-  <select id="findAllWithSA" resultMap="BaseResultMap">
-    select s.*
-    from supplier_company s
-    where s.status = 'A'
-    <if test="param.name != null and param.name != ''">
-      AND s.name LIKE '%${param.name}%'
+    <if test="param.transport != null and param.transport != ''">
+      AND s.transport = #{param.transport}
     </if>
-    <if test="param.code != null and param.code != ''">
-      AND s.code LIKE '%${param.code}%'
-    </if>
-    <if test="param.creditRating != null and param.creditRating != ''">
-      AND s.credit_rating = #{param.creditRating}
-    </if>
-  </select>
-
-  <select id="findAllWithP" resultMap="BaseResultMap">
-    select s.*
-    from supplier_company s
-    where s.status = 'P'
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from supplier_company
+    from purchase_order
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from supplier_company
+    delete from purchase_order
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.springtest.springboot.po.SupplierCompany" >
-    insert into supplier_company (id, name, code, 
-      mail, address, tel, 
-      status, credit_rating, production_capacity, 
-      quality, create_time, update_time, 
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.springtest.springboot.po.PurchaseOrder" >
+    insert into purchase_order (id, inquiry_id, company_id, 
+      name, introduce, address, 
+      transport, status, arriveTime, 
+      code, create_time, update_time, 
       create_user_id, update_user_id, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
-      #{mail,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{creditRating,jdbcType=VARCHAR}, #{productionCapacity,jdbcType=VARCHAR}, 
-      #{quality,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{inquiryId,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{transport,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{arrivetime,jdbcType=TIMESTAMP}, 
+      #{code,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{createUserId,jdbcType=INTEGER}, #{updateUserId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.springtest.springboot.po.SupplierCompany" >
-    insert into supplier_company
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.springtest.springboot.po.PurchaseOrder" >
+    insert into purchase_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
+      <if test="inquiryId != null" >
+        inquiry_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
       <if test="name != null" >
         name,
       </if>
-      <if test="code != null" >
-        code,
-      </if>
-      <if test="mail != null" >
-        mail,
+      <if test="introduce != null" >
+        introduce,
       </if>
       <if test="address != null" >
         address,
       </if>
-      <if test="tel != null" >
-        tel,
+      <if test="transport != null" >
+        transport,
       </if>
       <if test="status != null" >
         status,
       </if>
-      <if test="creditRating != null" >
-        credit_rating,
+      <if test="arrivetime != null" >
+        arriveTime,
       </if>
-      <if test="productionCapacity != null" >
-        production_capacity,
-      </if>
-      <if test="quality != null" >
-        quality,
+      <if test="code != null" >
+        code,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -139,32 +120,32 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="inquiryId != null" >
+        #{inquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="mail != null" >
-        #{mail,jdbcType=VARCHAR},
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
       </if>
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="tel != null" >
-        #{tel,jdbcType=VARCHAR},
+      <if test="transport != null" >
+        #{transport,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
       </if>
-      <if test="creditRating != null" >
-        #{creditRating,jdbcType=VARCHAR},
+      <if test="arrivetime != null" >
+        #{arrivetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="productionCapacity != null" >
-        #{productionCapacity,jdbcType=VARCHAR},
-      </if>
-      <if test="quality != null" >
-        #{quality,jdbcType=VARCHAR},
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -183,35 +164,35 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.springtest.springboot.po.SupplierCompany" >
-    update supplier_company
+  <update id="updateByPrimaryKeySelective" parameterType="com.springtest.springboot.po.PurchaseOrder" >
+    update purchase_order
     <set >
+      <if test="inquiryId != null" >
+        inquiry_id = #{inquiryId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="code != null" >
-        code = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="mail != null" >
-        mail = #{mail,jdbcType=VARCHAR},
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
       </if>
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="tel != null" >
-        tel = #{tel,jdbcType=VARCHAR},
+      <if test="transport != null" >
+        transport = #{transport,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
-      <if test="creditRating != null" >
-        credit_rating = #{creditRating,jdbcType=VARCHAR},
+      <if test="arrivetime != null" >
+        arriveTime = #{arrivetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="productionCapacity != null" >
-        production_capacity = #{productionCapacity,jdbcType=VARCHAR},
-      </if>
-      <if test="quality != null" >
-        quality = #{quality,jdbcType=VARCHAR},
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -231,17 +212,17 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.springtest.springboot.po.SupplierCompany" >
-    update supplier_company
-    set name = #{name,jdbcType=VARCHAR},
-      code = #{code,jdbcType=VARCHAR},
-      mail = #{mail,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.springtest.springboot.po.PurchaseOrder" >
+    update purchase_order
+    set inquiry_id = #{inquiryId,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      tel = #{tel,jdbcType=VARCHAR},
+      transport = #{transport,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
-      credit_rating = #{creditRating,jdbcType=VARCHAR},
-      production_capacity = #{productionCapacity,jdbcType=VARCHAR},
-      quality = #{quality,jdbcType=VARCHAR},
+      arriveTime = #{arrivetime,jdbcType=TIMESTAMP},
+      code = #{code,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       create_user_id = #{createUserId,jdbcType=INTEGER},

@@ -58,4 +58,8 @@ public class SupplierCompanyServiceImpl implements SupplierCompanyService {
         return supplierCompanyMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public List<SupplierCompany> findAllWithP(){
+        return supplierCompanyMapper.findAllWithP();
+    }
 }

@@ -49,4 +49,9 @@ public class PriceGoodsContactServiceImpl implements PriceGoodsContactService {
     public List<PriceGoodsContact> findAllByCatalogId(Integer catalogId){
         return priceGoodsContactMapper.getByCatalogId(catalogId);
     }
+
+    @Override
+    public List<PriceGoodsContact> findAll(){
+        return priceGoodsContactMapper.findAll();
+    }
 }

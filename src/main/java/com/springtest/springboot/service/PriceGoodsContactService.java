@@ -22,6 +22,6 @@ public interface PriceGoodsContactService {
 
     public int detele (Integer id);
 
-
+    public List<PriceGoodsContact> findAll();
 
 }
