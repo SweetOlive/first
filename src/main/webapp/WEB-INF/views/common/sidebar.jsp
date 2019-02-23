@@ -83,20 +83,20 @@
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a href="" class="nav-link nav-toggle"><i class="fa fa-rocket"></i>
-					<span class="title">供应管理</span><span class="arrow"></span>
+				<a href="" class="nav-link nav-toggle"><i class="fa fa-hourglass"></i>
+					<span class="title">预算管理</span><span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
-							<i class="fa fa-print"></i>
-							<span class="title">计划管理</span>
+						<a href="#${pageContext.request.contextPath}/budgetManagement/list">
+							<i class="fa fa-hourglass"></i>
+							<span class="title">预算管理</span>
 						</a>
 					</li>
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
-							<i class="fa fa-random"></i>
-							<span class="title">发料管理</span>
+						<a href="#${pageContext.request.contextPath}/demandManagement/list">
+							<i class="fa fa-hourglass-o"></i>
+							<span class="title">需求管理</span>
 						</a>
 					</li>
 				</ul>
@@ -122,6 +122,25 @@
 						<a href="#${pageContext.request.contextPath}/hello/test">
 							<i class="fa fa-table"></i>
 							<span class="title">收料管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="" class="nav-link nav-toggle"><i class="fa fa-rocket"></i>
+					<span class="title">供应管理</span><span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-print"></i>
+							<span class="title">计划管理</span>
+						</a>
+					</li>
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+							<i class="fa fa-random"></i>
+							<span class="title">发料管理</span>
 						</a>
 					</li>
 				</ul>
