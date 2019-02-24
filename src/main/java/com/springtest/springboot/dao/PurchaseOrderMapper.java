@@ -19,4 +19,6 @@ public interface PurchaseOrderMapper {
     int updateByPrimaryKey(PurchaseOrder record);
 
     List<PurchaseOrder> findAll(@Param("param")PurchaseOrder purchaseOrder);
+
+    List<PurchaseOrder> findWithStatus(@Param("status") String status);
 }

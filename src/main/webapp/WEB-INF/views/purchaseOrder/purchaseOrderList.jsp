@@ -119,12 +119,19 @@
 									<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>
 									<security:authorize ifAnyGranted="P_AREA_MANAGE">
 									<td>
-										<a href="${pageContext.request.contextPath}/purchaseOrder/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
-											<i class="fa fa-asterisk"></i>&nbsp;修改
-										</a>
-										<a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个需求？" href="${pageContext.request.contextPath}/purchaseOrder/delete?id=${item.id}" class="btn red btn-sm">
-											<i class="fa fa-trash-o"></i>&nbsp;删除
-										</a>
+										<c:if test="${item.status eq 'A'}">
+										    <a href="${pageContext.request.contextPath}/purchaseOrder/loadPurchaseOrder?id=${item.id}" target="dialog" class="btn yellow-lemon btn-sm"><i class="fa fa-edit"></i>&nbsp;审核</a>
+											<a href="${pageContext.request.contextPath}/purchaseOrder/load?id=${item.id}" target="dialog" class="btn yellow btn-sm"><i class="fa fa-asterisk"></i>&nbsp;修改</a>
+										</c:if>
+										<c:if test="${item.status eq 'P'}">
+											<a href="${pageContext.request.contextPath}/purchaseOrder/loadPurchaseOrder?id=${item.id}" target="dialog" class="btn yellow-lemon btn-sm"><i class="fa fa-edit"></i>&nbsp;确认到货</a>
+										</c:if>
+										<c:if test="${item.status eq 'A' || item.status eq 'F'}">
+										     <a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个需求？" href="${pageContext.request.contextPath}/purchaseOrder/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+										</c:if>
+										<c:if test="${item.status eq 'S'}">
+											<a href="${pageContext.request.contextPath}/purchaseOrder/loadPurchaseOrder?id=${item.id}" target="dialog" class="btn blue btn-sm"><i class="fa fa-edit"></i>&nbsp;查看信息</a>
+										</c:if>
 									</td>
 									</security:authorize>
 								</tr>

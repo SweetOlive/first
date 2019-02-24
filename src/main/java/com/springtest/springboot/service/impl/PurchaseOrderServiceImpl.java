@@ -46,4 +46,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public  int  delete(Integer id){
         return purchaseOrderMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<PurchaseOrder> findAllWithStatus(String status){
+        return purchaseOrderMapper.findWithStatus(status);
+    }
 }

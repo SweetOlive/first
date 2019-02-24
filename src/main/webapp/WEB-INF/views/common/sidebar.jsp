@@ -119,7 +119,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
+						<a href="#${pageContext.request.contextPath}/purchaseReceiving/list">
 							<i class="fa fa-table"></i>
 							<span class="title">收料管理</span>
 						</a>
@@ -128,13 +128,13 @@
 			</li>
 			<li class="nav-item">
 				<a href="" class="nav-link nav-toggle"><i class="fa fa-rocket"></i>
-					<span class="title">供应管理</span><span class="arrow"></span>
+					<span class="title">仓储管理</span><span class="arrow"></span>
 				</a>
 				<ul class="sub-menu">
 					<li>
 						<a href="#${pageContext.request.contextPath}/hello/test">
 							<i class="fa fa-print"></i>
-							<span class="title">计划管理</span>
+							<span class="title">进库料管理</span>
 						</a>
 					</li>
 					<li>
