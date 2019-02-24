@@ -47,4 +47,9 @@ public class PurchaseReceivingServiceImpl implements PurchaseReceivingService {
     public  int  delete(Integer id){
         return purchaseReceivingMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<PurchaseReceiving> findStatus(String status){
+        return purchaseReceivingMapper.findStatus(status);
+    }
 }

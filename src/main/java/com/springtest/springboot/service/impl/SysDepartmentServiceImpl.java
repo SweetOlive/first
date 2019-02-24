@@ -69,4 +69,8 @@ public class SysDepartmentServiceImpl  implements SysDepartmentService {
     }
 
 
+    @Override
+    public List<SysDepartment> findAll(){
+        return sysDepartmentMapper.findAll();
+    }
 }

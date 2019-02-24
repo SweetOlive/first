@@ -19,4 +19,6 @@ public interface PurchaseReceivingMapper {
     int updateByPrimaryKey(PurchaseReceiving record);
 
     List<PurchaseReceiving> findAll(@Param("param")PurchaseReceiving purchaseReceiving,@Param("orderName") String orderName);
+
+    List<PurchaseReceiving> findStatus(@Param("status")String status);
 }

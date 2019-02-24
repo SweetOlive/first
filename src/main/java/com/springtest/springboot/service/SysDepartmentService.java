@@ -3,6 +3,8 @@ package com.springtest.springboot.service;
 import com.springtest.springboot.po.SysDepartment;
 import net.sf.json.JSONArray;
 
+import java.util.List;
+
 public interface SysDepartmentService {
 
     //部门树数据
@@ -19,5 +21,7 @@ public interface SysDepartmentService {
 
     //删除部门
     public int delete(Integer id);
+
+    public List<SysDepartment> findAll();
 
 }

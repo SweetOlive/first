@@ -20,4 +20,6 @@ public interface SysDepartmentMapper {
 
     //根据父部门id查询所有部门
     public List<SysDepartment> findByParentId(@Param("parentId") Integer id);
+
+    public List<SysDepartment> findAll();
 }

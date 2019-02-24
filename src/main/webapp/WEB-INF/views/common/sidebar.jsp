@@ -132,44 +132,44 @@
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
+						<a href="#${pageContext.request.contextPath}/storageIncoming/list">
 							<i class="fa fa-print"></i>
 							<span class="title">进库料管理</span>
 						</a>
 					</li>
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
+						<a href="#${pageContext.request.contextPath}/storageSending/list">
 							<i class="fa fa-random"></i>
 							<span class="title">发料管理</span>
 						</a>
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item">
-				<a href="" class="nav-link nav-toggle"><i class="fa fa-paste"></i>
-					<span class="title">合同管理</span><span class="arrow"></span>
-				</a>
-				<ul class="sub-menu">
-					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
-							<i class="fa fa-file"></i>
-							<span class="title">招标合同</span>
-						</a>
-					</li>
-					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
-							<i class="fa fa-file-o"></i>
-							<span class="title">询价合同</span>
-						</a>
-					</li>
-					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
-							<i class="fa fa-file-text-o"></i>
-							<span class="title">报价管理</span>
-						</a>
-					</li>
-				</ul>
-			</li>
+			<%--<li class="nav-item">--%>
+				<%--<a href="" class="nav-link nav-toggle"><i class="fa fa-paste"></i>--%>
+					<%--<span class="title">合同管理</span><span class="arrow"></span>--%>
+				<%--</a>--%>
+				<%--<ul class="sub-menu">--%>
+					<%--<li>--%>
+						<%--<a href="#${pageContext.request.contextPath}/hello/test">--%>
+							<%--<i class="fa fa-file"></i>--%>
+							<%--<span class="title">招标合同</span>--%>
+						<%--</a>--%>
+					<%--</li>--%>
+					<%--<li>--%>
+						<%--<a href="#${pageContext.request.contextPath}/hello/test">--%>
+							<%--<i class="fa fa-file-o"></i>--%>
+							<%--<span class="title">询价合同</span>--%>
+						<%--</a>--%>
+					<%--</li>--%>
+					<%--<li>--%>
+						<%--<a href="#${pageContext.request.contextPath}/hello/test">--%>
+							<%--<i class="fa fa-file-text-o"></i>--%>
+							<%--<span class="title">报价管理</span>--%>
+						<%--</a>--%>
+					<%--</li>--%>
+				<%--</ul>--%>
+			<%--</li>--%>
 		</ul>
 		<!-- END SIDEBAR MENU -->
 	</div>

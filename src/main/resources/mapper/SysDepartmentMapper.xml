@@ -33,6 +33,12 @@
 		ON b.department_id=d.id Where d.parent_id= #{parentId}
   </select>
 
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT *
+    from sys_department
+    where parent_id != -1
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
