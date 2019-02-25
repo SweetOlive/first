@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include.inc.jsp"%>
 
@@ -46,7 +46,7 @@
 				</ul></li>
 			<li class="nav-item">
 			<a href="" class="nav-link nav-toggle"><i class="fa fa-bookmark-o"></i>
-				<span class="title">价格目录管理</span><span class="arrow"></span>
+				<span class="title">物资目录管理</span><span class="arrow"></span>
 			</a>
 			<ul class="sub-menu">
 				<li>
