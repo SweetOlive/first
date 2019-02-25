@@ -35,7 +35,7 @@
 					</div>
 					<security:authorize ifAnyGranted="P_DEPARTMENT_MANAGE">
 					<div class="actions">
-						<a id="seaDepartmentAddUser" href="${pageContext.request.contextPath}/admin/seaDepartment/loadDepartmentUser?id=" target="ajax" class="btn blue btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;分配用户</a>
+						<%--<a id="seaDepartmentAddUser" href="${pageContext.request.contextPath}/admin/seaDepartment/loadDepartmentUser?id=" target="ajax" class="btn blue btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;分配用户</a>--%>
 						<a id="seaDepartmentCreate" class="btn green btn-sm"
 							href="${pageContext.request.contextPath}/sysDepartment/load?parentId="
 							target="dialog"><i class="fa fa-plus"></i>&nbsp;新增</a> 
