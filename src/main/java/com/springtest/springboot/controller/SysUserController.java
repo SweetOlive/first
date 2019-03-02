@@ -1,5 +1,7 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
+import com.springtest.springboot.ErrorConstants;
 import com.springtest.springboot.po.SysUser;
 import com.springtest.springboot.service.SysUserService;
 import com.springtest.springboot.util.EncryptionUtils;
@@ -52,6 +54,9 @@ public class SysUserController {
                        String password,String repassword,
                        HttpServletRequest request){
         if (id==null){
+            if (sysUserService.findByAccountNumber(accountNumber)!=null){
+                throw new BaseException(ErrorConstants.ACCOUNT_ALREADY_EXISTS);
+            }
             SysUser sysUser = new SysUser();
             sysUser.setName(name);
             sysUser.setAccountNumber(accountNumber);
@@ -67,13 +72,20 @@ public class SysUserController {
             else{ System.out.println("新增失败！ "+sysUser.getName()); }
         }else{
             SysUser sysUser = sysUserService.findById(id);
+            if (sysUser.getAccountNumber().equals(accountNumber)){
+                sysUser.setAccountNumber(accountNumber);
+            }else{
+                if (sysUserService.findByAccountNumber(accountNumber)!=null){
+                    throw new BaseException(ErrorConstants.ACCOUNT_ALREADY_EXISTS);
+                }else{
+                    sysUser.setAccountNumber(accountNumber);
+                }
+            }
             sysUser.setName(name);
-            sysUser.setAccountNumber(accountNumber);
             sysUser.setUpdateUserId(nowId);
             sysUser.setUpdateTime(new Date());
             sysUserService.update(sysUser);
         }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }

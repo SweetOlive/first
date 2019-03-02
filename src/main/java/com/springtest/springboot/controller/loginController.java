@@ -35,7 +35,7 @@ public class loginController {
 
     //登录跳转，判断
     @RequestMapping(value = "check")
-    public String check(String username, String password, Model model, HttpServletRequest request)throws Exception{
+    public String check(String username, String password , HttpServletRequest request)throws Exception{
         System.out.println("登录： "+username+" "+password);
         SysUser sysUser = sysUserService.findByAccountNumber(username);
         //System.out.println(sysUser.getName());
@@ -55,10 +55,16 @@ public class loginController {
                 return  "/index";
             }else{
                 System.out.println("账号存在，密码错误，登录失败！");
+                String error = "账号或密码错误！";
+                System.out.println(error);
+                request.setAttribute("message",error);
                 return  "/login";
             }
         }else{
             System.out.println("账号不存在，登录失败");
+            String error = "账号或密码错误！";
+            System.out.println(error);
+            request.setAttribute("message",error);
             return  "/login";
         }
     }

@@ -5,8 +5,8 @@ package com.springtest.springboot;
 public class ErrorConstants {
 
     public static final String BASE_ERROR = "0000";
-
     public static final String ACCOUNT_OR_PASSWORD_ERROR = "0001";
 
     public static final String PASSWORD_ERROR = "0002";//密码错误
+    public static final String ACCOUNT_ALREADY_EXISTS = "0003";//账号已存在
 }
