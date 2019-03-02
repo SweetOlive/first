@@ -1,5 +1,7 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
+import com.springtest.springboot.ErrorConstants;
 import com.springtest.springboot.po.SysUser;
 import com.springtest.springboot.service.SysUserService;
 import com.springtest.springboot.util.EncryptionUtils;
@@ -33,7 +35,7 @@ public class loginController {
 
     //登录跳转，判断
     @RequestMapping(value = "check")
-    public String check(String username, String password, Model model, HttpServletRequest request){
+    public String check(String username, String password, Model model, HttpServletRequest request)throws Exception{
         System.out.println("登录： "+username+" "+password);
         SysUser sysUser = sysUserService.findByAccountNumber(username);
         //System.out.println(sysUser.getName());
@@ -66,6 +68,7 @@ public class loginController {
     public String logout( HttpServletRequest request){
         //清除session缓存的用户信息
         request.getSession().removeAttribute("nowUser");
+        request.getSession().invalidate();
         return "/login";
     }
 
@@ -86,9 +89,9 @@ public class loginController {
                 String n = EncryptionUtils.encryption(password,"Utf-8","MD5");
                 sysUser.setPassword(n);
                 sysUserService.update(sysUser);
-                request.setAttribute("message","操作成功");
             }else{
-                request.setAttribute("message","操作失败");
+                System.out.println("原密码错误");
+                throw new BaseException(ErrorConstants.PASSWORD_ERROR);
             }
         }
         NUIResponseUtils.setDefaultValues(request);

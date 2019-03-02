@@ -2,7 +2,7 @@
 <%@ include file="../include.inc.jsp"%>
 {
 	"statusCode":"${_statusCode}",
-	"message": "${message}",
+	"message": "<spring:message code="NUI.RESP.MSG.${_message}"/>",
 	"closeDialog":"${_closeDialog}",
 	"formSubmit":"${_formSubmit}",
 	"rel":"${_rel}",
