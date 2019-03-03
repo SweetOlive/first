@@ -1,18 +1,29 @@
 package com.springtest.springboot.controller;
 
 import com.springtest.springboot.BaseException;
+import com.springtest.springboot.Constants;
 import com.springtest.springboot.po.SupplierCompany;
 import com.springtest.springboot.service.CodeGeneratorService;
+import com.springtest.springboot.service.FileService;
 import com.springtest.springboot.service.SupplierCompanyService;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +40,11 @@ public class SupplierCompanyController {
 
     @Autowired
     private CodeGeneratorService codeGeneratorService;
+
+    @Autowired
+    private FileService fileService;
+
+    private String fileRoot = "C:/lings/files/";
 
     //供应商准入列表
     @RequestMapping(value = "/list")
@@ -62,8 +78,8 @@ public class SupplierCompanyController {
     }
 
     @RequestMapping(value = "/save")
-    public  String save(Integer nowId,Integer id,String name, String mail,String tel,String address,
-                        String creditRating ,String remark,HttpServletRequest request){
+    public  String save(Integer nowId, Integer id, String name, String mail, String tel, String address,
+                        String creditRating , String remark, MultipartFile file, HttpServletRequest request)throws  Exception{
         if(id == null){
             if (supplierCompanyService.findByName(name)!=null){
                 throw new BaseException("0007");
@@ -76,6 +92,18 @@ public class SupplierCompanyController {
             supplierCompany.setCreateTime(new Date());supplierCompany.setUpdateTime(new Date());
             supplierCompany.setStatus("A");
             supplierCompany.setCode(codeGeneratorService.gen());
+            if(file != null) {
+                String orginalFilename = file.getOriginalFilename();
+                if(StringUtils.isNotBlank(orginalFilename)) {
+                    boolean isImage = fileService.checkFileType(file, Constants.IMG);
+                    if(isImage) {
+                        String path = fileService.autoRenameUploadFile(file, Constants.COMPANY_IMG_FOLDER);
+                        supplierCompany.setProductionCapacity(path);
+                    }else {
+                        throw new BaseException("0012");
+                    }
+                }
+            }
             int cnt = supplierCompanyService.add(supplierCompany);
             if (cnt == 1){ System.out.println("新增成功！ "+supplierCompany.getName()); }
             else{ System.out.println("新增失败！ "+supplierCompany.getName()); }
@@ -94,6 +122,18 @@ public class SupplierCompanyController {
             supplierCompany.setTel(tel);supplierCompany.setAddress(address);
             supplierCompany.setCreditRating(creditRating);supplierCompany.setRemark(remark);
             supplierCompany.setUpdateUserId(nowId);supplierCompany.setUpdateTime(new Date());
+            if(file != null) {
+                String orginalFilename = file.getOriginalFilename();
+                if(StringUtils.isNotBlank(orginalFilename)) {
+                    boolean isImage = fileService.checkFileType(file, Constants.IMG);
+                    if(isImage) {
+                        String path = fileService.autoRenameUploadFile(file, Constants.COMPANY_IMG_FOLDER);
+                        supplierCompany.setProductionCapacity(path);
+                    }else {
+                        throw new BaseException("0012");
+                    }
+                }
+            }
             int cnt = supplierCompanyService.update(supplierCompany);
             if (cnt == 1){ System.out.println("修改成功！ "+supplierCompany.getName()); }
             else{ System.out.println("修改失败！ "+supplierCompany.getName()); }
@@ -158,10 +198,58 @@ public class SupplierCompanyController {
                 System.out.println("作废失败！ "+supplierCompany.getName());
             }
         }
-
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
+    }
+
+    //文件下载
+    @RequestMapping(value = "/downLoad")
+    public void downLoad(String path , String name, HttpServletRequest request, HttpServletResponse response) {
+        String downloadFileName = name+"."+FilenameUtils.getExtension(path);
+        FileInputStream in = null;
+        OutputStream out = null;
+        try {
+            // 得到要下载的文件
+            File file = new File(fileRoot+path);
+            // 如果文件不存在，则下载失败
+            if (!file.exists()) {
+                throw new BaseException("0013");
+            } else {
+                // 设置响应头，控制浏览器下载该文件
+                response.setHeader("content-disposition","attachment;filename=" + URLEncoder.encode(downloadFileName, "utf-8"));
+                // 读取要下载的文件，保存到文件输入流
+                in = new FileInputStream(fileRoot+path);
+                // 创建输出流
+                out = response.getOutputStream();
+                // 创建缓冲区
+                byte buffer[] = new byte[1024];
+                int len = 0;
+                // 循环将输入流中的内容读取到缓冲区中
+                while ((len = in.read(buffer)) > 0) {
+                    // 输出缓冲区内容到浏览器，实现文件下载
+                    out.write(buffer, 0, len);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    // 关闭输入流
+                    in.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (out != null) {
+                    // 关闭输出流
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

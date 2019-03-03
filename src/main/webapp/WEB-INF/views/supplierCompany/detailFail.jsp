@@ -14,6 +14,23 @@
                 <input type="hidden" name="status" value="F">
                 <!-- BEGIN FORM-->
                 <div class="form-body">
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">营业执照</label>
+                        <div class="fileinput fileinput-new col-md-3" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
+                                <c:choose>
+                                    <c:when test="${not empty supplierCompany.productionCapacity}">
+                                        <img class="" src="${pageContext.request.contextPath}/admin/imgView?path=${supplierCompany.productionCapacity}" alt="" style="width: 150px; height: 150px;">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img class="" src="http://www.placehold.it/150x150/EFEFEF/AAAAAA&amp;text=no+image" alt="">
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group form-md-line-input ">
                         <label class="col-md-3 control-label">名称</label>
                         <div class="col-md-8">

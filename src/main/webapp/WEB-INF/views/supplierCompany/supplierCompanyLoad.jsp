@@ -13,6 +13,32 @@
 				<input type="hidden" name="nowId" value="${nowUser.id}">
 				<!-- BEGIN FORM-->
 				<div class="form-body">
+
+					<div class="form-group form-md-line-input ">
+						<label class="col-md-3 control-label">营业执照 <span class="required">*</span></label>
+						<div class="fileinput fileinput-new col-md-3" data-provides="fileinput">
+							<div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
+								<c:choose>
+									<c:when test="${not empty supplierCompany.productionCapacity}">
+										<img class="" src="${pageContext.request.contextPath}/admin/imgView?path=${supplierCompany.productionCapacity}" alt="" style="width: 150px; height: 150px;">
+									</c:when>
+									<c:otherwise>
+										<img class="" src="http://www.placehold.it/150x150/EFEFEF/AAAAAA&amp;text=no+image" alt="">
+									</c:otherwise>
+								</c:choose>
+							</div>
+							<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100px; max-height: 100px;"></div>
+							<div>
+								  <span class="btn default btn-file">
+									<span class="fileinput-new"> 选择图片 </span>
+									<span class="fileinput-exists"> 修改 </span>
+									  <input type="file" name="file">
+								  </span>
+								<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> 删除 </a>
+							</div>
+						</div>
+					</div>
+
 					<div class="form-group form-md-line-input ">
 					<label class="col-md-3 control-label">名称
 						<span class="required">*</span>
@@ -49,7 +75,7 @@
 						</label>
 						<div class="col-md-8">
 							<select class="form-control" name="creditRating">
-								<option value=""></option>
+								<option value="">--请选择信用等级--</option>
 								<option value="A" <c:if test="${supplierCompany.creditRating eq 'A' }">selected</c:if>>A</option>
 								<option value="B" <c:if test="${supplierCompany.creditRating eq 'B' }">selected</c:if>>B</option>
 								<option value="C" <c:if test="${supplierCompany.creditRating eq 'C' }">selected</c:if>>C</option>
@@ -112,6 +138,9 @@
                                 required : true,
                             },
                             creditRating : {
+                                required : true,
+                            },
+                            file : {
                                 required : true,
                             }
 						},

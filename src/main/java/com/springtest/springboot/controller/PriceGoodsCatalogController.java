@@ -5,16 +5,19 @@ import com.springtest.springboot.Constants;
 import com.springtest.springboot.po.PriceGoodsCatalog;
 import com.springtest.springboot.po.PriceGoodsContact;
 import com.springtest.springboot.service.CodeGeneratorService;
+import com.springtest.springboot.service.FileService;
 import com.springtest.springboot.service.PriceGoodsCatalogService;
 import com.springtest.springboot.service.PriceGoodsContactService;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
 import net.sf.json.JSONArray;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +41,9 @@ public class PriceGoodsCatalogController {
 
     @Autowired
     private CodeGeneratorService codeGeneratorService;
+
+    @Autowired
+    private FileService fileService;
 
     @Autowired
     private PriceGoodsContactService priceGoodsContactService;
@@ -155,7 +161,7 @@ public class PriceGoodsCatalogController {
 
     //物资新增修改入口
     @RequestMapping(value = "/goodsLoad")
-    public String goodsLoad(Integer id,Integer parentId,HttpServletRequest request){
+    public String goodsLoad(Integer id, Integer parentId, HttpServletRequest request){
         if (id !=null){
             System.out.println("物资修改：id = "+ id);
             PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(id);
@@ -176,8 +182,8 @@ public class PriceGoodsCatalogController {
     //物资新增修改保存
     @RequestMapping(value = "/goodsSave")
     public String save(Integer nowId,Integer catalogId,Integer id,Integer parentId,
-                       String name,String introduce,
-                       HttpServletRequest request){
+                       String name,String introduce,MultipartFile file,
+                       HttpServletRequest request) throws  Exception{
         System.out.println("++++++++++++++++++");
         System.out.println("当前登录用户nowId : "+ nowId);
         System.out.println("当前id : "+ id);
@@ -185,23 +191,51 @@ public class PriceGoodsCatalogController {
         System.out.println("catalogId : "+catalogId);
         System.out.println("++++++++++++++++++");
 
+        //1、新增
         if (id==null && parentId !=null){
             PriceGoodsContact priceGoodsContact = new PriceGoodsContact();
             priceGoodsContact.setParentId(parentId);
             priceGoodsContact.setName(name);
             priceGoodsContact.setIntroduce(introduce);
             priceGoodsContact.setCatalogId(catalogId);
+            priceGoodsContact.setPrice(0.00);
+            priceGoodsContact.setCount(0);
             priceGoodsContact.setCreateUserId(nowId);priceGoodsContact.setUpdateUserId(nowId);
             priceGoodsContact.setCreateTime(new Date());priceGoodsContact.setUpdateTime(new Date());
             priceGoodsContact.setCode(codeGeneratorService.gen());
+            if(file != null) {
+                String orginalFilename = file.getOriginalFilename();
+                if(StringUtils.isNotBlank(orginalFilename)) {
+                    boolean isImage = fileService.checkFileType(file, Constants.IMG);
+                    if(isImage) {
+                        String path = fileService.autoRenameUploadFile(file, Constants.GOODS_IMG_FOLDER);
+                        priceGoodsContact.setImgPath(path);
+                    }else {
+                        throw new BaseException("0012");
+                    }
+                }
+            }
             int cnt = priceGoodsContactService.add(priceGoodsContact);
         }
+        //2、修改
         if (id!=null && parentId !=null){
             PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(id);
             priceGoodsContact.setName(name);
             priceGoodsContact.setIntroduce(introduce);
             priceGoodsContact.setUpdateUserId(nowId);
             priceGoodsContact.setUpdateTime(new Date());
+            if(file != null) {
+                String orginalFilename = file.getOriginalFilename();
+                if(StringUtils.isNotBlank(orginalFilename)) {
+                    boolean isImage = fileService.checkFileType(file, Constants.IMG);
+                    if(isImage) {
+                        String path = fileService.autoRenameUploadFile(file, Constants.GOODS_IMG_FOLDER);
+                        priceGoodsContact.setImgPath(path);
+                    }else {
+                        throw new BaseException("0012");
+                    }
+                }
+            }
             int cnt = priceGoodsContactService.update(priceGoodsContact);
         }
         request.setAttribute("message","操作成功");
@@ -217,6 +251,17 @@ public class PriceGoodsCatalogController {
         request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
+    }
+
+    @RequestMapping(value = "/look")
+    public String look(Integer id,HttpServletRequest request){
+        if (id!=null){
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(id);
+            PriceGoodsContact parentPriceGoodsContact = priceGoodsContactService.findById(priceGoodsContact.getParentId());
+            request.setAttribute("priceGoodsContact",priceGoodsContact);
+            request.setAttribute("parentPriceGoodsContact",parentPriceGoodsContact);
+        }
+        return "/priceGoodsCatalog/goodsLook";
     }
 
 }

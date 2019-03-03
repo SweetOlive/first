@@ -11,21 +11,9 @@
 			<div class="modal-body">
 				<input type="hidden"  name="nowId" value="${nowUser.id}">
 				<input type="hidden" id="id" name="id" value="${priceGoodsContact.id}">
-				<input type="hidden" id="parentId" name="parentId" value="${parentPriceGoodsContact.id}">
-				<input type="hidden" id="catalogId" name="catalogId" value="${catalogId}">
 				<!-- BEGIN FORM-->
 				<div class="form-body">
-					<div class="alert alert-danger display-hide">
-						<button class="close" data-close="alert"></button>
-						You have some form errors. Please check below.
-					</div>
-					<div class="alert alert-success display-hide">
-						<button class="close" data-close="alert"></button>
-						Your form validation is successful!
-					</div>
-
 					<div class="row">
-
 						<div class="form-group form-md-line-input ">
 							<label class="col-md-3 control-label">父级
 							</label>
@@ -56,34 +44,42 @@
 										</c:otherwise>
 									</c:choose>
 								</div>
-								<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100px; max-height: 100px;"></div>
-								<div>
-								  <span class="btn default btn-file">
-									<span class="fileinput-new"> 选择图片 </span>
-									<span class="fileinput-exists"> 修改 </span>
-									  <input type="file" name="file">
-								  </span>
-									<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> 删除 </a>
-								</div>
 							</div>
 						</div>
 
 						<div class="form-group form-md-line-input ">
-							<label class="col-md-3 control-label">物资名 <span class="required">*</span>
+							<label class="col-md-3 control-label">物资名
 							</label>
 							<div class="col-md-8">
-								<input type="text" class="form-control required" placeholder="" value="${priceGoodsContact.name}" name="name">
+								<input readonly type="text" class="form-control required" placeholder="" value="${priceGoodsContact.name}" name="name">
 								<div class="form-control-focus"></div>
-								<span class="help-block">物资名</span>
 							</div>
 						</div>
+
+						<div class="form-group form-md-line-input ">
+							<label class="col-md-3 control-label">库存
+							</label>
+							<div class="col-md-8">
+								<input readonly type="text" class="form-control required" placeholder="" value="${priceGoodsContact.count}" name="name">
+								<div class="form-control-focus"></div>
+							</div>
+						</div>
+
+						<div class="form-group form-md-line-input ">
+							<label class="col-md-3 control-label">价格
+							</label>
+							<div class="col-md-8">
+								<input readonly type="text" class="form-control required" placeholder="" value="${priceGoodsContact.price}" name="name">
+								<div class="form-control-focus"></div>
+							</div>
+						</div>
+
 						<div class="form-group form-md-line-input">
 							<label class="col-md-3 control-label">描述
 							</label>
 							<div class="col-md-8">
-								<textarea class="form-control" name="introduce" rows="3">${priceGoodsContact.introduce}</textarea>
+								<textarea readonly class="form-control" name="introduce" rows="3">${priceGoodsContact.introduce}</textarea>
 								<div class="form-control-focus"></div>
-								<span class="help-block">介绍</span>
 							</div>
 						</div>
 
@@ -95,7 +91,6 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
-				<button type="submit" class="btn green">保存</button>
 			</div>
 		</form>
 	</div>

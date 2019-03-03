@@ -39,7 +39,7 @@ public class FileServiceImpl implements FileService {
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 
-	private String fileRoot = "F:/mnt/files/sea/";
+	private String fileRoot = "C:/lings/files/";
 
 	@Override
 	public String autoRenameUploadFile(MultipartFile file, String uploadFolder) throws Exception {
