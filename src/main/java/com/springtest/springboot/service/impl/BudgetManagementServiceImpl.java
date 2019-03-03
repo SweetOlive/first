@@ -47,4 +47,9 @@ public class BudgetManagementServiceImpl implements BudgetManagementService {
     public  int  delete(Integer id){
         return budgetManagementMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public BudgetManagement findByName(String name){
+        return budgetManagementMapper.findByName(name);
+    }
 }

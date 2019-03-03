@@ -27,19 +27,25 @@
   </sql>
 
   <select id="findAll" resultMap="BaseResultMap">
+  SELECT *
+  from price_goods_catalog
+  where 1=1
+  <if test="param.name != null and param.name != ''">
+    AND name LIKE '%${param.name}%'
+  </if>
+  <if test="param.code != null and param.code != ''">
+    AND code LIKE '%${param.code}%'
+  </if>
+  <if test="param.status != null and param.status != ''">
+    AND status = #{param.status}
+  </if>
+
+</select>
+
+  <select id="findByName" resultMap="BaseResultMap">
     SELECT *
     from price_goods_catalog
-    where 1=1
-    <if test="param.name != null and param.name != ''">
-      AND name LIKE '%${param.name}%'
-    </if>
-    <if test="param.code != null and param.code != ''">
-      AND code LIKE '%${param.code}%'
-    </if>
-    <if test="param.status != null and param.status != ''">
-      AND status = #{param.status}
-    </if>
-
+    where name = #{name}
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

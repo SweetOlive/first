@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.po.DemandManagement;
 import com.springtest.springboot.service.CodeGeneratorService;
 import com.springtest.springboot.service.DemandManagementService;
@@ -52,6 +53,9 @@ public class DemandManagementController {
                         String name,Integer usedCapital,
                         String introduce ,String remark,HttpServletRequest request){
         if(id == null){
+            if (demandManagementService.findByName(name)!=null){
+                throw new BaseException("0009");
+            }
             DemandManagement demandManagement = new DemandManagement();
             demandManagement.setBudgetId(budgetId);
             demandManagement.setDepartmentId(departmentId);
@@ -67,10 +71,18 @@ public class DemandManagementController {
             else{ System.out.println("新增失败！ "+demandManagement.getName()); }
         }else {
             DemandManagement demandManagement = demandManagementService.findById(id);
+            if (demandManagement.getName().equals(name)){
+                demandManagement.setName(name);
+            }else{
+                if (demandManagementService.findByName(name)!=null){
+                    throw new BaseException("0009");
+                }else {
+                    demandManagement.setName(name);
+                }
+            }
             demandManagement.setBudgetId(budgetId);
             demandManagement.setDepartmentId(departmentId);
             demandManagement.setUsedCapital(usedCapital);
-            demandManagement.setName(name);
             demandManagement.setIntroduce(introduce);
             demandManagement.setRemark(remark);
             demandManagement.setUpdateUserId(nowId);demandManagement.setUpdateTime(new Date());

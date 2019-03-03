@@ -14,4 +14,6 @@ public interface BudgetManagementService {
     public  int update(BudgetManagement  budgetManagement);
 
     public  int  delete(Integer id);
+
+    public BudgetManagement findByName(String name);
 }

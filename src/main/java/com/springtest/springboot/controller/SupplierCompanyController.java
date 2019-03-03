@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.po.SupplierCompany;
 import com.springtest.springboot.service.CodeGeneratorService;
 import com.springtest.springboot.service.SupplierCompanyService;
@@ -64,6 +65,9 @@ public class SupplierCompanyController {
     public  String save(Integer nowId,Integer id,String name, String mail,String tel,String address,
                         String creditRating ,String remark,HttpServletRequest request){
         if(id == null){
+            if (supplierCompanyService.findByName(name)!=null){
+                throw new BaseException("0007");
+            }
             SupplierCompany supplierCompany = new SupplierCompany();
             supplierCompany.setName(name);supplierCompany.setMail(mail);
             supplierCompany.setTel(tel);supplierCompany.setAddress(address);
@@ -77,7 +81,16 @@ public class SupplierCompanyController {
             else{ System.out.println("新增失败！ "+supplierCompany.getName()); }
         }else {
             SupplierCompany supplierCompany = supplierCompanyService.findById(id);
-            supplierCompany.setName(name);supplierCompany.setMail(mail);
+            if(supplierCompany.getName().equals(name)){
+                supplierCompany.setName(name);
+            }else{
+                if (supplierCompanyService.findByName(name)!=null){
+                    throw new BaseException("0007");
+                }else {
+                    supplierCompany.setName(name);
+                }
+            }
+            supplierCompany.setMail(mail);
             supplierCompany.setTel(tel);supplierCompany.setAddress(address);
             supplierCompany.setCreditRating(creditRating);supplierCompany.setRemark(remark);
             supplierCompany.setUpdateUserId(nowId);supplierCompany.setUpdateTime(new Date());

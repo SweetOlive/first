@@ -19,4 +19,6 @@ public interface SysRoleService {
 
     //根据id查询角色信息
     public  SysRole findById(Integer id);
+
+    public SysRole findByName(String name);
 }

@@ -92,7 +92,7 @@
 								<tr>
 									<th></th>
 									<th>用户名</th>
-									<th>状态</th>
+									<th>创建时间</th>
 								</tr>
 							</thead>
 							<tbody>

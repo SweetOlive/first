@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.po.BudgetManagement;
 import com.springtest.springboot.service.BudgetManagementService;
 import com.springtest.springboot.service.CodeGeneratorService;
@@ -51,6 +52,9 @@ public class BudgetManagementController {
     public  String save(Integer nowId,Integer id,String name,Integer budgetCapital,
                         String introduce ,String remark,HttpServletRequest request){
         if(id == null){
+            if (budgetManagementService.findByName(name)!=null){
+                throw new BaseException("0008");
+            }
             BudgetManagement budgetManagement = new BudgetManagement();
             budgetManagement.setName(name);
             budgetManagement.setIntroduce(introduce);
@@ -65,7 +69,15 @@ public class BudgetManagementController {
             else{ System.out.println("新增失败！ "+budgetManagement.getName()); }
         }else {
             BudgetManagement budgetManagement = budgetManagementService.findById(id);
-            budgetManagement.setName(name);
+            if (budgetManagement.getName().equals(name)){
+                budgetManagement.setName(name);
+            }else {
+                if (budgetManagementService.findByName(name)!=null){
+                    throw new BaseException("0008");
+                }else {
+                    budgetManagement.setName(name);
+                }
+            }
             budgetManagement.setIntroduce(introduce);
             budgetManagement.setBudgetCapital(budgetCapital);
             budgetManagement.setRemark(remark);

@@ -14,4 +14,6 @@ public interface DemandManagementService {
     public  int update(DemandManagement  demandManagement);
 
     public  int  delete(Integer id);
+
+    public DemandManagement findByName(String name);
 }

@@ -19,4 +19,6 @@ public interface SysRoleMapper {
     int updateByPrimaryKey(SysRole record);
 
     List<SysRole> findAll(@Param("sysRole") SysRole sysRole);
+
+    SysRole findByName(@Param("name")String name);
 }

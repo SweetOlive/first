@@ -19,4 +19,6 @@ public interface DemandManagementMapper {
     int updateByPrimaryKey(DemandManagement record);
 
     List<DemandManagement> findAll(@Param("param")DemandManagement demandManagement);
+
+    DemandManagement findByName(@Param("name") String name);
 }

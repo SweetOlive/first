@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.po.PurchaseInquiry;
 import com.springtest.springboot.po.PurchaseOrder;
 import com.springtest.springboot.po.PurchaseReceiving;
@@ -73,9 +74,17 @@ public class PurchaseOrderController {
                         String introduce ,String remark,HttpServletRequest request){
         PurchaseInquiry purchaseInquiry = purchaseInquiryService.findByCode(code);
         if(id == null){
+            if (purchaseOrderService.findByName(name)!=null){
+                throw new BaseException("0010");
+            }
             PurchaseOrder purchaseOrder = new PurchaseOrder();
             purchaseOrder.setCompanyId(companyId);purchaseOrder.setTransport(transport);
-            if (purchaseInquiry!=null)purchaseOrder.setInquiryId(purchaseInquiry.getId());
+            if (purchaseInquiry!=null){
+                purchaseOrder.setInquiryId(purchaseInquiry.getId());
+            }else{
+                throw new BaseException("0011");
+            }
+
             purchaseOrder.setName(name);purchaseOrder.setIntroduce(introduce);
             purchaseOrder.setRemark(remark);
             purchaseOrder.setCreateUserId(nowId);purchaseOrder.setUpdateUserId(nowId);
@@ -87,9 +96,17 @@ public class PurchaseOrderController {
             else{ System.out.println("新增失败！ "+purchaseOrder.getName()); }
         }else {
             PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
+            if (purchaseOrder.getName().equals(name)){
+                purchaseOrder.setName(name);
+            }else{
+                if (purchaseOrderService.findByName(name)!=null){
+                    throw new BaseException("0010");
+                }else {
+                    purchaseOrder.setName(name);
+                }
+            }
             purchaseOrder.setCompanyId(companyId);purchaseOrder.setTransport(transport);
             if (purchaseInquiry!=null)purchaseOrder.setInquiryId(purchaseInquiry.getId());
-            purchaseOrder.setName(name);
             purchaseOrder.setIntroduce(introduce);
             purchaseOrder.setRemark(remark);
             purchaseOrder.setUpdateUserId(nowId);purchaseOrder.setUpdateTime(new Date());

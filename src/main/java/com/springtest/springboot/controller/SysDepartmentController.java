@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.po.SysDepartment;
 import com.springtest.springboot.service.SysDepartmentService;
 import com.springtest.springboot.util.NUIResponseUtils;
@@ -69,6 +70,9 @@ public class SysDepartmentController {
         System.out.println("父部门parentId : "+parentId);
         //新增部门
         if (id==null && parentId !=null){
+            if (sysDepartmentService.findByNameParentId(name,parentId)!=null){
+                throw new BaseException("0005");
+            }
             SysDepartment sysDepartment = new SysDepartment();
             sysDepartment.setParentId(parentId);
             sysDepartment.setName(name);
@@ -82,13 +86,20 @@ public class SysDepartmentController {
         //修改部门信息
         if (id != null && parentId != null){
             SysDepartment sysDepartment = sysDepartmentService.findById(id);
-            sysDepartment.setName(name);
+            if (sysDepartment.getName().equals(name)){
+                sysDepartment.setName(name);
+            }else{
+                if (sysDepartmentService.findByNameParentId(name,parentId)!=null){
+                    throw new BaseException("0005");
+                }else{
+                    sysDepartment.setName(name);
+                }
+            }
             sysDepartment.setIntroduce(introduce);
             sysDepartment.setUpadteTime(new Date());
             sysDepartment.setUpdateUserId(nowId);
             int a = sysDepartmentService.update(sysDepartment);
         }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }
@@ -100,7 +111,6 @@ public class SysDepartmentController {
         if (id != null){
             int a = sysDepartmentService.delete(id);
         }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }

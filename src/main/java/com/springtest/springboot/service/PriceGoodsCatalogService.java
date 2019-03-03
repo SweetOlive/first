@@ -23,4 +23,6 @@ public interface PriceGoodsCatalogService {
 
     //查询物资目录详情
     public JSONArray findAllByTree(Integer parentId,Integer catalogId);
+
+    public PriceGoodsCatalog findByName(String name);
 }

@@ -52,4 +52,10 @@ public class SysRoleServiceImpl  implements SysRoleService {
     public  SysRole findById(Integer id){
         return sysRoleMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public SysRole findByName(String name){
+        return sysRoleMapper.findByName(name);
+    }
+
 }

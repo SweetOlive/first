@@ -23,4 +23,6 @@ public interface SupplierCompanyMapper {
     List<SupplierCompany> findAllWithSA(@Param("param") SupplierCompany supplierCompany);
 
     List<SupplierCompany> findAllWithP();
+
+    SupplierCompany findByName(@Param("name") String name);
 }

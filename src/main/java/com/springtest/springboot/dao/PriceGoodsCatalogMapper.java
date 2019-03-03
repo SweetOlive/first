@@ -20,4 +20,6 @@ public interface PriceGoodsCatalogMapper {
 
     //查找所有的物资目录
     public List<PriceGoodsCatalog> findAll(@Param("param") PriceGoodsCatalog priceGoodsCatalog);
+
+    PriceGoodsCatalog findByName(@Param("name") String name);
 }

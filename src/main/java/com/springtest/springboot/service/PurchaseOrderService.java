@@ -18,4 +18,6 @@ public interface PurchaseOrderService {
     public  int  delete(Integer id);
 
     public List<PurchaseOrder> findAllWithStatus(String status);
+
+    public  PurchaseOrder findByName(String name);
 }

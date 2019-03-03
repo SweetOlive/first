@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.Constants;
 import com.springtest.springboot.po.PriceGoodsCatalog;
 import com.springtest.springboot.po.PriceGoodsContact;
@@ -66,6 +67,9 @@ public class PriceGoodsCatalogController {
     @RequestMapping(value = "/save")
     public  String save(Integer nowId,Integer id,String name, String introduce,HttpServletRequest request){
         if(id == null){
+            if (priceGoodsCatalogService.findByName(name)!=null){
+                throw new BaseException("0006");
+            }
             PriceGoodsCatalog priceGoodsCatalog = new PriceGoodsCatalog();
             priceGoodsCatalog.setName(name);priceGoodsCatalog.setIntroduce(introduce);
             priceGoodsCatalog.setCreateUserId(nowId);priceGoodsCatalog.setUpdateUserId(nowId);
@@ -77,7 +81,16 @@ public class PriceGoodsCatalogController {
             else{ System.out.println("新增失败！ "+priceGoodsCatalog.getName()); }
         }else {
             PriceGoodsCatalog priceGoodsCatalog = priceGoodsCatalogService.findById(id);
-            priceGoodsCatalog.setName(name);priceGoodsCatalog.setIntroduce(introduce);
+            if (priceGoodsCatalog.getName().equals(name)){
+                priceGoodsCatalog.setName(name);
+            }else{
+                if (priceGoodsCatalogService.findByName(name)!=null){
+                    throw new BaseException("0006");
+                }else {
+                    priceGoodsCatalog.setName(name);
+                }
+            }
+            priceGoodsCatalog.setIntroduce(introduce);
             priceGoodsCatalog.setUpdateUserId(nowId);priceGoodsCatalog.setUpdateTime(new Date());
             int cnt = priceGoodsCatalogService.update(priceGoodsCatalog);
             if (cnt == 1){ System.out.println("修改成功！ "+priceGoodsCatalog.getName()); }

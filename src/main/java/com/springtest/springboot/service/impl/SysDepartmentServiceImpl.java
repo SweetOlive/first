@@ -73,4 +73,9 @@ public class SysDepartmentServiceImpl  implements SysDepartmentService {
     public List<SysDepartment> findAll(){
         return sysDepartmentMapper.findAll();
     }
+
+    @Override
+    public SysDepartment findByNameParentId(String name,Integer id){
+        return sysDepartmentMapper.findByNameParentId(name,id);
+    }
 }

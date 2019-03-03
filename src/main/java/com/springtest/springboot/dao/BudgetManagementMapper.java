@@ -20,4 +20,6 @@ public interface BudgetManagementMapper {
 
     List<BudgetManagement> findAll(@Param("param")BudgetManagement budgetManagement);
 
+    BudgetManagement findByName(@Param("name") String name);
+
 }

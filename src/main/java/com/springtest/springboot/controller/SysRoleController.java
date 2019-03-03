@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.po.SysRole;
 import com.springtest.springboot.po.SysUser;
 import com.springtest.springboot.po.SysUserRole;
@@ -64,6 +65,9 @@ public class SysRoleController {
     @RequestMapping(value = "/save")
     public  String save(Integer nowId,Integer id,String name, String introduce,HttpServletRequest request){
         if (id==null){
+            if (sysRoleService.findByName(name)!=null){
+                throw new BaseException("0004");
+            }
             SysRole sysRole = new SysRole();
             sysRole.setName(name);
             sysRole.setIntroduce(introduce);
@@ -76,7 +80,15 @@ public class SysRoleController {
             else{ System.out.println("新增失败！ "+sysRole.getName()); }
         }else {
             SysRole sysRole = sysRoleService.findById(id);
-            sysRole.setName(name);
+            if (sysRole.getName().equals(name)){
+                sysRole.setName(name);
+            }else{
+                if (sysRoleService.findByName(name)!=null){
+                    throw new BaseException("0004");
+                }else{
+                    sysRole.setName(name);
+                }
+            }
             sysRole.setIntroduce(introduce);
             sysRole.setUpdateUserId(nowId);
             sysRole.setUpdateTime(new Date());
@@ -84,7 +96,6 @@ public class SysRoleController {
             if (cnt == 1){ System.out.println("修改成功！ "+sysRole.getName()); }
             else{ System.out.println("修改失败！ "+sysRole.getName()); }
         }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }
@@ -95,7 +106,6 @@ public class SysRoleController {
         int cnt =  sysRoleService.delete(id);
         if (cnt == 1){ System.out.println("删除成功！ "); }
         else{ System.out.println("删除失败！ "); }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }
@@ -137,7 +147,6 @@ public class SysRoleController {
                 sysUserRoleService.addUserFromRole(nowId,roleId, userIdsL);
             }
         }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }
@@ -159,7 +168,6 @@ public class SysRoleController {
                 sysUserRoleService.removeUserFromRole(roleId, userIdsL);
             }
         }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }

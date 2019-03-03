@@ -28,7 +28,12 @@
     <if test="sysRole.name != null and sysRole.name != ''">
       AND s.name LIKE '%${sysRole.name}%'
     </if>
+  </select>
 
+  <select id="findByName" resultMap="BaseResultMap">
+    select s.*
+    from sys_role s
+    where s.name = #{name}
   </select>
 
 

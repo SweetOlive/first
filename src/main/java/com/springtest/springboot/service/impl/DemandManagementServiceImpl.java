@@ -47,4 +47,9 @@ public class DemandManagementServiceImpl implements DemandManagementService {
     public  int  delete(Integer id){
         return demandManagementMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public DemandManagement findByName(String name){
+        return demandManagementMapper.findByName(name);
+    }
 }

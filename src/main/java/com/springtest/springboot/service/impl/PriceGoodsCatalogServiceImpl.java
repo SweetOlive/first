@@ -89,4 +89,9 @@ public class PriceGoodsCatalogServiceImpl implements PriceGoodsCatalogService {
         jsonObject.put("children",itemJsonArray);
         jsonArray.add(jsonObject);
     }
+
+    @Override
+    public PriceGoodsCatalog findByName(String name){
+        return priceGoodsCatalogMapper.findByName(name);
+    }
 }

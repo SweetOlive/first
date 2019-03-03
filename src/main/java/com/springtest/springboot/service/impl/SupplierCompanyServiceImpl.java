@@ -62,4 +62,9 @@ public class SupplierCompanyServiceImpl implements SupplierCompanyService {
     public List<SupplierCompany> findAllWithP(){
         return supplierCompanyMapper.findAllWithP();
     }
+
+    @Override
+    public SupplierCompany findByName(String name){
+        return supplierCompanyMapper.findByName(name);
+    }
 }

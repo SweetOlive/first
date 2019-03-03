@@ -22,4 +22,6 @@ public interface SysDepartmentMapper {
     public List<SysDepartment> findByParentId(@Param("parentId") Integer id);
 
     public List<SysDepartment> findAll();
+
+    SysDepartment findByNameParentId(@Param("name") String name,@Param("id") Integer id);
 }

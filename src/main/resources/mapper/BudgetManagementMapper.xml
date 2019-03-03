@@ -35,6 +35,12 @@
     </if>
   </select>
 
+  <select id="findByName" resultMap="BaseResultMap">
+  select s.*
+  from budget_management s
+  where s.name = #{name}
+</select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

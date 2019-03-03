@@ -24,4 +24,6 @@ public interface SysDepartmentService {
 
     public List<SysDepartment> findAll();
 
+    public SysDepartment findByNameParentId(String name,Integer id);
+
 }

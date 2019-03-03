@@ -21,4 +21,6 @@ public interface PurchaseOrderMapper {
     List<PurchaseOrder> findAll(@Param("param")PurchaseOrder purchaseOrder);
 
     List<PurchaseOrder> findWithStatus(@Param("status") String status);
+
+    PurchaseOrder findByName(@Param("name")String name);
 }

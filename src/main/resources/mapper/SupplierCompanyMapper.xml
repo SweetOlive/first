@@ -41,6 +41,11 @@
     </if>
   </select>
 
+  <select id="findByName" resultMap="BaseResultMap">
+  select s.*
+  from supplier_company s
+  where s.name = #{name}
+</select>
   <select id="findAllWithSA" resultMap="BaseResultMap">
     select s.*
     from supplier_company s

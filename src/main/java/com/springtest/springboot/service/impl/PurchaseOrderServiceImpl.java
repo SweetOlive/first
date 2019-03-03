@@ -51,4 +51,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public List<PurchaseOrder> findAllWithStatus(String status){
         return purchaseOrderMapper.findWithStatus(status);
     }
+
+    @Override
+    public  PurchaseOrder findByName(String name){
+        return purchaseOrderMapper.findByName(name);
+    }
 }

@@ -38,6 +38,11 @@
     from sys_department
     where parent_id != -1
   </select>
+  <select id="findByNameParentId" resultMap="BaseResultMap">
+    SELECT *
+    from sys_department
+    where parent_id = #{id} and name = #{name}
+  </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
