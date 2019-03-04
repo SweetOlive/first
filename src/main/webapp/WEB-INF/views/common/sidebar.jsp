@@ -18,6 +18,7 @@
 					<span class="title">首页</span> 
 				</a>
 			</li>
+<security:authorize ifAnyGranted="P_SYS">
 			<li class="nav-item"><a href="" class="nav-link nav-toggle">
 					<i class="icon-settings"></i> <span class="title">基础管理</span> <span
 					class="arrow"></span>
@@ -39,11 +40,13 @@
 						<span class="badge badge-danger" id="_menu_badge_resource"></span>
 					</a></li>
 					<li>
-						<a href="#${pageContext.request.contextPath}/hello/test">
+						<a href="#${pageContext.request.contextPath}/sysPermission/list">
 						<i class="fa fa-gear"></i><span class="title"> 权限管理</span>
 						<span class="badge badge-danger" id="_menu_badge_sysinfo"></span>
 					</a></li>
 				</ul></li>
+</security:authorize>
+			<security:authorize ifAnyGranted="P_PRICE">
 			<li class="nav-item">
 			<a href="" class="nav-link nav-toggle"><i class="fa fa-bookmark-o"></i>
 				<span class="title">物资目录管理</span><span class="arrow"></span>
@@ -63,6 +66,8 @@
 				</li>
 			</ul>
 		    </li>
+	   </security:authorize>
+<security:authorize ifAnyGranted="P_COMPANY">
 			<li class="nav-item">
 				<a href="" class="nav-link nav-toggle"><i class="fa fa-shopping-cart"></i>
 					<span class="title">供应商管理</span><span class="arrow"></span>
@@ -82,6 +87,7 @@
 					</li>
 				</ul>
 			</li>
+</security:authorize>
 			<li class="nav-item">
 				<a href="" class="nav-link nav-toggle"><i class="fa fa-hourglass"></i>
 					<span class="title">预算管理</span><span class="arrow"></span>

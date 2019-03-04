@@ -1,8 +1,13 @@
 package com.springtest.springboot.controller;
 
 import com.springtest.springboot.BaseException;
+import com.springtest.springboot.Constants;
 import com.springtest.springboot.ErrorConstants;
+import com.springtest.springboot.po.SysPermission;
+import com.springtest.springboot.po.SysRole;
 import com.springtest.springboot.po.SysUser;
+import com.springtest.springboot.service.SysPermissionService;
+import com.springtest.springboot.service.SysRoleService;
 import com.springtest.springboot.service.SysUserService;
 import com.springtest.springboot.util.EncryptionUtils;
 import com.springtest.springboot.util.NUIResponseUtils;
@@ -15,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * CaiRonggui 2019.2.10
@@ -27,6 +36,12 @@ public class loginController {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private SysPermissionService sysPermissionService;
+
+    @Autowired
+    private SysRoleService sysRoleService;
+
     //登录页面
     @RequestMapping(value = "login")
     public String login(HttpServletRequest request){
@@ -36,9 +51,11 @@ public class loginController {
     //登录跳转，判断
     @RequestMapping(value = "check")
     public String check(String username, String password , HttpServletRequest request)throws Exception{
+        //获取session
+        HttpSession session = request.getSession();
         System.out.println("登录： "+username+" "+password);
         SysUser sysUser = sysUserService.findByAccountNumber(username);
-        //System.out.println(sysUser.getName());
+        System.out.println("session： "+session.toString());
         //判断账号是否存在
         if(sysUser != null){
             //判断密码是否正确
@@ -52,6 +69,21 @@ public class loginController {
                 //增加登录次数
                 sysUser.setCount(sysUser.getCount()+1);
                 sysUserService.update(sysUser);
+
+                //把权限设置进session
+                Set<String> permissionSet = new HashSet<String>();
+                List<SysRole> sysRoleList = sysRoleService.findByUserId(sysUser.getId());
+                if (sysRoleList != null && sysRoleList.size() > 0){
+                    for(SysRole sysRole : sysRoleList){
+                        List<SysPermission> sysPermissionList = sysPermissionService.findByRoleId(sysRole.getId());
+                        if (sysPermissionList!=null && sysPermissionList.size()>0){
+                            for (SysPermission sysPermission : sysPermissionList) {
+                                permissionSet.add(sysPermission.getCode());
+                            }
+                        }
+                    }
+                }
+                session.setAttribute(Constants.ABT_CURRENT_USER_PERMISSION, permissionSet);
                 return  "/index";
             }else{
                 System.out.println("账号存在，密码错误，登录失败！");

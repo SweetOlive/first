@@ -101,7 +101,6 @@
 										<c:if test="${item.status eq 'P' }"><span class="font-green">通过</span></c:if>
 										<c:if test="${item.status eq 'F' }"><span class="font-red">作废</span></c:if>
 									</td>
-									<security:authorize ifAnyGranted="P_AREA_MANAGE">	
 									<td>
 										<c:if test="${item.status eq 'P'}">
 										     <a href="${pageContext.request.contextPath}/supplierCompany/loadSupplierCompany?id=${item.id}&s=2" target="dialog" class="btn yellow-lemon btn-sm"><i class="fa fa-edit"></i>&nbsp;作废</a>
@@ -110,7 +109,6 @@
 										    <a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个供应商？" href="${pageContext.request.contextPath}/supplierCompany/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 										</c:if>
 									</td>
-									</security:authorize>
 								</tr>
 							</c:forEach>
 						</tbody>

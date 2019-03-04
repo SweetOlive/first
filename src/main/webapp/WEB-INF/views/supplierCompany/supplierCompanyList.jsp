@@ -71,11 +71,9 @@
 					<i class="icon-list"></i>
 					<span class="caption-subject sbold uppercase">供应商准入列表</span>
 				</div>
-				<security:authorize ifAnyGranted="P_AREA_MANAGE">
 				<div class="actions">
 					<a class="btn green btn-sm" href="${pageContext.request.contextPath}/supplierCompany/load" target="dialog"><i class="fa fa-plus"></i>&nbsp;新增</a>
 				</div>
-				</security:authorize>
 			</div>
 
 			<div class="portlet-body">
@@ -97,7 +95,6 @@
 									<td>${item.code}</td>
 									<td>${item.creditRating}</td>
 									<td><c:if test="${item.status eq 'A' }"><span class="font-blue">审核</span></c:if></td>
-									<security:authorize ifAnyGranted="P_AREA_MANAGE">
 									<td>
 										<a href="${pageContext.request.contextPath}/supplierCompany/loadSupplierCompany?id=${item.id}&s=1" target="dialog" class="btn yellow-lemon btn-sm"><i class="fa fa-edit"></i>&nbsp;审核</a>
 										<a href="${pageContext.request.contextPath}/supplierCompany/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
@@ -107,7 +104,6 @@
 											<i class="fa fa-trash-o"></i>&nbsp;删除
 										</a>
 									</td>
-									</security:authorize>
 								</tr>
 							</c:forEach>
 						</tbody>

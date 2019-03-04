@@ -2,6 +2,8 @@ package com.springtest.springboot.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.springtest.springboot.BaseException;
+import com.springtest.springboot.Constants;
 import com.springtest.springboot.dao.SysUserMapper;
 import com.springtest.springboot.po.SysUser;
 import com.springtest.springboot.service.SysUserService;
@@ -10,8 +12,9 @@ import com.springtest.springboot.util.page.Paginator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
-@Service(value = "SysUserService")
+@Service(value = "sysUserService")
 public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
@@ -50,5 +53,14 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public int delete(Integer id){
         return  sysUserMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public SysUser getCurrentUser(HttpSession session) throws Exception{
+        Object object = session.getAttribute(Constants.ABT_CURRENT_USER);
+        if (object == null && !(object instanceof SysUser)) {
+            throw new BaseException("0022");
+        }
+        return (SysUser) object;
     }
 }

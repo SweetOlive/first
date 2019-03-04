@@ -33,7 +33,6 @@
 						<i class="icon-list"></i> <span
 							class="caption-subject sbold uppercase">${priceGoodsCatalog.name} 所有物资</span>
 					</div>
-					<security:authorize ifAnyGranted="P_DEPARTMENT_MANAGE">
 					<div class="actions">
 						<a id="seaDepartmentAddUser" href="${pageContext.request.contextPath}/priceGoodsCatalog/look?id=" target="dialog" class="btn blue btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;查看详情</a>
 						<a id="seaDepartmentCreate" class="btn green btn-sm"
@@ -48,7 +47,6 @@
 							href="${pageContext.request.contextPath}/priceGoodsCatalog/goodsDelete?id="
 							target="ajaxTodo"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 					</div>
-					</security:authorize>
 				</div>
 
 

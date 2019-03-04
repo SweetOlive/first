@@ -62,11 +62,9 @@
 					<i class="icon-list"></i>
 					<span class="caption-subject sbold uppercase">限价列表</span>
 				</div>
-				<security:authorize ifAnyGranted="P_AREA_MANAGE">
 				<div class="actions">
 					<a class="btn green btn-sm" href="${pageContext.request.contextPath}/priceGoodsLimit/load" target="dialog"><i class="fa fa-plus"></i>&nbsp;新增</a>
 				</div>
-				</security:authorize>
 			</div>
 
 			<div class="portlet-body">
@@ -94,7 +92,6 @@
 										<fmt:formatDate value="${item.endTime}" pattern="yyyy-MM-dd" />
 									</td>
 									<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>
-									<security:authorize ifAnyGranted="P_AREA_MANAGE">
 									<td>
 										<a href="${pageContext.request.contextPath}/priceGoodsLimit/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
 											<i class="fa fa-asterisk"></i>&nbsp;修改
@@ -103,7 +100,6 @@
 											<i class="fa fa-trash-o"></i>&nbsp;删除
 										</a>
 									</td>
-									</security:authorize>
 								</tr>
 							</c:forEach>
 						</tbody>

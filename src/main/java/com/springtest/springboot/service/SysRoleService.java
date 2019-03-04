@@ -3,6 +3,8 @@ package com.springtest.springboot.service;
 import com.springtest.springboot.po.SysRole;
 import com.springtest.springboot.util.page.PageList;
 
+import java.util.List;
+
 public interface SysRoleService {
 
     //角色分页列表
@@ -21,4 +23,6 @@ public interface SysRoleService {
     public  SysRole findById(Integer id);
 
     public SysRole findByName(String name);
+
+    public List<SysRole> findByUserId(Integer userId);
 }

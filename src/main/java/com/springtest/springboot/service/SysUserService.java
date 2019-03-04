@@ -3,6 +3,7 @@ package com.springtest.springboot.service;
 import com.springtest.springboot.po.SysUser;
 import com.springtest.springboot.util.page.PageList;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface SysUserService {
@@ -24,4 +25,6 @@ public interface SysUserService {
 
     //根据id删除用户
     public int delete(Integer id);
+
+    public SysUser getCurrentUser(HttpSession session) throws Exception;
 }

@@ -17,6 +17,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Autowired
     private PurchaseOrderMapper purchaseOrderMapper;
+
     @Override
     public PageList<PurchaseOrder> findPage(PurchaseOrder purchaseOrder, Integer pageNum, Integer pageSize){
         Page<Object> result = PageHelper.startPage(pageNum,pageSize);

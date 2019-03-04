@@ -21,4 +21,6 @@ public interface SysRoleMapper {
     List<SysRole> findAll(@Param("sysRole") SysRole sysRole);
 
     SysRole findByName(@Param("name")String name);
+
+    List<SysRole> findByUserId(@Param("userId") Integer userId);
 }

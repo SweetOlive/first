@@ -13,7 +13,6 @@
 
     <tag>
         <name>authorize</name>
-        <!--<tag-class>net.shadowedu.hfls.core.abt.security.tag.AuthorizeTag</tag-class>-->
         <tag-class>com.springtest.springboot.po.AuthorizeTag</tag-class>
         <description>
             A tag which outputs the body of the tag if the configured access expression

@@ -79,11 +79,9 @@
 					<i class="icon-list"></i>
 					<span class="caption-subject sbold uppercase">订单列表</span>
 				</div>
-				<security:authorize ifAnyGranted="P_AREA_MANAGE">
 				<div class="actions">
 					<a class="btn green btn-sm" href="${pageContext.request.contextPath}/purchaseOrder/load" target="dialog"><i class="fa fa-plus"></i>&nbsp;新增</a>
 				</div>
-				</security:authorize>
 			</div>
 			<div class="portlet-body">
 				<div class="table-responsive table-container">
@@ -117,7 +115,6 @@
 										<c:if test="${item.status eq 'S' }"><span class="font-blue">到货</span></c:if>
 									</td>
 									<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>
-									<security:authorize ifAnyGranted="P_AREA_MANAGE">
 									<td>
 										<c:if test="${item.status eq 'A'}">
 										    <a href="${pageContext.request.contextPath}/purchaseOrder/loadPurchaseOrder?id=${item.id}" target="dialog" class="btn yellow-lemon btn-sm"><i class="fa fa-edit"></i>&nbsp;审核</a>
@@ -133,7 +130,6 @@
 											<a href="${pageContext.request.contextPath}/purchaseOrder/loadPurchaseOrder?id=${item.id}" target="dialog" class="btn blue btn-sm"><i class="fa fa-edit"></i>&nbsp;查看信息</a>
 										</c:if>
 									</td>
-									</security:authorize>
 								</tr>
 							</c:forEach>
 						</tbody>

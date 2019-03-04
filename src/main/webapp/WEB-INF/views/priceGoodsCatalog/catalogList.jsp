@@ -73,11 +73,9 @@
 					<i class="icon-list"></i>
 					<span class="caption-subject sbold uppercase">物资目录列表</span>
 				</div>
-				<security:authorize ifAnyGranted="P_AREA_MANAGE">
 				<div class="actions">
 					<a class="btn green btn-sm" href="${pageContext.request.contextPath}/priceGoodsCatalog/load" target="dialog"><i class="fa fa-plus"></i>&nbsp;新增</a>
 				</div>
-				</security:authorize>
 			</div>
 
 			<div class="portlet-body">
@@ -104,7 +102,6 @@
 										<c:if test="${item.status eq 'F' }"><span class="font-green">发布</span></c:if>
 										<c:if test="${item.status eq 'D' }"><span class="font-red">作废</span></c:if>
 									</td>
-									<security:authorize ifAnyGranted="P_AREA_MANAGE">
 									<td>
 										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/loadCatalog?id=${item.id}" target="ajax" class="btn blue btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;目录详情</a>
 										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
@@ -114,7 +111,6 @@
 											<i class="fa fa-trash-o"></i>&nbsp;删除
 										</a>
 									</td>
-									</security:authorize>
 								</tr>
 							</c:forEach>
 						</tbody>

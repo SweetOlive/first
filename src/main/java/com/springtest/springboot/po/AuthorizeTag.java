@@ -8,6 +8,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import com.springtest.springboot.service.SysPermissionService;
+import com.springtest.springboot.service.SysUserService;
 import org.apache.commons.lang.BooleanUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.WebApplicationContext;
@@ -33,20 +35,24 @@ public class AuthorizeTag extends TagSupport {
 	public int doStartTag() throws JspException {
 
 		HttpSession session = pageContext.getSession();
+		System.out.println("session:"+session.toString());
 
 		WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(pageContext.getServletContext());
-//		AbtUserService abtUserService = applicationContext.getBean("userService", AbtUserService.class);
-//		AbtPermissionService abtPermissionService = applicationContext.getBean("permissionService", AbtPermissionService.class);
+		//AbtUserService abtUserService = applicationContext.getBean("userService", AbtUserService.class);
+		//AbtPermissionService abtPermissionService = applicationContext.getBean("permissionService", AbtPermissionService.class);
+		SysUserService sysUserService = applicationContext.getBean("sysUserService", SysUserService.class);
+		SysPermissionService sysPermissionService = applicationContext.getBean("sysPermissionService",SysPermissionService.class);
 
-//		AbtUserDTO currentUser = null;
-//		try {
-//			Object object = abtUserService.getCurrentUser(session);
-//			if (object instanceof AbtUserDTO) {
-//				currentUser = (AbtUserDTO) object;
-//			}
-//		} catch (Exception e) {
-//			return Tag.SKIP_BODY;
-//		}
+
+		SysUser currentUser = null;
+		try {
+			Object object = sysUserService.getCurrentUser(session);
+			if (object instanceof SysUser) {
+				currentUser = (SysUser) object;
+			}
+		} catch (Exception e) {
+			return Tag.SKIP_BODY;
+		}
 
 //		// is current user is super admin
 //		if (currentUser != null) {
@@ -60,63 +66,54 @@ public class AuthorizeTag extends TagSupport {
 			return Tag.SKIP_BODY;
 		}
 
-//		Set<String> userPermissions = null;
-//		try {
-//			userPermissions = abtPermissionService.getCurrentUserPermissions(session);
-//		} catch (Exception e) {
-//			userPermissions = new HashSet<String>();
-//		}
-//
-//		if ((null != ifNotGranted) && !"".equals(ifNotGranted)) {
-//			boolean flag = false;
-//			String[] granteds = ifNotGranted.split(",");
-//			for (String granted : granteds) {
-//				if (userPermissions.contains(granted.trim())) {
-//					flag = true;
-//					break;
-//				}
-//			}
-//
-//			if (flag) {
-//				return Tag.SKIP_BODY;
-//			}
-//		}
-//
-//		if ((null != ifAllGranted) && !"".equals(ifAllGranted)) {
-//			boolean flag = false;
-//
-//			String[] granteds = ifAllGranted.split(",");
-//
-//			for (String granted : granteds) {
-//				if (!userPermissions.contains(granted.trim())) {
-//					flag = true;
-//					break;
-//				}
-//			}
-//
-//			if (flag) {
-//				return Tag.SKIP_BODY;
-//			}
-//		}
+		Set<String> userPermissions = null;
+		try {
+			userPermissions = sysPermissionService.getCurrentUserPermissions(session);
+		} catch (Exception e) {
+			userPermissions = new HashSet<String>();
+		}
 
-//		if ((null != ifAnyGranted) && !"".equals(ifAnyGranted)) {
-//
-//			boolean flag = true;
-//
-//			String[] granteds = ifAnyGranted.split(",");
-//
-//			for (String granted : granteds) {
-//				if (userPermissions.contains(granted.trim())) {
-//					flag = false;
-//					break;
-//				}
-//			}
-//
-//			if (flag) {
-//				return Tag.SKIP_BODY;
-//			}
-//		}
+		if ((null != ifNotGranted) && !"".equals(ifNotGranted)) {
+			boolean flag = false;
+			String[] granteds = ifNotGranted.split(",");
+			for (String granted : granteds) {
+				if (userPermissions.contains(granted.trim())) {
+					flag = true;
+					break;
+				}
+			}
+			if (flag) {
+				return Tag.SKIP_BODY;
+			}
+		}
 
+		if ((null != ifAllGranted) && !"".equals(ifAllGranted)) {
+			boolean flag = false;
+			String[] granteds = ifAllGranted.split(",");
+			for (String granted : granteds) {
+				if (!userPermissions.contains(granted.trim())) {
+					flag = true;
+					break;
+				}
+			}
+			if (flag) {
+				return Tag.SKIP_BODY;
+			}
+		}
+
+		if ((null != ifAnyGranted) && !"".equals(ifAnyGranted)) {
+			boolean flag = true;
+			String[] granteds = ifAnyGranted.split(",");
+			for (String granted : granteds) {
+				if (userPermissions.contains(granted.trim())) {
+					flag = false;
+					break;
+				}
+			}
+			if (flag) {
+				return Tag.SKIP_BODY;
+			}
+		}
 		return Tag.EVAL_BODY_INCLUDE;
 	}
 

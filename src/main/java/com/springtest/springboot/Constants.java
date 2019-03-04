@@ -20,7 +20,7 @@ public class Constants {
 	public static final String IS_DELETE_NO = "N";
 
 	public static final String ABT_CURRENT_USER_PERMISSION = "abtUserPermission";
-	public static final String ABT_CURRENT_USER = "currentUser";
+	public static final String ABT_CURRENT_USER = "nowUser";
 	public static final String ABT_APPLICATION_NAME_SETTINGS = "abtSettings";
 
 	public static int DEFAULT_PAGE_SIZE = 10;

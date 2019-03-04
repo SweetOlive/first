@@ -72,11 +72,9 @@
 					<i class="icon-list"></i>
 					<span class="caption-subject sbold uppercase">询价单列表</span>
 				</div>
-				<security:authorize ifAnyGranted="P_AREA_MANAGE">
 				<div class="actions">
 					<a class="btn green btn-sm" href="${pageContext.request.contextPath}/purchaseInquiry/load" target="dialog"><i class="fa fa-plus"></i>&nbsp;新增</a>
 				</div>
-				</security:authorize>
 			</div>
 
 			<div class="portlet-body">
@@ -102,7 +100,6 @@
 									<td>${item.price}</td>
 									<td>${item.number}</td>
 									<td><fmt:formatDate value="${item.arrivetime}" pattern="yyyy-MM-dd" /></td>
-									<security:authorize ifAnyGranted="P_AREA_MANAGE">
 									<td>
 										<%--<a href="${pageContext.request.contextPath}/supplierCompany/loadSupplierCompany?id=${item.id}&s=1" target="dialog" class="btn yellow-lemon btn-sm"><i class="fa fa-edit"></i>&nbsp;审核</a>--%>
 										<a href="${pageContext.request.contextPath}/purchaseInquiry/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
@@ -112,7 +109,6 @@
 											<i class="fa fa-trash-o"></i>&nbsp;删除
 										</a>
 									</td>
-									</security:authorize>
 								</tr>
 							</c:forEach>
 						</tbody>

@@ -36,6 +36,13 @@
     where s.name = #{name}
   </select>
 
+  <select id="findByUserId" resultMap="BaseResultMap">
+    select s.*
+    from sys_role s
+    join sys_user_role r
+    where s.id = r.role_id and r.user_id = #{userId}
+  </select>
+
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
