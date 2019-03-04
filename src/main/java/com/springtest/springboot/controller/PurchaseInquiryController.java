@@ -1,12 +1,12 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.Constants;
+import com.springtest.springboot.po.PriceGoodsCatalog;
 import com.springtest.springboot.po.PriceGoodsContact;
 import com.springtest.springboot.po.PurchaseInquiry;
 import com.springtest.springboot.po.SupplierCompany;
-import com.springtest.springboot.service.CodeGeneratorService;
-import com.springtest.springboot.service.PriceGoodsContactService;
-import com.springtest.springboot.service.PurchaseInquiryService;
-import com.springtest.springboot.service.SupplierCompanyService;
+import com.springtest.springboot.service.*;
+import com.springtest.springboot.util.JsonUtils;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 询价单控制器
@@ -36,6 +39,9 @@ public class PurchaseInquiryController {
 
     @Autowired
     private SupplierCompanyService supplierCompanyService;
+
+    @Autowired
+    private PriceGoodsCatalogService priceGoodsCatalogService;
 
     @Autowired
     private PriceGoodsContactService priceGoodsContactService;
@@ -59,13 +65,14 @@ public class PurchaseInquiryController {
         List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
         System.out.println("supplierCompanyList : " + supplierCompanyList.toString()+"  Size: "+supplierCompanyList.size());
         request.setAttribute("supplierCompanyList",supplierCompanyList);
-        //找到所有物资
-        List<PriceGoodsContact> priceGoodsContactList = priceGoodsContactService.findAll();
-        System.out.println("priceGoodsContactList : " + priceGoodsContactList.toString()+"  Size: "+priceGoodsContactList.size());
-        request.setAttribute("priceGoodsContactList",priceGoodsContactList);
+        //物资目录
+        List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll();
+        request.setAttribute("priceGoodsCatalogList",priceGoodsCatalogList);
         if (id != null){
             PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(id);
             request.setAttribute("purchaseInquiry",purchaseInquiry);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(purchaseInquiry.getGoodsId());
+            request.setAttribute("priceGoodsContact",priceGoodsContact);
         }
         return "/purchaseInquiry/purchaseInquiryLoad";
     }
@@ -118,5 +125,19 @@ public class PurchaseInquiryController {
         request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
+    }
+
+    @RequestMapping(value = "/getGoodsList")
+    @ResponseBody
+    public String getGoodsList(@RequestParam(name = "name", required = true) String name,
+                               @RequestParam(name = "id", required = true) Integer id) throws Exception {
+        System.out.println("name : " +name);
+        List<PriceGoodsContact> goodsList = null;
+        Map<String, Object> mapResult = new HashMap<>();
+        mapResult.put("status", Constants.API_STATUS_SUCCESS);
+        goodsList = priceGoodsContactService.findByNameOrCode(name,id);
+        System.out.println("size : " +goodsList.size());
+        mapResult.put("items", goodsList);
+        return JsonUtils.obj2Json(mapResult);
     }
 }

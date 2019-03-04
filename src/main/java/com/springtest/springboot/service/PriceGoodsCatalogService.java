@@ -4,6 +4,8 @@ import com.springtest.springboot.po.PriceGoodsCatalog;
 import com.springtest.springboot.util.page.PageList;
 import net.sf.json.JSONArray;
 
+import java.util.List;
+
 public interface PriceGoodsCatalogService {
 
     //物资目录列表
@@ -25,4 +27,6 @@ public interface PriceGoodsCatalogService {
     public JSONArray findAllByTree(Integer parentId,Integer catalogId);
 
     public PriceGoodsCatalog findByName(String name);
+
+    public List<PriceGoodsCatalog> findAll();
 }

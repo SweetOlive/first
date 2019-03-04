@@ -65,6 +65,7 @@
 				</div>
 				<security:authorize ifAnyGranted="P_AREA_MANAGE">
 				<div class="actions">
+					<%--<a class="btn green btn-sm" href="${pageContext.request.contextPath}/hello/selectTree" target="dialog"><i class="fa fa-plus"></i>&nbsp;测试</a>--%>
 					<a class="btn green btn-sm" href="${pageContext.request.contextPath}/sysUser/load" target="dialog"><i class="fa fa-plus"></i>&nbsp;新增</a>
 				</div>
 				</security:authorize>

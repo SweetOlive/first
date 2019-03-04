@@ -14,6 +14,23 @@
                 <input type="hidden" id="operate" name="operate" value="">
                 <!-- BEGIN FORM-->
                 <div class="form-body">
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">物资图片 <span class="required"></span></label>
+                        <div class="fileinput fileinput-new col-md-3" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
+                                <c:choose>
+                                    <c:when test="${not empty priceGoodsContact.imgPath}">
+                                        <img class="" src="${pageContext.request.contextPath}/admin/imgView?path=${priceGoodsContact.imgPath}" alt="" style="width: 150px; height: 150px;">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img class="" src="http://www.placehold.it/150x150/EFEFEF/AAAAAA&amp;text=no+image" alt="">
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group form-md-line-input ">
                         <label class="col-md-3 control-label">物资
                         </label>
@@ -45,6 +62,15 @@
                     </div>
 
                     <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">库存数量
+                        </label>
+                        <div class="col-md-8">
+                            <input readonly type="number" class="form-control" placeholder="" value="${priceGoodsContact.count}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
                         <label class="col-md-3 control-label">发料数量
                         </label>
                         <div class="col-md-8">
@@ -71,6 +97,7 @@
                 <button id="saveUserInfo"   type="submit" class="btn green"  style="display:none">保存</button>
                 <c:if test="${storageSending.status eq 'A'}">
                     <a href="javascript:;saveUserInfo('P')" class="btn green button-submit">通过 </a>
+                    <a href="javascript:;saveUserInfo('F')" class="btn red button-submit">退回 </a>
                 </c:if>
             </div>
         </form>

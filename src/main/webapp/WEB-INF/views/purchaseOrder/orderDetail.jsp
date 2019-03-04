@@ -29,7 +29,6 @@
                         <div class="col-md-8">
                             <input readonly type="text" class="form-control" placeholder="" value="${purchaseInquiry.code}" name="code">
                             <div class="form-control-focus"></div>
-                            <span class="help-block">请输入询价单code</span>
                         </div>
                     </div>
 
@@ -60,6 +59,33 @@
                                 <option value="D" <c:if test="${purchaseOrder.transport eq 'D' }">selected</c:if>>航空</option>
                                 <option value="E" <c:if test="${purchaseOrder.transport eq 'E' }">selected</c:if>>管道</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">物资
+                        </label>
+                        <div class="col-md-8">
+                            <input readonly type="text" class="form-control" placeholder="" value="${priceGoodsContact.name}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">数量
+                        </label>
+                        <div class="col-md-8">
+                            <input readonly type="text" class="form-control" placeholder="" value="${purchaseInquiry.number}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">价格
+                        </label>
+                        <div class="col-md-8">
+                            <input readonly type="text" class="form-control" placeholder="" value="${purchaseInquiry.price}">
+                            <div class="form-control-focus"></div>
                         </div>
                     </div>
 

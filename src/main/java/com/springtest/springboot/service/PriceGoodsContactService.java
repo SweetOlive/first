@@ -24,4 +24,7 @@ public interface PriceGoodsContactService {
 
     public List<PriceGoodsContact> findAll();
 
+    //根据物资名称或者编号模糊查询十条记录
+    public List<PriceGoodsContact> findByNameOrCode(String name,Integer id);
+
 }

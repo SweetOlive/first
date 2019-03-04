@@ -54,4 +54,9 @@ public class PriceGoodsContactServiceImpl implements PriceGoodsContactService {
     public List<PriceGoodsContact> findAll(){
         return priceGoodsContactMapper.findAll();
     }
+
+    @Override
+    public List<PriceGoodsContact> findByNameOrCode(String name,Integer id){
+        return priceGoodsContactMapper.findByNameOrCode(name,id);
+    }
 }

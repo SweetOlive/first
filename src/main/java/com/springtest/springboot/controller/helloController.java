@@ -59,4 +59,15 @@ public class helloController {
     public String test(HttpServletRequest request) {
         return "/test/index";
     }
+
+    @RequestMapping(value = "/select")
+    public String select(){
+        return "/test/select";
+    }
+
+    @RequestMapping(value = "/selectTree")
+    public String selectTree(){
+        return "/test/selectTree";
+    }
+
 }

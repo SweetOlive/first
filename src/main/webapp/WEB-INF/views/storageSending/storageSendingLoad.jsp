@@ -13,21 +13,49 @@
 				<input type="hidden" name="nowId" value="${nowUser.id}">
 				<!-- BEGIN FORM-->
 				<div class="form-body">
-					<div class="form-group form-md-line-input ">
-						<label class="col-md-3 control-label">物资
-							<span class="required">*</span>
-						</label>
-						<div class="col-md-8">
-							<select name="goodsId" class="form-control required">
-								<option value="">-请选择物资-</option>
-								<c:forEach items="${priceGoodsContactList}" var="item">
-									<option value="${item.id}" <c:if test="${storageSending.goodsId eq item.id }">selected</c:if> >${item.name}</option>
-								</c:forEach>
-							</select>
-							<div class="form-control-focus"></div>
-							<span class="help-block"></span>
+					<%--<div class="form-group form-md-line-input ">--%>
+						<%--<label class="col-md-3 control-label">物资--%>
+							<%--<span class="required">*</span>--%>
+						<%--</label>--%>
+						<%--<div class="col-md-8">--%>
+							<%--<select name="goodsId" class="form-control required">--%>
+								<%--<option value="">-请选择物资-</option>--%>
+								<%--<c:forEach items="${priceGoodsContactList}" var="item">--%>
+									<%--<option value="${item.id}" <c:if test="${storageSending.goodsId eq item.id }">selected</c:if> >${item.name}</option>--%>
+								<%--</c:forEach>--%>
+							<%--</select>--%>
+							<%--<div class="form-control-focus"></div>--%>
+							<%--<span class="help-block"></span>--%>
+						<%--</div>--%>
+					<%--</div>--%>
+
+						<div class="form-group form-md-line-input ">
+							<label class="col-md-3 control-label">物资目录
+								<span class="required">*</span>
+							</label>
+							<div class="col-md-8">
+								<select id="parentSelect" name="catalogId" class="form-control required">
+									<option value="">-请物资目录-</option>
+									<c:forEach items="${priceGoodsCatalogList}" var="item">
+										<option value="${item.id}" <c:if test="${item.id eq priceGoodsContact.catalogId }">selected</c:if> >${item.name}</option>
+									</c:forEach>
+								</select>
+								<div class="form-control-focus"></div>
+								<span class="help-block"></span>
+							</div>
 						</div>
-					</div>
+						<div class="form-group form-md-line-input">
+							<label class="col-md-3 control-label" for="form_control_1">物资<span class="required">*</span>
+							</label>
+							<div class="col-md-8">
+								<div class="btn-group bootstrap-select bs-select form-control">
+									<select title="输入物资名称或编号"  data-selectNameUrl="${pageContext.request.contextPath}/purchaseInquiry/getGoodsList"  id="select-manager" name="goodsId"  class="bs-select form-control" data-live-search="true" data-size="8" tabindex="-98">
+										<c:if test="${not empty  priceGoodsContact}"><option value="${priceGoodsContact.id}" selected>${priceGoodsContact.name}(${priceGoodsContact.code})</option></c:if>
+									</select>
+								</div>
+								<div class="form-control-focus"></div>
+							</div>
+						</div>
 
 					<div class="form-group form-md-line-input ">
 						<label class="col-md-3 control-label">接收部门
@@ -77,7 +105,52 @@
 	<!-- /.modal-content -->
 </div>
 
+<script src="${pageContext.request.contextPath}/static/global/plugins/arttemplate/art-template-web.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/static/pages/scripts/components-bootstrap-select.js" type="text/javascript"></script>
+
 <script type="text/javascript">
+    //键入字符触发事件:动态获得后台传入select选项数据
+    //请求的url
+    var selectNameUrl = $("#select-manager").attr("data-selectNameUrl");
+    //选择得到搜索栏input，松开按键后触发事件
+    $("#select-manager").prev().find('.bs-searchbox').find('input').keyup(function () {
+        //键入的值
+        var inputManagerName =$('#userForm .open input').val();  //判定键入的值不为空，才调用ajax
+        var parentId=$('#parentSelect option:selected').val();
+        if (parentId == ''){
+            alert("请选择物资目录！");
+        }
+        if(inputManagerName != ''){
+            $.ajax({
+                type: 'post',
+                url: selectNameUrl,
+                data: {
+                    name:inputManagerName,
+                    id: parentId
+                },
+                dataType: "json",
+                success : function(data) {
+                    //清除select标签下旧的option签，根据新获得的数据重新添加option标签
+                    $("#select-manager").empty();
+                    if (data.items != null) {
+                        $.each(data.items, function (i,Selectmanager) {
+                            $("#select-manager").append(" <option value=\"" + Selectmanager.id + "\">" + Selectmanager.name + "（"+Selectmanager.code+"）</option>");
+                        })                                    //必不可少的刷新
+                        $("#select-manager").selectpicker('refresh');
+                    }
+                },
+                error : function() {
+                    if (json != null) {
+                        bootbox.alert(json.msg);
+                    }
+                }
+            })
+        }else
+        //如果输入的字符为空，清除之前option标签
+            $("#select-manager").empty();
+        $("#select-manager").selectpicker('refresh');
+    });
+
 	$('#userForm')
 			.validate(
 					{

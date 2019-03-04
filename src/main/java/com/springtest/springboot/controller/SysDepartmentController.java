@@ -5,15 +5,18 @@ import com.springtest.springboot.po.SysDepartment;
 import com.springtest.springboot.service.SysDepartmentService;
 import com.springtest.springboot.util.NUIResponseUtils;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.RequestWrapper;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 部门控制器
@@ -113,6 +116,22 @@ public class SysDepartmentController {
         }
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
+    }
+
+    @RequestMapping(value = "/departmentSelectTree", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String selectTree(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        List<SysDepartment> list = sysDepartmentService.findAll();
+        System.out.println("list"+list.size());
+        JSONArray jsonArray = new JSONArray();
+        for (SysDepartment sysDepartment : list) {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("pid", sysDepartment.getParentId());
+            jsonObj.put("id", sysDepartment.getId());
+            jsonObj.put("text", sysDepartment.getName());
+            jsonArray.add(jsonObj);
+        }
+        return jsonArray.toString();
     }
 
 

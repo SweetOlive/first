@@ -94,4 +94,10 @@ public class PriceGoodsCatalogServiceImpl implements PriceGoodsCatalogService {
     public PriceGoodsCatalog findByName(String name){
         return priceGoodsCatalogMapper.findByName(name);
     }
+
+    @Override
+    public List<PriceGoodsCatalog> findAll(){
+        PriceGoodsCatalog priceGoodsCatalog = new PriceGoodsCatalog();
+        return priceGoodsCatalogMapper.findAll(priceGoodsCatalog);
+    }
 }

@@ -1,10 +1,7 @@
 package com.springtest.springboot.controller;
 
 import com.springtest.springboot.BaseException;
-import com.springtest.springboot.po.PurchaseInquiry;
-import com.springtest.springboot.po.PurchaseOrder;
-import com.springtest.springboot.po.PurchaseReceiving;
-import com.springtest.springboot.po.SupplierCompany;
+import com.springtest.springboot.po.*;
 import com.springtest.springboot.service.*;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
@@ -34,6 +31,9 @@ public class PurchaseOrderController {
 
     @Autowired
     private SupplierCompanyService supplierCompanyService;
+
+    @Autowired
+    private  PriceGoodsContactService priceGoodsContactService;
 
     @Autowired
     private PurchaseReceivingService purchaseReceivingService;
@@ -142,6 +142,8 @@ public class PurchaseOrderController {
             request.setAttribute("purchaseOrder",purchaseOrder);
             PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(purchaseOrder.getInquiryId());
             request.setAttribute("purchaseInquiry",purchaseInquiry);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(purchaseInquiry.getGoodsId());
+            request.setAttribute("priceGoodsContact",priceGoodsContact);
         }
         return "/purchaseOrder/orderDetail";
     }

@@ -1,12 +1,11 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
+import com.springtest.springboot.po.PriceGoodsCatalog;
 import com.springtest.springboot.po.PriceGoodsContact;
 import com.springtest.springboot.po.StorageSending;
 import com.springtest.springboot.po.SysDepartment;
-import com.springtest.springboot.service.CodeGeneratorService;
-import com.springtest.springboot.service.PriceGoodsContactService;
-import com.springtest.springboot.service.StorageSendingService;
-import com.springtest.springboot.service.SysDepartmentService;
+import com.springtest.springboot.service.*;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,9 @@ public class StorageSendingController {
 
     @Autowired
     private StorageSendingService storageSendingService;
+
+    @Autowired
+    private PriceGoodsCatalogService priceGoodsCatalogService;
 
     @Autowired
     private PriceGoodsContactService priceGoodsContactService;
@@ -64,9 +66,15 @@ public class StorageSendingController {
         System.out.println("priceGoodsContactList : " + priceGoodsContactList.toString()+"  Size: "+priceGoodsContactList.size());
         request.setAttribute("priceGoodsContactList",priceGoodsContactList);
 
+        //物资目录
+        List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll();
+        request.setAttribute("priceGoodsCatalogList",priceGoodsCatalogList);
+
         if (id != null){
             StorageSending storageSending = storageSendingService.findById(id);
             request.setAttribute("storageSending",storageSending);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(storageSending.getGoodsId());
+            request.setAttribute("priceGoodsContact",priceGoodsContact);
         }
         return "/storageSending/storageSendingLoad";
     }
@@ -128,6 +136,8 @@ public class StorageSendingController {
         if (id != null){
             StorageSending storageSending = storageSendingService.findById(id);
             request.setAttribute("storageSending",storageSending);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(storageSending.getGoodsId());
+            request.setAttribute("priceGoodsContact",priceGoodsContact);
         }
         return "/storageSending/sendingDetail";
     }
@@ -153,10 +163,13 @@ public class StorageSendingController {
                 storageSendingService.update(storageSending);
                 request.setAttribute("message","操作成功");
             }else{
-                request.setAttribute("message","操作失败");
+                throw  new BaseException("0015");
             }
+        }else if (operate.equals("F")){
+            storageSending.setStatus(operate);
+            storageSendingService.update(storageSending);
         }
-        request.setAttribute("message","操作成功");
+
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }

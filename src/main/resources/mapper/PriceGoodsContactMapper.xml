@@ -53,6 +53,13 @@
     WHERE catalog_id = #{catalogId}
   </select>
 
+  <select id="findByNameOrCode" resultMap="BaseResultMap">
+    SELECT g.*
+    FROM price_goods_contact g
+    WHERE g.catalog_id = #{id}
+    and  (g.name LIKE '%${name}%' OR g.code LIKE '%${name}%') limit 0,10;
+  </select>
+
   <select id="getByCode" resultMap="BaseResultMap">
     SELECT *
     FROM price_goods_contact

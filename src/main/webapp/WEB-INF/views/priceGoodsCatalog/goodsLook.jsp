@@ -57,6 +57,15 @@
 						</div>
 
 						<div class="form-group form-md-line-input ">
+							<label class="col-md-3 control-label">编号
+							</label>
+							<div class="col-md-8">
+								<input readonly type="text" class="form-control required" placeholder="" value="${priceGoodsContact.code}" name="name">
+								<div class="form-control-focus"></div>
+							</div>
+						</div>
+
+						<div class="form-group form-md-line-input ">
 							<label class="col-md-3 control-label">库存
 							</label>
 							<div class="col-md-8">

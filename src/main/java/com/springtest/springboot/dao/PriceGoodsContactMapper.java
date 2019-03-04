@@ -27,4 +27,6 @@ public interface PriceGoodsContactMapper {
     public PriceGoodsContact getByCode(@Param("code")String code);
 
     List<PriceGoodsContact> findAll();
+
+    List<PriceGoodsContact> findByNameOrCode(@Param("name") String name,@Param("id")Integer id);
 }

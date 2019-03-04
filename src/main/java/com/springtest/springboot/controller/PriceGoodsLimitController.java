@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.po.PriceGoodsContact;
 import com.springtest.springboot.po.PriceGoodsLimit;
 import com.springtest.springboot.service.PriceGoodsContactService;
@@ -70,7 +71,12 @@ public class PriceGoodsLimitController {
         Date endTime = sdf.parse(s[2]);
         if(id == null){
             PriceGoodsLimit priceGoodsLimit = new PriceGoodsLimit();
-            priceGoodsLimit.setGoodsCode(goodsCode);
+            PriceGoodsContact goodsContact = priceGoodsContactService.findByCode(goodsCode);
+            if (goodsContact!=null){
+                priceGoodsLimit.setGoodsCode(goodsCode);
+            }else{
+                throw new BaseException("0014");
+            }
             priceGoodsLimit.setRemark(remark);
             priceGoodsLimit.setPriceMax(priceMax);priceGoodsLimit.setPriceMin(priceMin);
             priceGoodsLimit.setStartTime(startTime);priceGoodsLimit.setEndTime(endTime);
@@ -79,18 +85,24 @@ public class PriceGoodsLimitController {
             int cnt = priceGoodsLimitService.add(priceGoodsLimit);
             if (cnt == 1){ System.out.println("新增成功！ "+priceGoodsLimit.getGoodsCode()); }
             else{ System.out.println("新增失败！ "+priceGoodsLimit.getGoodsCode()); }
-            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findByCode(goodsCode);
-            priceGoodsContact.setIsLimit("Y");
-            priceGoodsContact.setLimitStartTime(startTime);
-            priceGoodsContact.setLimitEndTime(endTime);
-            priceGoodsContact.setUpdateUserId(nowId);
-            priceGoodsContact.setUpdateTime(new Date());
-            cnt = priceGoodsContactService.update(priceGoodsContact);
-            if (cnt == 1){ System.out.println("更新成功！ "+priceGoodsContact.getName()); }
-            else{ System.out.println("更新失败！ "+priceGoodsContact.getName()); }
+
+            goodsContact.setIsLimit("Y");
+            goodsContact.setLimitStartTime(startTime);
+            goodsContact.setLimitEndTime(endTime);
+            goodsContact.setUpdateUserId(nowId);
+            goodsContact.setUpdateTime(new Date());
+            cnt = priceGoodsContactService.update(goodsContact);
+            if (cnt == 1){ System.out.println("更新成功！ "+goodsContact.getName()); }
+            else{ System.out.println("更新失败！ "+goodsContact.getName()); }
         }else {
             PriceGoodsLimit priceGoodsLimit = priceGoodsLimitService.findById(id);
             priceGoodsLimit.setGoodsCode(goodsCode);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findByCode(goodsCode);
+            if (priceGoodsContact!=null){
+                priceGoodsLimit.setGoodsCode(goodsCode);
+            }else{
+                throw new BaseException("0014");
+            }
             priceGoodsLimit.setRemark(remark);
             priceGoodsLimit.setPriceMax(priceMax);priceGoodsLimit.setPriceMin(priceMin);
             priceGoodsLimit.setStartTime(startTime);priceGoodsLimit.setEndTime(endTime);

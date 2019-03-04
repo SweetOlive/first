@@ -52,6 +52,7 @@
 							<option value="">全部</option>
 							<option value="A" <c:if test="${storageSending.status eq 'A' }">selected</c:if>>审核</option>
 							<option value="P" <c:if test="${storageSending.status eq 'P' }">selected</c:if>>通过</option>
+							<option value="F" <c:if test="${storageSending.status eq 'F' }">selected</c:if>>退回</option>
 						</select>
 					</div>
 
@@ -100,6 +101,7 @@
 									<td>
 										<c:if test="${item.status eq 'A' }"><span class="font-yellow">审核</span></c:if>
 										<c:if test="${item.status eq 'P' }"><span class="font-green">通过</span></c:if>
+										<c:if test="${item.status eq 'F' }"><span class="font-red">退回</span></c:if>
 									</td>
 									<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>
 									<security:authorize ifAnyGranted="P_AREA_MANAGE">
@@ -109,7 +111,7 @@
 										    <a href="${pageContext.request.contextPath}/storageSending/load?id=${item.id}" target="dialog" class="btn yellow btn-sm"><i class="fa fa-asterisk"></i>&nbsp;修改</a>
 										    <a target="ajaxTodo" todoMsg="是否确定删除这个发料信息？" href="${pageContext.request.contextPath}/storageSending/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 										</c:if>
-										<c:if test="${item.status eq 'P'}">
+										<c:if test="${item.status eq 'P' || item.status eq 'F'}">
 											<a href="${pageContext.request.contextPath}/storageSending/loadStorageSending?id=${item.id}" target="dialog" class="btn blue btn-sm"><i class="fa fa-edit"></i>&nbsp;查看</a>
 										</c:if>
 									</td>
