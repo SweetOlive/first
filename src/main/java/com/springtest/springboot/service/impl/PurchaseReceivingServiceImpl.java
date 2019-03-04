@@ -52,4 +52,9 @@ public class PurchaseReceivingServiceImpl implements PurchaseReceivingService {
     public List<PurchaseReceiving> findStatus(String status){
         return purchaseReceivingMapper.findStatus(status);
     }
+
+    @Override
+    public PurchaseReceiving findByOrderIdAndAPStatus(Integer orderId){
+        return purchaseReceivingMapper.findByOrderIdAndAPStatus(orderId);
+    }
 }

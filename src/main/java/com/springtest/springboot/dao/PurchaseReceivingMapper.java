@@ -21,4 +21,6 @@ public interface PurchaseReceivingMapper {
     List<PurchaseReceiving> findAll(@Param("param")PurchaseReceiving purchaseReceiving,@Param("orderName") String orderName);
 
     List<PurchaseReceiving> findStatus(@Param("status")String status);
+
+    PurchaseReceiving findByOrderIdAndAPStatus(@Param("orderId")Integer orderId);
 }

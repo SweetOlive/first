@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.po.PurchaseOrder;
 import com.springtest.springboot.po.PurchaseReceiving;
 import com.springtest.springboot.service.CodeGeneratorService;
@@ -63,8 +64,10 @@ public class PurchaseReceivingController {
 
     @RequestMapping(value = "/save")
     public  String save(Integer nowId,Integer id,Integer orderId,String remark,HttpServletRequest request){
-
         if(id == null){
+            if (purchaseReceivingService.findByOrderIdAndAPStatus(orderId)!= null){
+                throw  new BaseException("0016");
+            }
             PurchaseReceiving purchaseReceiving = new PurchaseReceiving();
             purchaseReceiving.setOrderId(orderId);
             purchaseReceiving.setRemark(remark);
@@ -77,7 +80,15 @@ public class PurchaseReceivingController {
             else{ System.out.println("新增失败！ "+purchaseReceiving.getCode()); }
         }else {
             PurchaseReceiving purchaseReceiving = purchaseReceivingService.findById(id);
-            purchaseReceiving.setOrderId(orderId);
+            if (purchaseReceiving.getOrderId().equals(orderId)){
+                purchaseReceiving.setOrderId(orderId);
+            }else{
+                if (purchaseReceivingService.findByOrderIdAndAPStatus(orderId)!= null){
+                    throw  new BaseException("0016");
+                }else {
+                    purchaseReceiving.setOrderId(orderId);
+                }
+            }
             purchaseReceiving.setRemark(remark);
             purchaseReceiving.setUpdateUserId(nowId);purchaseReceiving.setUpdateTime(new Date());
             int cnt = purchaseReceivingService.update(purchaseReceiving);
@@ -121,8 +132,10 @@ public class PurchaseReceivingController {
         if (operate.equals("P")){
             purchaseReceiving.setStatus(operate);
             purchaseReceivingService.update(purchaseReceiving);
+        }else if (operate.equals("F")){
+            purchaseReceiving.setStatus(operate);
+            purchaseReceivingService.update(purchaseReceiving);
         }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }

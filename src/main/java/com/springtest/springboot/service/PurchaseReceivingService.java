@@ -18,4 +18,6 @@ public interface PurchaseReceivingService {
     public  int  delete(Integer id);
 
     public List<PurchaseReceiving> findStatus(String status);
+
+    public PurchaseReceiving findByOrderIdAndAPStatus(Integer orderId);
 }

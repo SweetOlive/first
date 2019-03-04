@@ -1,5 +1,6 @@
 package com.springtest.springboot.controller;
 
+import com.springtest.springboot.BaseException;
 import com.springtest.springboot.po.*;
 import com.springtest.springboot.service.*;
 import com.springtest.springboot.util.NUIResponseUtils;
@@ -68,6 +69,9 @@ public class StorageIncomingController {
     public  String save(Integer nowId,Integer id,Integer receivingId
             ,String remark,HttpServletRequest request){
         if(id == null){
+            if (storageIncomingService.findByReceivingIdAndAPStatus(receivingId)!=null){
+                throw  new BaseException("0017");
+            }
             StorageIncoming storageIncoming = new StorageIncoming();
             storageIncoming.setReceivingId(receivingId);
             storageIncoming.setRemark(remark);
@@ -80,14 +84,21 @@ public class StorageIncomingController {
             else{ System.out.println("新增失败！ "+storageIncoming.getCode()); }
         }else {
             StorageIncoming storageIncoming = storageIncomingService.findById(id);
-            storageIncoming.setReceivingId(receivingId);
+            if (storageIncoming.getReceivingId().equals(receivingId)){
+                storageIncoming.setReceivingId(receivingId);
+            }else{
+                if (storageIncomingService.findByReceivingIdAndAPStatus(receivingId)!=null){
+                    throw  new BaseException("0017");
+                }else{
+                    storageIncoming.setReceivingId(receivingId);
+                }
+            }
             storageIncoming.setRemark(remark);
             storageIncoming.setUpdateUserId(nowId);storageIncoming.setUpdateTime(new Date());
             int cnt = storageIncomingService.update(storageIncoming);
             if (cnt == 1){ System.out.println("修改成功！ "+storageIncoming.getCode()); }
             else{ System.out.println("修改失败！ "+storageIncoming.getCode()); }
         }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }
@@ -144,8 +155,10 @@ public class StorageIncomingController {
             }else{
                 System.out.println(priceGoodsContact.getName()+"物资更新失败：");
             }
+        }else if(operate.equals("F")){
+            storageIncoming.setStatus(operate);
+            storageIncomingService.update(storageIncoming);
         }
-        request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
     }

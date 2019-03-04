@@ -16,7 +16,6 @@
                 <div class="form-body">
                     <div class="form-group form-md-line-input ">
                         <label class="col-md-3 control-label">收料单编号
-                            <span class="required">*</span>
                         </label>
                         <div class="col-md-8">
                             <select readonly name="receivingId" class="form-control required">
@@ -47,6 +46,7 @@
                 <button id="saveUserInfo"   type="submit" class="btn green"  style="display:none">保存</button>
                 <c:if test="${storageIncoming.status eq 'A'}">
                     <a href="javascript:;saveUserInfo('P')" class="btn green button-submit">通过 </a>
+                    <a href="javascript:;saveUserInfo('F')" class="btn red button-submit">退回 </a>
                 </c:if>
             </div>
         </form>

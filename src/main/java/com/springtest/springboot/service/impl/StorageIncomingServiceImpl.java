@@ -46,4 +46,9 @@ public class StorageIncomingServiceImpl implements StorageIncomingService {
     public  int  delete(Integer id){
         return storageIncomingMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public StorageIncoming findByReceivingIdAndAPStatus(Integer reId){
+        return storageIncomingMapper.findByReceivingIdAndAPStatus(reId);
+    }
 }

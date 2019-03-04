@@ -14,4 +14,6 @@ public interface StorageIncomingService {
     public  int update(StorageIncoming  storageIncoming);
 
     public  int  delete(Integer id);
+
+    public StorageIncoming findByReceivingIdAndAPStatus(Integer reId);
 }

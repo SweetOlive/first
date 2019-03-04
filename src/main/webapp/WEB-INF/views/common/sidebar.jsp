@@ -38,11 +38,11 @@
 						<i class="fa fa-sitemap"></i> <span class="title">部门管理</span>
 						<span class="badge badge-danger" id="_menu_badge_resource"></span>
 					</a></li>
-					<%--<li>--%>
-						<%--<a href="#${pageContext.request.contextPath}/hello/test">--%>
-						<%--<i class="fa fa-gear"></i><span class="title"> 系统设置</span>--%>
-						<%--<span class="badge badge-danger" id="_menu_badge_sysinfo"></span>--%>
-					<%--</a></li>--%>
+					<li>
+						<a href="#${pageContext.request.contextPath}/hello/test">
+						<i class="fa fa-gear"></i><span class="title"> 权限管理</span>
+						<span class="badge badge-danger" id="_menu_badge_sysinfo"></span>
+					</a></li>
 				</ul></li>
 			<li class="nav-item">
 			<a href="" class="nav-link nav-toggle"><i class="fa fa-bookmark-o"></i>
@@ -107,17 +107,19 @@
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="#${pageContext.request.contextPath}/purchaseOrder/list">
-							<i class="fa fa-list-alt"></i>
-							<span class="title">订单管理</span>
-						</a>
-					</li>
-					<li>
 						<a href="#${pageContext.request.contextPath}/purchaseInquiry/list">
 							<i class="fa fa-strikethrough"></i>
 							<span class="title">询价单管理</span>
 						</a>
 					</li>
+
+					<li>
+						<a href="#${pageContext.request.contextPath}/purchaseOrder/list">
+							<i class="fa fa-list-alt"></i>
+							<span class="title">订单管理</span>
+						</a>
+					</li>
+
 					<li>
 						<a href="#${pageContext.request.contextPath}/purchaseReceiving/list">
 							<i class="fa fa-table"></i>

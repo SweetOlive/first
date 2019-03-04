@@ -19,4 +19,6 @@ public interface StorageIncomingMapper {
     int updateByPrimaryKey(StorageIncoming record);
 
     List<StorageIncoming> findAll(@Param("param")StorageIncoming storageIncoming,@Param("receivingCode") String receivingCode);
+
+    StorageIncoming findByReceivingIdAndAPStatus(@Param("reId") Integer reId);
 }

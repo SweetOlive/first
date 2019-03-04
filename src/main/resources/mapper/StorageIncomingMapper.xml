@@ -32,8 +32,13 @@
     <if test="param.status != null and param.status != ''">
       AND s.status = #{param.status}
     </if>
-
   </select>
+
+  <select id="findByReceivingIdAndAPStatus" resultMap="BaseResultMap">
+  select s.*
+  from storage_incoming s
+  where s.receiving_id = #{reId} and s.status != 'F'
+</select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
