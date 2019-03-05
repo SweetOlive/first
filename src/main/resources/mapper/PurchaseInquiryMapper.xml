@@ -16,12 +16,14 @@
     <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
     <result column="update_user_id" property="updateUserId" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+
     <result column="companyName" property="companyName" jdbcType="VARCHAR" />
     <result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, goods_id, company_id, number, price, arriveTime, address, paied, code, create_time, 
-    update_time, create_user_id, update_user_id, remark
+    update_time, create_user_id, update_user_id, remark, status
   </sql>
 
   <select id="findAll" resultMap="BaseResultMap">
@@ -33,12 +35,16 @@
     <if test="param.paied != null and param.paied != ''">
       AND s.paied = #{param.paied}
     </if>
+    <if test="param.status != null and param.status != ''">
+      AND s.status = #{param.status}
+    </if>
     <if test="companyName!= null and companyName != ''">
       AND c.name LIKE '%${companyName}%'
     </if>
     <if test="goodsName != null and goodsName != ''">
       AND g.name LIKE '%${goodsName}%'
     </if>
+    order by s.create_time desc
   </select>
 
   <select id="findByCode" resultMap="BaseResultMap" >
@@ -62,12 +68,14 @@
       number, price, arriveTime, 
       address, paied, code, 
       create_time, update_time, create_user_id, 
-      update_user_id, remark)
+      update_user_id, remark, status
+      )
     values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, 
       #{number,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{arrivetime,jdbcType=TIMESTAMP}, 
       #{address,jdbcType=VARCHAR}, #{paied,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
-      #{updateUserId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+      #{updateUserId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.springtest.springboot.po.PurchaseInquiry" >
     insert into purchase_inquiry
@@ -114,6 +122,9 @@
       <if test="remark != null" >
         remark,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -157,6 +168,9 @@
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -202,6 +216,9 @@
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -219,7 +236,8 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       create_user_id = #{createUserId,jdbcType=INTEGER},
       update_user_id = #{updateUserId,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

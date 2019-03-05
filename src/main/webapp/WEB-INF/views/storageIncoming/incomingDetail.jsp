@@ -15,17 +15,87 @@
                 <!-- BEGIN FORM-->
                 <div class="form-body">
                     <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">订单
+                        </label>
+                        <div class="col-md-8">
+                            <input readonly type="text" class="form-control" placeholder="" value="${purchaseOrder.name}" name="code">
+                            <div class="form-control-focus"></div>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">询价单编号
+                        </label>
+                        <div class="col-md-8">
+                            <input readonly type="text" class="form-control" placeholder="" value="${purchaseInquiry.code}" name="code">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input ">
                         <label class="col-md-3 control-label">收料单编号
                         </label>
                         <div class="col-md-8">
-                            <select readonly name="receivingId" class="form-control required">
-                                <option value="">-请选择收料单-</option>
-                                <c:forEach items="${purchaseReceivingList}" var="item">
-                                    <option value="${item.id}" <c:if test="${storageIncoming.receivingId eq item.id }">selected</c:if> >${item.code}</option>
+                            <input readonly type="text" class="form-control" placeholder="" value="${purchaseReceiving.code}" name="code">
+                            <div class="form-control-focus"></div>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">供应商
+                        </label>
+                        <div class="col-md-8">
+                            <select readonly name="companyId" class="form-control required">
+                                <option value="">-请选择供应商-</option>
+                                <c:forEach items="${supplierCompanyList}" var="item">
+                                    <option value="${item.id}" <c:if test="${purchaseOrder.companyId eq item.id }">selected</c:if> >${item.name}</option>
                                 </c:forEach>
                             </select>
                             <div class="form-control-focus"></div>
                             <span class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">运输方式
+                        </label>
+                        <div class="col-md-8">
+                            <select readonly class="form-control" name="transport">
+                                <option value="">--请选择运输方式--</option>
+                                <option value="A" <c:if test="${purchaseOrder.transport eq 'A' }">selected</c:if>>铁路</option>
+                                <option value="B" <c:if test="${purchaseOrder.transport eq 'B' }">selected</c:if>>公路</option>
+                                <option value="C" <c:if test="${purchaseOrder.transport eq 'C' }">selected</c:if>>水路</option>
+                                <option value="D" <c:if test="${purchaseOrder.transport eq 'D' }">selected</c:if>>航空</option>
+                                <option value="E" <c:if test="${purchaseOrder.transport eq 'E' }">selected</c:if>>管道</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">物资
+                        </label>
+                        <div class="col-md-8">
+                            <input readonly type="text" class="form-control" placeholder="" value="${priceGoodsContact.name}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">数量
+                        </label>
+                        <div class="col-md-8">
+                            <input readonly type="text" class="form-control" placeholder="" value="${purchaseInquiry.number}">
+                            <div class="form-control-focus"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input ">
+                        <label class="col-md-3 control-label">价格
+                        </label>
+                        <div class="col-md-8">
+                            <input readonly type="text" class="form-control" placeholder="" value="${purchaseInquiry.price}">
+                            <div class="form-control-focus"></div>
                         </div>
                     </div>
 

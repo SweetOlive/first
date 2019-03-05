@@ -103,7 +103,7 @@
 										    <a target="ajaxTodo" todoMsg="是否确定删除这个进库料信息？" href="${pageContext.request.contextPath}/storageIncoming/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 										</c:if>
 										<c:if test="${item.status eq 'P' || item.status eq 'F'}">
-											<a href="${pageContext.request.contextPath}/storageIncoming/loadStorageIncoming?id=${item.id}" target="dialog" class="btn blue btn-sm"><i class="fa fa-edit"></i>&nbsp;查看</a>
+											<a href="${pageContext.request.contextPath}/storageIncoming/loadStorageIncoming?id=${item.id}" target="dialog" class="btn blue btn-sm"><i class="fa fa-edit"></i>&nbsp;查看详情</a>
 										</c:if>
 									</td>
 								</tr>

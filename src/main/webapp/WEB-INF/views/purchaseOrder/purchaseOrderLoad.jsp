@@ -34,21 +34,21 @@
 					</div>
 					</div>
 
-					<div class="form-group form-md-line-input ">
-						<label class="col-md-3 control-label">供应商
-							<span class="required">*</span>
-						</label>
-						<div class="col-md-8">
-							<select name="companyId" class="form-control required">
-								<option value="">-请选择供应商-</option>
-								<c:forEach items="${supplierCompanyList}" var="item">
-									<option value="${item.id}" <c:if test="${purchaseOrder.companyId eq item.id }">selected</c:if> >${item.name}</option>
-								</c:forEach>
-							</select>
-							<div class="form-control-focus"></div>
-							<span class="help-block"></span>
-						</div>
-					</div>
+					<%--<div class="form-group form-md-line-input ">--%>
+						<%--<label class="col-md-3 control-label">供应商--%>
+							<%--<span class="required">*</span>--%>
+						<%--</label>--%>
+						<%--<div class="col-md-8">--%>
+							<%--<select name="companyId" class="form-control required">--%>
+								<%--<option value="">-请选择供应商-</option>--%>
+								<%--<c:forEach items="${supplierCompanyList}" var="item">--%>
+									<%--<option value="${item.id}" <c:if test="${purchaseOrder.companyId eq item.id }">selected</c:if> >${item.name}</option>--%>
+								<%--</c:forEach>--%>
+							<%--</select>--%>
+							<%--<div class="form-control-focus"></div>--%>
+							<%--<span class="help-block"></span>--%>
+						<%--</div>--%>
+					<%--</div>--%>
 
 					<div class="form-group form-md-line-input ">
 						<label class="col-md-3 control-label">运输方式
@@ -116,9 +116,6 @@
                                 required : true,
                             },
                             code : {
-                                required : true,
-                            },
-                            companyId : {
                                 required : true,
                             },
                             transport : {

@@ -91,6 +91,7 @@ public class PurchaseInquiryController {
             purchaseInquiry.setPaied(paied);purchaseInquiry.setNumber(number);
             purchaseInquiry.setArrivetime(arrive_Time);
             purchaseInquiry.setRemark(remark);
+            purchaseInquiry.setStatus("N");
             purchaseInquiry.setCreateUserId(nowId);purchaseInquiry.setUpdateUserId(nowId);
             purchaseInquiry.setCreateTime(new Date());purchaseInquiry.setUpdateTime(new Date());
             purchaseInquiry.setCode(codeGeneratorService.gen());
@@ -139,5 +140,23 @@ public class PurchaseInquiryController {
         System.out.println("size : " +goodsList.size());
         mapResult.put("items", goodsList);
         return JsonUtils.obj2Json(mapResult);
+    }
+
+    @RequestMapping(value = "/loadPurchaseInquiry")
+    public  String loadPurchaseInquiry(Integer id,HttpServletRequest request){
+        if (id != null){
+            //找到所有状态为通过的供应商
+            List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
+            System.out.println("supplierCompanyList : " + supplierCompanyList.toString()+"  Size: "+supplierCompanyList.size());
+            request.setAttribute("supplierCompanyList",supplierCompanyList);
+            //物资目录
+            List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll();
+            request.setAttribute("priceGoodsCatalogList",priceGoodsCatalogList);
+            PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(id);
+            request.setAttribute("purchaseInquiry",purchaseInquiry);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(purchaseInquiry.getGoodsId());
+            request.setAttribute("priceGoodsContact",priceGoodsContact);
+        }
+        return "/purchaseInquiry/inquiryDetail";
     }
 }

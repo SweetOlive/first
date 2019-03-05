@@ -31,7 +31,7 @@
     <if test="goodsName != null and goodsName != ''">
       AND c.name LIKE '%${goodsName}%'
     </if>
-
+    order by l.create_time desc
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

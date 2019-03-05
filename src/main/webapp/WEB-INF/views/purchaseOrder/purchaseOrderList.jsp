@@ -127,7 +127,7 @@
 										     <a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个需求？" href="${pageContext.request.contextPath}/purchaseOrder/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 										</c:if>
 										<c:if test="${item.status eq 'S'}">
-											<a href="${pageContext.request.contextPath}/purchaseOrder/loadPurchaseOrder?id=${item.id}" target="dialog" class="btn blue btn-sm"><i class="fa fa-edit"></i>&nbsp;查看信息</a>
+											<a href="${pageContext.request.contextPath}/purchaseOrder/loadPurchaseOrder?id=${item.id}" target="dialog" class="btn blue btn-sm"><i class="fa fa-edit"></i>&nbsp;查看详情</a>
 										</c:if>
 									</td>
 								</tr>

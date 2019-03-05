@@ -32,6 +32,7 @@
     <if test="orderName != null and orderName != ''">
       AND o.name LIKE '%${orderName}%'
     </if>
+    order by s.create_time desc
   </select>
 
   <select id="findStatus" resultMap="BaseResultMap">

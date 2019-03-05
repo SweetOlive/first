@@ -36,7 +36,10 @@ public class StorageIncomingController {
     private PurchaseInquiryService purchaseInquiryService;
 
     @Autowired
-    private PriceGoodsContactService priceGoodsContactService;
+    private SupplierCompanyService supplierCompanyService;
+
+    @Autowired
+    private  PriceGoodsContactService priceGoodsContactService;
 
     @Autowired
     private CodeGeneratorService codeGeneratorService;
@@ -119,12 +122,18 @@ public class StorageIncomingController {
     @RequestMapping(value = "/loadStorageIncoming")
     public  String loadStorageIncoming(Integer id,HttpServletRequest request){
         if (id !=null){
-            List<PurchaseReceiving> purchaseReceivingList = purchaseReceivingService.findStatus("P");
-            System.out.println("purchaseReceivingList size: "+purchaseReceivingList.size());
-            request.setAttribute("purchaseReceivingList",purchaseReceivingList);
-
             StorageIncoming storageIncoming = storageIncomingService.findById(id);
             request.setAttribute("storageIncoming",storageIncoming);
+            List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
+            request.setAttribute("supplierCompanyList",supplierCompanyList);
+            PurchaseReceiving purchaseReceiving = purchaseReceivingService.findById(storageIncoming.getReceivingId());
+            request.setAttribute("purchaseReceiving",purchaseReceiving);
+            PurchaseOrder purchaseOrder = purchaseOrderService.findById(purchaseReceiving.getOrderId());
+            request.setAttribute("purchaseOrder",purchaseOrder);
+            PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(purchaseOrder.getInquiryId());
+            request.setAttribute("purchaseInquiry",purchaseInquiry);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(purchaseInquiry.getGoodsId());
+            request.setAttribute("priceGoodsContact",priceGoodsContact);
         }
         return "/storageIncoming/incomingDetail";
     }

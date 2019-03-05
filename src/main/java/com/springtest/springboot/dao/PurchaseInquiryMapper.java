@@ -18,7 +18,7 @@ public interface PurchaseInquiryMapper {
 
     int updateByPrimaryKey(PurchaseInquiry record);
 
-    List<PurchaseInquiry> findAll(@Param("param")PurchaseInquiry purchaseInquiry,@Param("companyName")String companyName,@Param("goodsName")String goodsName);
+    List<PurchaseInquiry> findAll(@Param("param") PurchaseInquiry purchaseInquiry, @Param("companyName")String companyName, @Param("goodsName")String goodsName);
 
     PurchaseInquiry findByCode(@Param("code") String code);
 }

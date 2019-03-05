@@ -34,6 +34,7 @@
     <if test="param.status != null and param.status != ''">
       AND s.status = #{param.status}
     </if>
+    order by s.create_time desc
   </select>
 
   <select id="findByName" resultMap="BaseResultMap">

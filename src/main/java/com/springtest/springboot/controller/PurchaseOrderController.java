@@ -69,7 +69,7 @@ public class PurchaseOrderController {
     }
 
     @RequestMapping(value = "/save")
-    public  String save(Integer nowId,Integer id,String code,Integer companyId,
+    public  String save(Integer nowId,Integer id,String code,
                         String name,String transport,
                         String introduce ,String remark,HttpServletRequest request){
         PurchaseInquiry purchaseInquiry = purchaseInquiryService.findByCode(code);
@@ -78,13 +78,15 @@ public class PurchaseOrderController {
                 throw new BaseException("0010");
             }
             PurchaseOrder purchaseOrder = new PurchaseOrder();
-            purchaseOrder.setCompanyId(companyId);purchaseOrder.setTransport(transport);
             if (purchaseInquiry!=null){
                 purchaseOrder.setInquiryId(purchaseInquiry.getId());
+                purchaseInquiry.setStatus("Y");
+                purchaseOrder.setCompanyId(purchaseInquiry.getCompanyId());
+                purchaseInquiryService.update(purchaseInquiry);
             }else{
                 throw new BaseException("0011");
             }
-
+            purchaseOrder.setTransport(transport);
             purchaseOrder.setName(name);purchaseOrder.setIntroduce(introduce);
             purchaseOrder.setRemark(remark);
             purchaseOrder.setCreateUserId(nowId);purchaseOrder.setUpdateUserId(nowId);
@@ -105,8 +107,13 @@ public class PurchaseOrderController {
                     purchaseOrder.setName(name);
                 }
             }
-            purchaseOrder.setCompanyId(companyId);purchaseOrder.setTransport(transport);
-            if (purchaseInquiry!=null)purchaseOrder.setInquiryId(purchaseInquiry.getId());
+            if (purchaseInquiry!=null){
+                purchaseOrder.setInquiryId(purchaseInquiry.getId());
+                purchaseOrder.setCompanyId(purchaseInquiry.getCompanyId());
+            }else{
+                throw new BaseException("0011");
+            }
+            purchaseOrder.setTransport(transport);
             purchaseOrder.setIntroduce(introduce);
             purchaseOrder.setRemark(remark);
             purchaseOrder.setUpdateUserId(nowId);purchaseOrder.setUpdateTime(new Date());
@@ -158,6 +165,9 @@ public class PurchaseOrderController {
         }else if (operate.equals("F")){
             purchaseOrder.setStatus(operate);
             purchaseOrderService.update(purchaseOrder);
+            PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(purchaseOrder.getInquiryId());
+            purchaseInquiry.setStatus("N");
+            purchaseInquiryService.update(purchaseInquiry);
         }else if(operate.equals("S")){
             purchaseOrder.setStatus(operate);
             purchaseOrder.setArrivetime(new Date());

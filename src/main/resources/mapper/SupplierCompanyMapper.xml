@@ -39,6 +39,7 @@
     <if test="param.status != null and param.status != ''">
       AND s.status = #{param.status}
     </if>
+    order by s.create_time desc
   </select>
 
   <select id="findByName" resultMap="BaseResultMap">
@@ -59,6 +60,7 @@
     <if test="param.creditRating != null and param.creditRating != ''">
       AND s.credit_rating = #{param.creditRating}
     </if>
+    order by s.create_time desc
   </select>
 
   <select id="findAllWithP" resultMap="BaseResultMap">

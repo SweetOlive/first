@@ -1,11 +1,8 @@
 package com.springtest.springboot.controller;
 
 import com.springtest.springboot.BaseException;
-import com.springtest.springboot.po.PurchaseOrder;
-import com.springtest.springboot.po.PurchaseReceiving;
-import com.springtest.springboot.service.CodeGeneratorService;
-import com.springtest.springboot.service.PurchaseOrderService;
-import com.springtest.springboot.service.PurchaseReceivingService;
+import com.springtest.springboot.po.*;
+import com.springtest.springboot.service.*;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,15 @@ public class PurchaseReceivingController {
 
     @Autowired
     private PurchaseOrderService purchaseOrderService;
+
+    @Autowired
+    private PurchaseInquiryService purchaseInquiryService;
+
+    @Autowired
+    private SupplierCompanyService supplierCompanyService;
+
+    @Autowired
+    private  PriceGoodsContactService priceGoodsContactService;
 
     @Autowired
     private CodeGeneratorService codeGeneratorService;
@@ -116,11 +122,16 @@ public class PurchaseReceivingController {
     @RequestMapping(value = "/loadPurchaseReceiving")
     public  String loadPurchaseReceiving(Integer id,HttpServletRequest request){
         if (id !=null){
-            List<PurchaseOrder> orderList = purchaseOrderService.findAllWithStatus("S");
-            System.out.println("orderList : " + orderList.toString()+"  Size: "+orderList.size());
-            request.setAttribute("orderList",orderList);
+            List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
+            request.setAttribute("supplierCompanyList",supplierCompanyList);
             PurchaseReceiving purchaseReceiving = purchaseReceivingService.findById(id);
             request.setAttribute("purchaseReceiving",purchaseReceiving);
+            PurchaseOrder purchaseOrder = purchaseOrderService.findById(purchaseReceiving.getOrderId());
+            request.setAttribute("purchaseOrder",purchaseOrder);
+            PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(purchaseOrder.getInquiryId());
+            request.setAttribute("purchaseInquiry",purchaseInquiry);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(purchaseInquiry.getGoodsId());
+            request.setAttribute("priceGoodsContact",priceGoodsContact);
         }
         return "/purchaseReceiving/receivingDetail";
     }

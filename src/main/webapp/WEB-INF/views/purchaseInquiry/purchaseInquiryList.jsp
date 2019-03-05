@@ -44,6 +44,14 @@
 							<input type="text" class="form-control" name="goodsName" value="${goodsName}" />
 						</div>
 						<div class="form-group">
+							<label>询价单状态</label>
+							<select class="form-control" name="status">
+								<option value="">全部</option>
+								<option value="N" <c:if test="${purchaseInquiry.status eq 'N' }">selected</c:if>>未使用</option>
+								<option value="Y" <c:if test="${purchaseInquiry.status eq 'Y' }">selected</c:if>>已使用</option>
+							</select>
+						</div>
+						<div class="form-group">
 							<label>结算方式</label>
 							<select class="form-control" name="paied">
 								<option value="">全部</option>
@@ -86,9 +94,8 @@
 							    <th>供应商</th>
 								<th>物资</th>
 								<th>价格</th>
-								<th>数量</th>
-								<th>到货时间</th>
-								<th width="30%">操作</th>
+								<th>状态</th>
+								<th width="15%">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -98,16 +105,18 @@
 									<td>${item.companyName}</td>
 									<td>${item.goodsName}</td>
 									<td>${item.price}</td>
-									<td>${item.number}</td>
-									<td><fmt:formatDate value="${item.arrivetime}" pattern="yyyy-MM-dd" /></td>
 									<td>
-										<%--<a href="${pageContext.request.contextPath}/supplierCompany/loadSupplierCompany?id=${item.id}&s=1" target="dialog" class="btn yellow-lemon btn-sm"><i class="fa fa-edit"></i>&nbsp;审核</a>--%>
-										<a href="${pageContext.request.contextPath}/purchaseInquiry/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
-											<i class="fa fa-asterisk"></i>&nbsp;修改
-										</a>
-										<a target="ajaxTodo" todoMsg="是否确定删除这个询价单？" href="${pageContext.request.contextPath}/purchaseInquiry/delete?id=${item.id}" class="btn red btn-sm">
-											<i class="fa fa-trash-o"></i>&nbsp;删除
-										</a>
+										<c:if test="${item.status eq 'Y' }"><span class="font-green">已使用</span></c:if>
+										<c:if test="${item.status eq 'N' }"><span class="font-yellow">未使用</span></c:if>
+									</td>
+									<td>
+											<c:if test="${item.status eq 'N'}">
+												<a href="${pageContext.request.contextPath}/purchaseInquiry/load?id=${item.id}" target="dialog" class="btn yellow btn-sm"><i class="fa fa-asterisk"></i>&nbsp;修改</a>
+												<a target="ajaxTodo" todoMsg="是否确定删除这个询价单？" href="${pageContext.request.contextPath}/purchaseInquiry/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+											</c:if>
+											<c:if test="${item.status eq 'Y'}">
+												<a href="${pageContext.request.contextPath}/purchaseInquiry/loadPurchaseInquiry?id=${item.id}" target="dialog" class="btn blue btn-sm"><i class="fa fa-edit"></i>&nbsp;查看详情</a>
+											</c:if>
 									</td>
 								</tr>
 							</c:forEach>
