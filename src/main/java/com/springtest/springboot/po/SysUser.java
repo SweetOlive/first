@@ -37,6 +37,22 @@ public class SysUser {
 
     private String imgPath;
 
+    private String idCardType;
+
+    private String idCardNumber;
+
+    private String nation;
+
+    private String politicalStatus;
+
+    private String address;
+
+    private String province;
+
+    private String city;
+
+    private String area;
+
     public Integer getId() {
         return id;
     }
@@ -171,5 +187,69 @@ public class SysUser {
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath == null ? null : imgPath.trim();
+    }
+
+    public String getIdCardType() {
+        return idCardType;
+    }
+
+    public void setIdCardType(String idCardType) {
+        this.idCardType = idCardType == null ? null : idCardType.trim();
+    }
+
+    public String getIdCardNumber() {
+        return idCardNumber;
+    }
+
+    public void setIdCardNumber(String idCardNumber) {
+        this.idCardNumber = idCardNumber == null ? null : idCardNumber.trim();
+    }
+
+    public String getNation() {
+        return nation;
+    }
+
+    public void setNation(String nation) {
+        this.nation = nation == null ? null : nation.trim();
+    }
+
+    public String getPoliticalStatus() {
+        return politicalStatus;
+    }
+
+    public void setPoliticalStatus(String politicalStatus) {
+        this.politicalStatus = politicalStatus == null ? null : politicalStatus.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province == null ? null : province.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area == null ? null : area.trim();
     }
 }

@@ -127,8 +127,14 @@ public class Constants {
 	}
 
 	public static final String FORM_PAGE_SCUSER_CONTENT = "page-scuser-content";// 刷新
+	public static final String DEFAULT_DATAS = "_datas";
 
 	public static final String GOODS_IMG_FOLDER = "/goods/img";
 
 	public static final String COMPANY_IMG_FOLDER = "/company/img";
+
+	public static final String USER_IMG_FOLDER = "/user/img";
+
+	public static final String localhostImg =  "http://localhost:8083/admin/imgView?path=";
+	public static final String serverImg = "http://localhost:9999/springBoot/admin/imgView?path=";
 }

@@ -74,6 +74,7 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
+								<th width="15%">用户头像</th>
 							    <th>用户名</th>
 								<th>账号</th>
 								<th>登录次数</th>
@@ -83,16 +84,23 @@
 						<tbody>
 							<c:forEach var="item" items="${pageList.data}">
 								<tr>
+									<td>
+										<c:choose>
+											<c:when test="${not empty item.imgPath}">
+												<img id="img" src="${pageContext.request.contextPath}/admin/imgView?path=${item.imgPath}" class="img-responsive" alt="">
+											</c:when>
+											<c:otherwise>
+												<img id="img" src="http://www.placehold.it/150x150/EFEFEF/AAAAAA&text=no+image" class="img-responsive">
+											</c:otherwise>
+										</c:choose>
+									</td>
 									<td>${item.name}</td>
 									<td>${item.accountNumber}</td>
 									<td>${item.count}</td>
 									<td>
-										<a href="${pageContext.request.contextPath}/sysUser/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
-											<i class="fa fa-asterisk"></i>&nbsp;修改
-										</a>
-										<a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个用户？" href="${pageContext.request.contextPath}/sysUser/delete?id=${item.id}" class="btn red btn-sm">
-											<i class="fa fa-trash-o"></i>&nbsp;删除
-										</a>
+										<a href="${pageContext.request.contextPath}/sysUser/loadDetail?id=${item.id}" target="ajax" rel="page-content" class="btn blue btn-sm"><i class="fa fa-search"></i>&nbsp;查看详情</a>
+										<a href="${pageContext.request.contextPath}/sysUser/load?id=${item.id}" target="dialog" class="btn yellow btn-sm"><i class="fa fa-asterisk"></i>&nbsp;修改</a>
+										<a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个用户？" href="${pageContext.request.contextPath}/sysUser/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 									</td>
 								</tr>
 							</c:forEach>

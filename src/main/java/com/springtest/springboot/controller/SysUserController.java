@@ -1,21 +1,29 @@
 package com.springtest.springboot.controller;
 
 import com.springtest.springboot.BaseException;
+import com.springtest.springboot.Constants;
 import com.springtest.springboot.ErrorConstants;
 import com.springtest.springboot.po.SysUser;
+import com.springtest.springboot.service.FileService;
 import com.springtest.springboot.service.SysUserService;
 import com.springtest.springboot.util.EncryptionUtils;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户管理 2019.02.11
@@ -27,6 +35,9 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private FileService fileService;
 
     //用户列表
     @RequestMapping(value = "list")
@@ -104,6 +115,75 @@ public class SysUserController {
         request.setAttribute("message","操作成功");
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";
+    }
+
+    //用户查看详情入口
+    @RequestMapping(value = "/loadDetail")
+    public String loadDetail(Integer id,HttpServletRequest request){
+        if (id != null){
+            SysUser sysUser = sysUserService.findById(id);
+            request.setAttribute("sysUser",sysUser);
+        }
+        return "/sysUser/sysUserDetail";
+    }
+
+    //详情基础信息页
+    @RequestMapping(value = "/detailBase")
+    public String detailBase(Integer id,HttpServletRequest request){
+        if (id != null){
+            SysUser sysUser = sysUserService.findById(id);
+            request.setAttribute("sysUser",sysUser);
+            if (sysUser.getBirthday()!=null){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String birthdayString = sdf.format(sysUser.getBirthday());
+                request.setAttribute("birthdayString",birthdayString);
+            }
+        }
+        return "/sysUser/sysUserDetailBase";
+    }
+
+    //保存详情基础信息
+    @RequestMapping(value = "/saveDetail")
+    public String saveDetail(SysUser sysUser,Integer id,Integer nowId,String birthdayString,HttpServletRequest request)throws Exception{
+        if (id!=null){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SysUser user = sysUser;
+            user.setUpdateUserId(nowId);
+            user.setBirthday(sdf.parse(birthdayString));
+            user.setUpdateTime(new Date());
+            sysUserService.update(user);
+        }
+        NUIResponseUtils.setDefaultValues(request);
+        return "/common/nui.response";
+    }
+
+    @RequestMapping(value = "/saveImg")
+    public String saveImg(Integer id, MultipartFile file, HttpServletRequest request) throws  Exception{
+        SysUser sysUser = new SysUser();
+        if (id!=null){
+            sysUser = sysUserService.findById(id);
+            if(file != null) {
+                String orginalFilename = file.getOriginalFilename();
+                if(StringUtils.isNotBlank(orginalFilename)) {
+                    boolean isImage = fileService.checkFileType(file, Constants.IMG);
+                    if(isImage) {
+                        String path = fileService.autoRenameUploadFile(file, Constants.USER_IMG_FOLDER);
+                        sysUser.setImgPath(path);
+                        sysUserService.update(sysUser);
+                    }else {
+                        throw new BaseException("0012");
+                    }
+                }
+            }
+        }
+        Map<String, String> map = new HashMap<>();
+        String url = request.getContextPath() +"/sysUser/loadDetail?id=" + sysUser.getId();
+        //map.put(Constants.DEFAULT_DATAS, Constants.localhostImg+sysUser.getImgPath());
+        map.put(Constants.DEFAULT_DATAS, Constants.serverImg+sysUser.getImgPath());
+        map.put(NUIResponseUtils.REL,  Constants.FORM_PAGE_SCUSER_CONTENT);
+        map.put(NUIResponseUtils.DEFAULT_STATUS_CODE, url);
+        NUIResponseUtils.setNUIResponse(request, map);
+        return "/common/nui.responseImg";
     }
 
 

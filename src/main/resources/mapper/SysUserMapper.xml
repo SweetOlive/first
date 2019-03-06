@@ -19,11 +19,22 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="id_card_type" property="idCardType" jdbcType="VARCHAR" />
+    <result column="id_card_number" property="idCardNumber" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="political_status" property="politicalStatus" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, account_number, password, name, sex, birthday, tel, department_id, role_id, power_mid_id, 
-    create_time, update_time, create_user_id, update_user_id, remark, count, img_path
+    create_time, update_time, create_user_id, update_user_id, remark, count, img_path, 
+    id_card_type, id_card_number, nation, political_status, address, province, city, 
+    area
   </sql>
+
 
   <select id="findByAccountNumber" resultMap="BaseResultMap">
     SELECT *
@@ -60,13 +71,19 @@
       tel, department_id, role_id, 
       power_mid_id, create_time, update_time, 
       create_user_id, update_user_id, remark, 
-      count, img_path)
+      count, img_path, id_card_type, 
+      id_card_number, nation, political_status, 
+      address, province, city, 
+      area)
     values (#{id,jdbcType=INTEGER}, #{accountNumber,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, 
       #{tel,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
       #{powerMidId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{createUserId,jdbcType=INTEGER}, #{updateUserId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
-      #{count,jdbcType=INTEGER}, #{imgPath,jdbcType=VARCHAR})
+      #{count,jdbcType=INTEGER}, #{imgPath,jdbcType=VARCHAR}, #{idCardType,jdbcType=VARCHAR}, 
+      #{idCardNumber,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, #{politicalStatus,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.springtest.springboot.po.SysUser" >
     insert into sys_user
@@ -122,6 +139,30 @@
       <if test="imgPath != null" >
         img_path,
       </if>
+      <if test="idCardType != null" >
+        id_card_type,
+      </if>
+      <if test="idCardNumber != null" >
+        id_card_number,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="politicalStatus != null" >
+        political_status,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -174,6 +215,30 @@
       </if>
       <if test="imgPath != null" >
         #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardType != null" >
+        #{idCardType,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNumber != null" >
+        #{idCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalStatus != null" >
+        #{politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -228,6 +293,30 @@
       <if test="imgPath != null" >
         img_path = #{imgPath,jdbcType=VARCHAR},
       </if>
+      <if test="idCardType != null" >
+        id_card_type = #{idCardType,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNumber != null" >
+        id_card_number = #{idCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalStatus != null" >
+        political_status = #{politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -248,7 +337,15 @@
       update_user_id = #{updateUserId,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       count = #{count,jdbcType=INTEGER},
-      img_path = #{imgPath,jdbcType=VARCHAR}
+      img_path = #{imgPath,jdbcType=VARCHAR},
+      id_card_type = #{idCardType,jdbcType=VARCHAR},
+      id_card_number = #{idCardNumber,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      political_status = #{politicalStatus,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
