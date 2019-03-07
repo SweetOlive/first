@@ -76,7 +76,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
-                <button type="submit" class="btn red">作废</button>
+            <c:if test="${supplierCompany.status != 'F'}">
+                <button type="submit" class="btn red">作废</button></c:if>
             </div>
         </form>
     </div>

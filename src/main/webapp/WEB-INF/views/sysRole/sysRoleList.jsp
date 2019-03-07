@@ -82,12 +82,12 @@
 									<td>${item.userName}</td>
 									<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>
 									<td>
-										<%--<c:if test="${item.id != 1}">--%>
+										<c:if test="${item.id != 1}">
 											<a href="${pageContext.request.contextPath}/sysPermission/loadRolePermission?id=${item.id}" target="dialog" class="btn purple btn-sm"><i class="fa fa-book"></i>&nbsp;赋予权限</a>
 											<a href="${pageContext.request.contextPath}/sysRole/loadSysRole?id=${item.id}" target="ajax" class="btn blue btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;分配用户</a>
 											<a href="${pageContext.request.contextPath}/sysRole/load?id=${item.id}" target="dialog" class="btn yellow btn-sm"><i class="fa fa-asterisk"></i>&nbsp;修改</a>
 											<a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个角色？" href="${pageContext.request.contextPath}/sysRole/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-										<%--</c:if>--%>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>

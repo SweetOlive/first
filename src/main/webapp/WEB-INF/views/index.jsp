@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,9 +6,7 @@
     <title>青年之家铁路物资管理系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit" />
-    <meta
-            content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-            name='viewport'>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta name="renderer" content="webkit">
 
     <%@ include file="include.inc.jsp"%>
@@ -37,11 +34,8 @@
 <!-- END HEADER & CONTENT DIVIDER -->
 
 <div class="page-container">
-
-
     <div id="_tboxNotice" class="custom-alerts alert alert-success fade in display-hide"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>TBOX公告</div>
     <%@ include file="common/sidebar.jsp"%>
-
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
 
