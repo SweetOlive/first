@@ -60,12 +60,12 @@
 									        <div class="col-md-8">
 										    <div class="md-radio-inline">
 											<div class="md-radio">
-												<input type="radio" id="radio15" name="gender" value="1" class="md-radiobtn"
+												<input type="radio" id="radio15" name="sex" value="M" class="md-radiobtn"
 													<c:if test="${sysUser.sex eq 'M' }">checked</c:if>>
 												<label for="radio15"> <span class="inc"></span> <span class="check"></span> <span class="box"></span>男</label>
 											</div>
 											<div class="md-radio">
-												<input type="radio" id="radio16" name="gender" value="0" class="md-radiobtn"
+												<input type="radio" id="radio16" name="sex" value="N" class="md-radiobtn"
 													<c:if test="${sysUser.sex eq 'N' }">checked</c:if>>
 												<label for="radio16"> <span class="inc"></span> <span class="check"></span> <span class="box"></span>女 </label>
 											</div>
@@ -75,9 +75,9 @@
 									</div>
 									<div class="form-group form-md-line-input">
 										<div class="col-md-6 controls">
-											<label class="col-md-3 controls" for="">证件类型:</label>
+											<label class="col-md-3 controls">证件类型:</label>
 											  <div class="col-md-8">
-											  <select id="idCardType" name="idCardType" class="form-control required">
+											  <select id="idCardType" name="idCardType" class="form-control">
 												  <option value="">--请选择证件类型--</option>
 								                <option value="1" <c:if test="${sysUser.idCardType eq '1' }">selected</c:if>>居民身份证</option>
 								                <option value="2" <c:if test="${sysUser.idCardType eq '2' }">selected</c:if>>户口簿</option>

@@ -114,6 +114,11 @@ public class Constants {
 	public static final String RESOURCE_FILE_TYPE_IMG = "IMG";
 	public static final String RESOURCE_FILE_TYPE_OTHER = "OTHER";// 其他类型
 	public static final Map<String, String> resourceFileMap = new HashMap<String, String>();
+	//身份证类型
+	public static Map<String, String> identityCardMap = new HashMap<String, String>();
+	//民族
+	public static Map<String, String> nationMap = new HashMap<String, String>();
+
 	static {
 		resourceFileMap.put(RESOURCE_FILE_TYPE_WORD, WORD);
 		resourceFileMap.put(RESOURCE_FILE_TYPE_EXCEL, EXCEL);
@@ -124,7 +129,16 @@ public class Constants {
 		resourceFileMap.put(RESOURCE_FILE_TYPE_VIDEO, VIDEO);
 		resourceFileMap.put(RESOURCE_FILE_TYPE_ZIP, ZIP);
 		resourceFileMap.put(RESOURCE_FILE_TYPE_IMG, IMG);
+
+		identityCardMap.put("1", "居民身份证");
+		identityCardMap.put("2", "户口簿");
+		identityCardMap.put("3", "军人身份证件");
+		identityCardMap.put("4", "武装警察身份证件");
+		identityCardMap.put("5", "港澳通行证");
+		identityCardMap.put("6", "护照");
+		identityCardMap.put("7", "其他");
 	}
+
 
 	public static final String FORM_PAGE_SCUSER_CONTENT = "page-scuser-content";// 刷新
 	public static final String DEFAULT_DATAS = "_datas";

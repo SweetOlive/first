@@ -64,7 +64,8 @@
 					<span class="caption-subject sbold uppercase">用户列表</span>
 				</div>
 				<div class="actions">
-					<%--<a class="btn green btn-sm" href="${pageContext.request.contextPath}/hello/selectTree" target="dialog"><i class="fa fa-plus"></i>&nbsp;测试</a>--%>
+					<a class="btn green btn-sm" href="${pageContext.request.contextPath}/sysUser/importExcel" target="dialog"><i class="fa fa-upload"></i>&nbsp;导入</a>
+					<a href="${pageContext.request.contextPath}/sysUser/exportExcel?name=${sysUser.name}&accountNumber=${sysUser.accountNumber}" class="btn green btn-sm"><i class="fa fa-download"></i>&nbsp;导出</a>
 					<a class="btn green btn-sm" href="${pageContext.request.contextPath}/sysUser/load" target="dialog"><i class="fa fa-plus"></i>&nbsp;新增</a>
 				</div>
 			</div>

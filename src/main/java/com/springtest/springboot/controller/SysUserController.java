@@ -10,15 +10,19 @@ import com.springtest.springboot.util.EncryptionUtils;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -149,7 +153,7 @@ public class SysUserController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             SysUser user = sysUser;
             user.setUpdateUserId(nowId);
-            user.setBirthday(sdf.parse(birthdayString));
+            if (StringUtils.isNotBlank(birthdayString)) user.setBirthday(sdf.parse(birthdayString));
             user.setUpdateTime(new Date());
             sysUserService.update(user);
         }
@@ -157,6 +161,7 @@ public class SysUserController {
         return "/common/nui.response";
     }
 
+    //保存用户头像
     @RequestMapping(value = "/saveImg")
     public String saveImg(Integer id, MultipartFile file, HttpServletRequest request) throws  Exception{
         SysUser sysUser = new SysUser();
@@ -184,6 +189,54 @@ public class SysUserController {
         map.put(NUIResponseUtils.DEFAULT_STATUS_CODE, url);
         NUIResponseUtils.setNUIResponse(request, map);
         return "/common/nui.responseImg";
+    }
+
+    //导入用户入口
+    @RequestMapping(value = "/importExcel")
+    public String importUserLoad(HttpServletRequest request)  throws Exception{
+        return "/sysUser/importUser";
+    }
+
+    //导入用户保存
+    @RequestMapping(value = "/saveImportUser")
+    public String saveImportUser(Integer nowId,MultipartFile file, HttpServletRequest request)  throws Exception{
+        String originalFilename = file.getOriginalFilename();
+        if (StringUtils.isNotBlank(originalFilename)) {
+            // 判断文件格式
+            boolean isExcel = fileService.checkFileType(file, Constants.EXCEL);
+            if (isExcel) {
+                String path = null;
+                try {
+                    path = fileService.autoRenameUploadFile(file, Constants.PUBLIC_FOLDER);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new BaseException("0024");
+                }
+                sysUserService.saveImportUser(nowId,path);
+                fileService.deleteFile(path);
+            } else {
+                throw new BaseException("0023");
+            }
+        } else {
+            throw new BaseException("0024");
+        }
+        NUIResponseUtils.setDefaultValues(request);
+        return "/common/nui.response";
+    }
+
+    @ResponseBody
+    @RequestMapping("/exportExcel")
+    public void exportExcel(@ModelAttribute("sysUser") SysUser sysUser, HttpServletResponse response) throws Exception {
+        XSSFWorkbook workbook = sysUserService.exportUserExcel(sysUser);
+        response.setHeader("Content-Disposition",
+                "attachment;filename=" + new String("青年之家铁路物资管理系统用户".getBytes("GBK"), "ISO8859_1") + ".xlsx");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("application/msexcel");
+        OutputStream outputSteam = response.getOutputStream();
+        workbook.write(outputSteam);
+        outputSteam.flush();
+        outputSteam.close();
+        workbook.close();
     }
 
 

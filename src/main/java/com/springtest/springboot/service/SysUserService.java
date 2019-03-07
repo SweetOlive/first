@@ -2,8 +2,10 @@ package com.springtest.springboot.service;
 
 import com.springtest.springboot.po.SysUser;
 import com.springtest.springboot.util.page.PageList;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 public interface SysUserService {
@@ -27,4 +29,8 @@ public interface SysUserService {
     public int delete(Integer id);
 
     public SysUser getCurrentUser(HttpSession session) throws Exception;
+
+    public void saveImportUser(Integer nowId,String filePath) throws IOException;
+
+    public XSSFWorkbook exportUserExcel(SysUser sysUser) throws Exception;
 }
