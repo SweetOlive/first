@@ -67,7 +67,9 @@ public class StorageSendingController {
         request.setAttribute("priceGoodsContactList",priceGoodsContactList);
 
         //物资目录
-        List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll();
+        PriceGoodsCatalog priceGoodsCatalog = new PriceGoodsCatalog();
+        priceGoodsCatalog.setStatus("S");
+        List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll(priceGoodsCatalog);
         request.setAttribute("priceGoodsCatalogList",priceGoodsCatalogList);
 
         if (id != null){

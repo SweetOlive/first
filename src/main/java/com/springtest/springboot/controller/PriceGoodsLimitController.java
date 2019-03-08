@@ -1,8 +1,10 @@
 package com.springtest.springboot.controller;
 
 import com.springtest.springboot.BaseException;
+import com.springtest.springboot.po.PriceGoodsCatalog;
 import com.springtest.springboot.po.PriceGoodsContact;
 import com.springtest.springboot.po.PriceGoodsLimit;
+import com.springtest.springboot.service.PriceGoodsCatalogService;
 import com.springtest.springboot.service.PriceGoodsContactService;
 import com.springtest.springboot.service.PriceGoodsLimitService;
 import com.springtest.springboot.util.NUIResponseUtils;
@@ -30,6 +32,9 @@ public class PriceGoodsLimitController {
     private PriceGoodsLimitService priceGoodsLimitService;
 
     @Autowired
+    private PriceGoodsCatalogService priceGoodsCatalogService;
+
+    @Autowired
     private PriceGoodsContactService priceGoodsContactService;
 
     @RequestMapping(value = "/list")
@@ -45,6 +50,10 @@ public class PriceGoodsLimitController {
 
     @RequestMapping(value = "/load")
     public String load(Integer id,HttpServletRequest request){
+        PriceGoodsCatalog priceGoodsCatalog = new PriceGoodsCatalog();
+        priceGoodsCatalog.setStatus("S");
+        List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll(priceGoodsCatalog);
+        request.setAttribute("priceGoodsCatalogList",priceGoodsCatalogList);
         if (id != null){
             PriceGoodsLimit priceGoodsLimit = priceGoodsLimitService.findById(id);
             request.setAttribute("priceGoodsLimit",priceGoodsLimit);
@@ -56,11 +65,11 @@ public class PriceGoodsLimitController {
     }
 
     @RequestMapping(value = "/save")
-    public  String save(Integer nowId,Integer id,String goodsCode, String remark,
+    public  String save(Integer nowId,Integer id,Integer goodsId, String remark,
                         Double priceMax,Double priceMin,String limitTime,
                         HttpServletRequest request) throws  Exception{
         System.out.println("limitTime : "+limitTime);
-        System.out.println("goodsCode : "+goodsCode);
+        System.out.println("goodsId : "+goodsId);
         System.out.println("priceMax : "+priceMax);
         System.out.println("priceMin : "+priceMin);
         String s[] = limitTime.split(" ");
@@ -71,9 +80,9 @@ public class PriceGoodsLimitController {
         Date endTime = sdf.parse(s[2]);
         if(id == null){
             PriceGoodsLimit priceGoodsLimit = new PriceGoodsLimit();
-            PriceGoodsContact goodsContact = priceGoodsContactService.findByCode(goodsCode);
+            PriceGoodsContact goodsContact = priceGoodsContactService.findById(goodsId);
             if (goodsContact!=null){
-                priceGoodsLimit.setGoodsCode(goodsCode);
+                priceGoodsLimit.setGoodsCode(goodsContact.getCode());
             }else{
                 throw new BaseException("0014");
             }
@@ -96,10 +105,9 @@ public class PriceGoodsLimitController {
             else{ System.out.println("更新失败！ "+goodsContact.getName()); }
         }else {
             PriceGoodsLimit priceGoodsLimit = priceGoodsLimitService.findById(id);
-            priceGoodsLimit.setGoodsCode(goodsCode);
-            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findByCode(goodsCode);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(goodsId);
             if (priceGoodsContact!=null){
-                priceGoodsLimit.setGoodsCode(goodsCode);
+                priceGoodsLimit.setGoodsCode(priceGoodsContact.getCode());
             }else{
                 throw new BaseException("0014");
             }

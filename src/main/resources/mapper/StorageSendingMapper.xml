@@ -39,7 +39,7 @@
     <if test="param.status != null and param.status != ''">
       AND s.status = #{param.status}
     </if>
-    order by s.create_time desc
+    order by field(s.status,'A','P','F'), s.create_time desc
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

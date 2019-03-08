@@ -45,13 +45,15 @@
 							<input type="text" class="form-control" name="code" value="${priceGoodsCatalog.code}" />
 						</div>
 						<div class="form-group">
+							<label>供应商</label>
+							<input type="text" class="form-control" name="companyName" value="${companyName}" />
+						</div>
+						<div class="form-group">
 							<label>状态</label>
 							<select class="form-control" name="status">
 								<option value="">全部</option>
-								<option value="S" <c:if test="${priceGoodsCatalog.status eq 'S' }">selected</c:if>>申请</option>
-								<option value="A" <c:if test="${priceGoodsCatalog.status eq 'A' }">selected</c:if>>审核</option>
-								<option value="F" <c:if test="${priceGoodsCatalog.status eq 'F' }">selected</c:if>>发布</option>
-								<option value="D" <c:if test="${priceGoodsCatalog.status eq 'D' }">selected</c:if>>作废</option>
+								<option value="S" <c:if test="${priceGoodsCatalog.status eq 'S' }">selected</c:if>>使用中</option>
+								<option value="F" <c:if test="${priceGoodsCatalog.status eq 'F' }">selected</c:if>>作废</option>
 							</select>
 						</div>
 
@@ -85,9 +87,10 @@
 							<tr>
 							    <th>目录名</th>
 								<th>编号</th>
-								<th>创建时间</th>
-								<th>状态</th>
-								<th width="30%">操作</th>
+								<th>供应商</th>
+								<%--<th>创建时间</th>--%>
+								<th width="10%">状态</th>
+								<th width="25%">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -95,21 +98,18 @@
 								<tr>
 									<td>${item.name}</td>
 									<td>${item.code}</td>
-									<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>
+									<td>${item.companyName}</td>
+									<%--<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>--%>
 									<td>
-										<c:if test="${item.status eq 'S' }"><span class="font-yellow">申请</span></c:if>
-										<c:if test="${item.status eq 'A' }"><span class="font-blue">审核</span></c:if>
-										<c:if test="${item.status eq 'F' }"><span class="font-green">发布</span></c:if>
-										<c:if test="${item.status eq 'D' }"><span class="font-red">作废</span></c:if>
+										<c:if test="${item.status eq 'S' }"><span class="font-green">使用中</span></c:if>
+										<c:if test="${item.status eq 'F' }"><span class="font-red">作废</span></c:if>
 									</td>
 									<td>
 										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/loadCatalog?id=${item.id}" target="ajax" class="btn blue btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;目录详情</a>
-										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
-											<i class="fa fa-asterisk"></i>&nbsp;修改
-										</a>
-										<a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个目录？ 以及其所有物资信息？" href="${pageContext.request.contextPath}/priceGoodsCatalog/delete?id=${item.id}" class="btn red btn-sm">
-											<i class="fa fa-trash-o"></i>&nbsp;删除
-										</a>
+										<c:if test="${item.status eq 'S' }">
+										    <a href="${pageContext.request.contextPath}/priceGoodsCatalog/load?id=${item.id}" target="dialog" class="btn yellow btn-sm"><i class="fa fa-asterisk"></i>&nbsp;修改</a>
+										</c:if>
+										<a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个目录？ 以及其所有物资信息？" href="${pageContext.request.contextPath}/priceGoodsCatalog/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 									</td>
 								</tr>
 							</c:forEach>

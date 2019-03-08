@@ -86,9 +86,9 @@
 							<tr>
 								<th>名称</th>
 								<th>编号</th>
-								<th>信用等级</th>
-								<th>合作状态</th>
-								<th width="30%">操作</th>
+								<th width="10%">信用等级</th>
+								<th width="10%">合作状态</th>
+								<th width="25%">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -102,12 +102,13 @@
 										<c:if test="${item.status eq 'F' }"><span class="font-red">作废</span></c:if>
 									</td>
 									<td>
+										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/loadCatalog?id=${item.catalogId}" target="ajax" class="btn purple btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;目录详情</a>
 										<c:if test="${item.status eq 'P'}">
 										     <a href="${pageContext.request.contextPath}/supplierCompany/loadSupplierCompany?id=${item.id}&s=2" target="dialog" class="btn yellow-lemon btn-sm"><i class="fa fa-edit"></i>&nbsp;作废</a>
 										</c:if>
 										<c:if test="${item.status eq 'F'}">
 											<a href="${pageContext.request.contextPath}/supplierCompany/loadSupplierCompany?id=${item.id}&s=2" target="dialog" class="btn blue btn-sm"><i class="fa fa-edit"></i>&nbsp;查看详情</a>
-										    <a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个供应商？" href="${pageContext.request.contextPath}/supplierCompany/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+										    <a target="ajaxTodo" todoMsg="是否确定删除 ${item.name} 这个供应商？同时删除其物资目录，物资信息？" href="${pageContext.request.contextPath}/supplierCompany/delete?id=${item.id}" class="btn red btn-sm"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 										</c:if>
 									</td>
 								</tr>

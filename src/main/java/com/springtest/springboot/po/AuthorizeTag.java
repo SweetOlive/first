@@ -35,7 +35,6 @@ public class AuthorizeTag extends TagSupport {
 	public int doStartTag() throws JspException {
 
 		HttpSession session = pageContext.getSession();
-		System.out.println("session:"+session.toString());
 
 		WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(pageContext.getServletContext());
 		//AbtUserService abtUserService = applicationContext.getBean("userService", AbtUserService.class);

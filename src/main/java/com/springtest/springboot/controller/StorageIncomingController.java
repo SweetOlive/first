@@ -124,12 +124,12 @@ public class StorageIncomingController {
         if (id !=null){
             StorageIncoming storageIncoming = storageIncomingService.findById(id);
             request.setAttribute("storageIncoming",storageIncoming);
-            List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
-            request.setAttribute("supplierCompanyList",supplierCompanyList);
             PurchaseReceiving purchaseReceiving = purchaseReceivingService.findById(storageIncoming.getReceivingId());
             request.setAttribute("purchaseReceiving",purchaseReceiving);
             PurchaseOrder purchaseOrder = purchaseOrderService.findById(purchaseReceiving.getOrderId());
             request.setAttribute("purchaseOrder",purchaseOrder);
+            SupplierCompany supplierCompany = supplierCompanyService.findById(purchaseOrder.getCompanyId());
+            request.setAttribute("supplierCompany",supplierCompany);
             PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(purchaseOrder.getInquiryId());
             request.setAttribute("purchaseInquiry",purchaseInquiry);
             PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(purchaseInquiry.getGoodsId());
@@ -167,6 +167,7 @@ public class StorageIncomingController {
         }else if(operate.equals("F")){
             storageIncoming.setStatus(operate);
             storageIncomingService.update(storageIncoming);
+
         }
         NUIResponseUtils.setDefaultValues(request);
         return "/common/nui.response";

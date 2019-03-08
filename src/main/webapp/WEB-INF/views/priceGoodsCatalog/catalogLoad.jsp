@@ -13,16 +13,24 @@
 				<input type="hidden" name="nowId" value="${nowUser.id}">
 				<!-- BEGIN FORM-->
 				<div class="form-body">
-					<div class="alert alert-danger display-hide">
-						<button class="close" data-close="alert"></button>
-						You have some form errors. Please check below.
-					</div>
-					<div class="alert alert-success display-hide">
-						<button class="close" data-close="alert"></button>
-						Your form validation is successful!
-					</div>
 					<div class="form-group form-md-line-input ">
-						<label class="col-md-3 control-label" for="">目录名
+						<label class="col-md-3 control-label">供应商
+							<span class="required">*</span>
+						</label>
+						<div class="col-md-8">
+							<select name="companyId" class="form-control required">
+								<option value="">-请选择供应商-</option>
+								<c:forEach items="${supplierCompanyList}" var="item">
+									<option value="${item.id}" <c:if test="${priceGoodsCatalog.companyId eq item.id }">selected</c:if> >${item.name}</option>
+								</c:forEach>
+							</select>
+							<div class="form-control-focus"></div>
+							<span class="help-block"></span>
+						</div>
+					</div>
+
+					<div class="form-group form-md-line-input ">
+						<label class="col-md-3 control-label">目录名
 							<span class="required">*</span>
 						</label>
 						<div class="col-md-8">
@@ -32,7 +40,7 @@
 						</div>
 					</div>
 					<div class="form-group form-md-line-input ">
-						<label class="col-md-3 control-label" for="">介绍
+						<label class="col-md-3 control-label">介绍
 						</label>
 						<div class="col-md-8">
 							<textarea class="form-control" name="introduce" rows="3">${priceGoodsCatalog.introduce}</textarea>
@@ -63,9 +71,12 @@
 						messages : {},
 						rules : {
 							name : {
-								maxlength : 10,
+								maxlength : 30,
 								required : true,
 								checkName : true
+							},
+							companyId : {
+                                required : true
 							}
 						},
 

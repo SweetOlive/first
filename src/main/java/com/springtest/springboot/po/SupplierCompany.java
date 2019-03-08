@@ -1,8 +1,13 @@
 package com.springtest.springboot.po;
 
+import javax.persistence.Transient;
 import java.util.Date;
 
 public class SupplierCompany {
+
+    @Transient
+    private Integer catalogId;
+
     private Integer id;
 
     private String name;
@@ -151,5 +156,13 @@ public class SupplierCompany {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Integer getCatalogId() {
+        return catalogId;
+    }
+
+    public void setCatalogId(Integer catalogId) {
+        this.catalogId = catalogId;
     }
 }

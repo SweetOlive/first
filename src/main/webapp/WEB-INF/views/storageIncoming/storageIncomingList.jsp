@@ -80,9 +80,9 @@
 							<tr>
 							    <th>进库料编号</th>
 								<th>收料编号</th>
-								<th>进库料状态</th>
+								<th width="10%">进库状态</th>
 								<th>创建时间</th>
-								<th width="30%">操作</th>
+								<th width="22%">操作</th>
 							</tr>
 						</thead>
 						<tbody>

@@ -39,6 +39,9 @@ public class PurchaseReceivingController {
     private  PriceGoodsContactService priceGoodsContactService;
 
     @Autowired
+    private StorageIncomingService storageIncomingService;
+
+    @Autowired
     private CodeGeneratorService codeGeneratorService;
 
 
@@ -122,12 +125,12 @@ public class PurchaseReceivingController {
     @RequestMapping(value = "/loadPurchaseReceiving")
     public  String loadPurchaseReceiving(Integer id,HttpServletRequest request){
         if (id !=null){
-            List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
-            request.setAttribute("supplierCompanyList",supplierCompanyList);
             PurchaseReceiving purchaseReceiving = purchaseReceivingService.findById(id);
             request.setAttribute("purchaseReceiving",purchaseReceiving);
             PurchaseOrder purchaseOrder = purchaseOrderService.findById(purchaseReceiving.getOrderId());
             request.setAttribute("purchaseOrder",purchaseOrder);
+            SupplierCompany supplierCompany = supplierCompanyService.findById(purchaseOrder.getCompanyId());
+            request.setAttribute("supplierCompany",supplierCompany);
             PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(purchaseOrder.getInquiryId());
             request.setAttribute("purchaseInquiry",purchaseInquiry);
             PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(purchaseInquiry.getGoodsId());
@@ -143,6 +146,14 @@ public class PurchaseReceivingController {
         if (operate.equals("P")){
             purchaseReceiving.setStatus(operate);
             purchaseReceivingService.update(purchaseReceiving);
+            //收料完成，添加进库料审批记录
+            StorageIncoming storageIncoming = new StorageIncoming();
+            storageIncoming.setReceivingId(purchaseReceiving.getId());
+            storageIncoming.setCreateUserId(nowId);storageIncoming.setUpdateUserId(nowId);
+            storageIncoming.setCreateTime(new Date());storageIncoming.setUpdateTime(new Date());
+            storageIncoming.setStatus("A");
+            storageIncoming.setCode(codeGeneratorService.gen());
+            storageIncomingService.add(storageIncoming);
         }else if (operate.equals("F")){
             purchaseReceiving.setStatus(operate);
             purchaseReceivingService.update(purchaseReceiving);

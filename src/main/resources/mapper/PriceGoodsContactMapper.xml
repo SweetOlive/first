@@ -14,7 +14,7 @@
     <result column="small_clacc" property="smallClacc" jdbcType="VARCHAR" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="version" property="version" jdbcType="VARCHAR" />
-    <result column="size" property="size" jdbcType="DOUBLE" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
     <result column="unit" property="unit" jdbcType="VARCHAR" />
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
@@ -95,7 +95,7 @@
       #{companyId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{introduce,jdbcType=VARCHAR}, #{variety,jdbcType=VARCHAR}, #{largeClacc,jdbcType=VARCHAR}, 
       #{smallClacc,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
-      #{size,jdbcType=DOUBLE}, #{unit,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{imgPath,jdbcType=VARCHAR}, 
+      #{size,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{imgPath,jdbcType=VARCHAR},
       #{price,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, #{volume,jdbcType=DOUBLE}, 
       #{isLimit,jdbcType=VARCHAR}, #{limitStartTime,jdbcType=TIMESTAMP}, #{limitEndTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
@@ -224,7 +224,7 @@
         #{version,jdbcType=VARCHAR},
       </if>
       <if test="size != null" >
-        #{size,jdbcType=DOUBLE},
+        #{size,jdbcType=VARCHAR},
       </if>
       <if test="unit != null" >
         #{unit,jdbcType=VARCHAR},
@@ -307,7 +307,7 @@
         version = #{version,jdbcType=VARCHAR},
       </if>
       <if test="size != null" >
-        size = #{size,jdbcType=DOUBLE},
+        size = #{size,jdbcType=VARCHAR},
       </if>
       <if test="unit != null" >
         unit = #{unit,jdbcType=VARCHAR},
@@ -367,7 +367,7 @@
       small_clacc = #{smallClacc,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
       version = #{version,jdbcType=VARCHAR},
-      size = #{size,jdbcType=DOUBLE},
+      size = #{size,jdbcType=VARCHAR},
       unit = #{unit,jdbcType=VARCHAR},
       count = #{count,jdbcType=INTEGER},
       img_path = #{imgPath,jdbcType=VARCHAR},

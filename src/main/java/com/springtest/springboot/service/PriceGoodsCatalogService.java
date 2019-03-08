@@ -9,7 +9,7 @@ import java.util.List;
 public interface PriceGoodsCatalogService {
 
     //物资目录列表
-    public PageList<PriceGoodsCatalog> findAllPage(PriceGoodsCatalog priceGoodsCatalog,Integer pageNum,Integer pageSize) ;
+    public PageList<PriceGoodsCatalog> findAllPage(PriceGoodsCatalog priceGoodsCatalog,String companyName,Integer pageNum,Integer pageSize) ;
 
     //根据id查询物资目录信息
     public PriceGoodsCatalog findById(Integer id);
@@ -28,5 +28,7 @@ public interface PriceGoodsCatalogService {
 
     public PriceGoodsCatalog findByName(String name);
 
-    public List<PriceGoodsCatalog> findAll();
+    public List<PriceGoodsCatalog> findAll(PriceGoodsCatalog priceGoodsCatalog);
+
+    public PriceGoodsCatalog findByCompanyId(Integer companyId);
 }

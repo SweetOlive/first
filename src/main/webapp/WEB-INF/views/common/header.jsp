@@ -7,11 +7,13 @@
 	<div class="page-header-inner ">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a> <img height="50" width="150" src="${pageContext.request.contextPath}/static/images/young.jpg" alt="logo" class="logo-default" />
+			<a>
+				<%--<img height="50" width="150" src="${pageContext.request.contextPath}/static/images/young.jpg" alt="logo" class="logo-default" />--%>
+				<h3 style="color:#aeb2c4;">铁路物资管理系统</h3>
 			</a>
-			<div class="menu-toggler sidebar-toggler">
-				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-			</div>
+			<%--<div class="menu-toggler sidebar-toggler">--%>
+				<%--<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->--%>
+			<%--</div>--%>
 		</div>
 		<!-- END LOGO -->
 		<!-- BEGIN RESPONSIVE MENU TOGGLER -->

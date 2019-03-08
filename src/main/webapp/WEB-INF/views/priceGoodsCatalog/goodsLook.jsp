@@ -73,7 +73,22 @@
 								<div class="form-control-focus"></div>
 							</div>
 						</div>
-
+						<div class="form-group form-md-line-input ">
+							<label class="col-md-3 control-label">物资尺寸
+							</label>
+							<div class="col-md-8">
+								<input readonly type="text" class="form-control required" placeholder="" value="${priceGoodsContact.size}" name="size">
+								<div class="form-control-focus"></div>
+							</div>
+						</div>
+						<div class="form-group form-md-line-input ">
+							<label class="col-md-3 control-label">计量单位
+							</label>
+							<div class="col-md-8">
+								<input readonly type="text" class="form-control required" placeholder="" value="${priceGoodsContact.unit}" name="unit">
+								<div class="form-control-focus"></div>
+							</div>
+						</div>
 						<div class="form-group form-md-line-input ">
 							<label class="col-md-3 control-label">价格
 							</label>

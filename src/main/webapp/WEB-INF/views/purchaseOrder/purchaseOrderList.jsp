@@ -90,10 +90,10 @@
 							<tr>
 							    <th>标题</th>
 								<th>供应商</th>
-								<th>运输方式</th>
-								<th>订单状态</th>
+								<th width="10%">运输方式</th>
+								<th width="10%">订单状态</th>
 								<th>创建时间</th>
-								<th width="30%">操作</th>
+								<th width="25%">操作</th>
 							</tr>
 						</thead>
 						<tbody>

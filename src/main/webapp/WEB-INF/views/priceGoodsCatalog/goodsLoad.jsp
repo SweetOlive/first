@@ -15,15 +15,6 @@
 				<input type="hidden" id="catalogId" name="catalogId" value="${catalogId}">
 				<!-- BEGIN FORM-->
 				<div class="form-body">
-					<div class="alert alert-danger display-hide">
-						<button class="close" data-close="alert"></button>
-						You have some form errors. Please check below.
-					</div>
-					<div class="alert alert-success display-hide">
-						<button class="close" data-close="alert"></button>
-						Your form validation is successful!
-					</div>
-
 					<div class="row">
 
 						<div class="form-group form-md-line-input ">
@@ -77,6 +68,33 @@
 								<span class="help-block">物资名</span>
 							</div>
 						</div>
+						<div class="form-group form-md-line-input ">
+							<label class="col-md-3 control-label">物资尺寸<span class="required">*</span>
+							</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control required" placeholder="" value="${priceGoodsContact.size}" name="size">
+								<div class="form-control-focus"></div>
+								<span class="help-block">例：（10cm*10cm*10cm）</span>
+							</div>
+						</div>
+						<div class="form-group form-md-line-input ">
+							<label class="col-md-3 control-label">计量单位<span class="required">*</span>
+							</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control required" placeholder="" value="${priceGoodsContact.unit}" name="unit">
+								<div class="form-control-focus"></div>
+								<span class="help-block">例：（克，千克，顿，个，张......）</span>
+							</div>
+						</div>
+						<div class="form-group form-md-line-input ">
+							<label class="col-md-3 control-label">价格<span class="required">*</span>
+							</label>
+							<div class="col-md-8">
+								<input type="number" class="form-control required" placeholder="" value="${priceGoodsContact.price}" name="price">
+								<div class="form-control-focus"></div>
+								<span class="help-block">请输入价格</span>
+							</div>
+						</div>
 						<div class="form-group form-md-line-input">
 							<label class="col-md-3 control-label">描述
 							</label>
@@ -118,7 +136,13 @@
 							},
 							level : {
 								required : true,
-							}
+							},
+                            unit : {
+                                required : true,
+                            },
+                            size : {
+                                required : true,
+                            }
 						},
 
 						invalidHandler : function(event, validator) { //display error alert on form submit              

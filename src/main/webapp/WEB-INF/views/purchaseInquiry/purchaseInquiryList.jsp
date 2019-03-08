@@ -93,8 +93,10 @@
 								<th>编号</th>
 							    <th>供应商</th>
 								<th>物资</th>
-								<th>价格</th>
-								<th>状态</th>
+								<th width="7%">数量</th>
+								<th width="10%">价格</th>
+								<th width="7%">单位</th>
+								<th width="10%">状态</th>
 								<th width="15%">操作</th>
 							</tr>
 						</thead>
@@ -102,9 +104,15 @@
 							<c:forEach var="item" items="${pageList.data}">
 								<tr>
 									<td>${item.code}</td>
-									<td>${item.companyName}</td>
-									<td>${item.goodsName}</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/supplierCompany/loadSupplierCompany?id=${item.companyId}&s=3" target="dialog">${item.companyName}</a>
+									</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/look?id=${item.goodsId}" target="dialog"  rel="page-content">&nbsp;${item.goodsName}</a>
+									</td>
+									<td>${item.number}</td>
 									<td>${item.price}</td>
+									<td>${item.unit}</td>
 									<td>
 										<c:if test="${item.status eq 'Y' }"><span class="font-green">已使用</span></c:if>
 										<c:if test="${item.status eq 'N' }"><span class="font-yellow">未使用</span></c:if>

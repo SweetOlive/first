@@ -83,9 +83,9 @@
 							<tr>
 							    <th>名称</th>
 								<th>编号</th>
-								<th>信用等级</th>
-								<th>合作状态</th>
-								<th width="30%">操作</th>
+								<th width="10%">信用等级</th>
+								<th width="10%">合作状态</th>
+								<th width="25%">操作</th>
 							</tr>
 						</thead>
 						<tbody>

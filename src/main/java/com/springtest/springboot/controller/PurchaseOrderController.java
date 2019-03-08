@@ -142,11 +142,10 @@ public class PurchaseOrderController {
     @RequestMapping(value = "/loadPurchaseOrder")
     public  String loadPurchaseOrder(Integer id,HttpServletRequest request){
         if (id!=null){
-            List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
-            System.out.println("supplierCompanyList : " + supplierCompanyList.toString()+"  Size: "+supplierCompanyList.size());
-            request.setAttribute("supplierCompanyList",supplierCompanyList);
             PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
             request.setAttribute("purchaseOrder",purchaseOrder);
+            SupplierCompany supplierCompany = supplierCompanyService.findById(purchaseOrder.getCompanyId());
+            request.setAttribute("supplierCompany",supplierCompany);
             PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(purchaseOrder.getInquiryId());
             request.setAttribute("purchaseInquiry",purchaseInquiry);
             PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(purchaseInquiry.getGoodsId());

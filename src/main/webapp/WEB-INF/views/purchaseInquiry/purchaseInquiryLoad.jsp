@@ -13,21 +13,21 @@
 				<input type="hidden" name="nowId" value="${nowUser.id}">
 				<!-- BEGIN FORM-->
 				<div class="form-body">
-					<div class="form-group form-md-line-input ">
-						<label class="col-md-3 control-label">供应商
-							<span class="required">*</span>
-						</label>
-						<div class="col-md-8">
-							<select name="companyId" class="form-control required">
-								<option value="">-请选择供应商-</option>
-								<c:forEach items="${supplierCompanyList}" var="item">
-									<option value="${item.id}" <c:if test="${purchaseInquiry.companyId eq item.id }">selected</c:if> >${item.name}</option>
-								</c:forEach>
-							</select>
-							<div class="form-control-focus"></div>
-							<span class="help-block"></span>
-						</div>
-					</div>
+					<%--<div class="form-group form-md-line-input ">--%>
+						<%--<label class="col-md-3 control-label">供应商--%>
+							<%--<span class="required">*</span>--%>
+						<%--</label>--%>
+						<%--<div class="col-md-8">--%>
+							<%--<select name="companyId" class="form-control required">--%>
+								<%--<option value="">-请选择供应商-</option>--%>
+								<%--<c:forEach items="${supplierCompanyList}" var="item">--%>
+									<%--<option value="${item.id}" <c:if test="${purchaseInquiry.companyId eq item.id }">selected</c:if> >${item.name}</option>--%>
+								<%--</c:forEach>--%>
+							<%--</select>--%>
+							<%--<div class="form-control-focus"></div>--%>
+							<%--<span class="help-block"></span>--%>
+						<%--</div>--%>
+					<%--</div>--%>
 
 					<div class="form-group form-md-line-input ">
 						<label class="col-md-3 control-label">物资目录
@@ -37,7 +37,7 @@
 							<select id="parentSelect" name="catalogId" class="form-control required">
 								<option value="">-请物资目录-</option>
 								<c:forEach items="${priceGoodsCatalogList}" var="item">
-									<option value="${item.id}" <c:if test="${item.id eq priceGoodsContact.catalogId }">selected</c:if> >${item.name}</option>
+									<option value="${item.id}" <c:if test="${item.id eq priceGoodsContact.catalogId }">selected</c:if> >${item.name}(${item.companyName})</option>
 								</c:forEach>
 							</select>
 							<div class="form-control-focus"></div>
@@ -45,7 +45,7 @@
 						</div>
 					</div>
 					<div class="form-group form-md-line-input">
-						<label class="col-md-3 control-label" for="form_control_1">物资<span class="required">*</span>
+						<label class="col-md-3 control-label">物资<span class="required">*</span>
 						</label>
 						<div class="col-md-8">
 							<div class="btn-group bootstrap-select bs-select form-control">
@@ -58,7 +58,7 @@
 					</div>
 
 					<div class="form-group form-md-line-input ">
-						<label class="col-md-3 control-label">价格
+						<label class="col-md-3 control-label">询价价格
 							<span class="required">*</span>
 						</label>
 						<div class="col-md-8">

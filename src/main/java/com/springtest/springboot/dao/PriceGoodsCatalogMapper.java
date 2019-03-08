@@ -19,7 +19,9 @@ public interface PriceGoodsCatalogMapper {
     int updateByPrimaryKey(PriceGoodsCatalog record);
 
     //查找所有的物资目录
-    public List<PriceGoodsCatalog> findAll(@Param("param") PriceGoodsCatalog priceGoodsCatalog);
+    public List<PriceGoodsCatalog> findAll(@Param("param") PriceGoodsCatalog priceGoodsCatalog,@Param("companyName") String companyName);
 
     PriceGoodsCatalog findByName(@Param("name") String name);
+
+    PriceGoodsCatalog findByCompanyId(@Param("companyId") Integer companyId);
 }

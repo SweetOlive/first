@@ -27,7 +27,7 @@ public class PriceGoodsContact {
 
     private String version;
 
-    private Double size;
+    private String size;
 
     private String unit;
 
@@ -153,11 +153,11 @@ public class PriceGoodsContact {
         this.version = version == null ? null : version.trim();
     }
 
-    public Double getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Double size) {
+    public void setSize(String size) {
         this.size = size;
     }
 

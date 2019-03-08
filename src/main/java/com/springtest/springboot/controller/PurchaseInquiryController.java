@@ -61,12 +61,10 @@ public class PurchaseInquiryController {
 
     @RequestMapping(value = "/load")
     public String load(Integer id,HttpServletRequest request){
-        //找到所有状态为通过的供应商
-        List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
-        System.out.println("supplierCompanyList : " + supplierCompanyList.toString()+"  Size: "+supplierCompanyList.size());
-        request.setAttribute("supplierCompanyList",supplierCompanyList);
         //物资目录
-        List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll();
+        PriceGoodsCatalog priceGoodsCatalog = new PriceGoodsCatalog();
+        priceGoodsCatalog.setStatus("S");
+        List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll(priceGoodsCatalog);
         request.setAttribute("priceGoodsCatalogList",priceGoodsCatalogList);
         if (id != null){
             PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(id);
@@ -78,7 +76,7 @@ public class PurchaseInquiryController {
     }
 
     @RequestMapping(value = "/save")
-    public  String save(Integer nowId,Integer id,Integer goodsId,Integer companyId,Integer number,
+    public  String save(Integer nowId,Integer id,Integer goodsId,Integer companyId,Integer number,Integer catalogId,
                         Double price,String arriveTime,String address,String paied,
                         String remark,HttpServletRequest request) throws  Exception{
         System.out.println("arriveTime:"+arriveTime);
@@ -86,7 +84,11 @@ public class PurchaseInquiryController {
         Date arrive_Time = sdf.parse(arriveTime);
         if(id == null){
             PurchaseInquiry purchaseInquiry = new PurchaseInquiry();
-            purchaseInquiry.setGoodsId(goodsId);purchaseInquiry.setCompanyId(companyId);
+            if (catalogId!=null){
+                PriceGoodsCatalog priceGoodsCatalog = priceGoodsCatalogService.findById(catalogId);
+                purchaseInquiry.setCompanyId(priceGoodsCatalog.getCompanyId());
+            }
+            purchaseInquiry.setGoodsId(goodsId);
             purchaseInquiry.setPrice(price);purchaseInquiry.setAddress(address);
             purchaseInquiry.setPaied(paied);purchaseInquiry.setNumber(number);
             purchaseInquiry.setArrivetime(arrive_Time);
@@ -100,7 +102,11 @@ public class PurchaseInquiryController {
             else{ System.out.println("新增失败！ "+purchaseInquiry.getCode()); }
         }else {
             PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(id);
-            purchaseInquiry.setGoodsId(goodsId);purchaseInquiry.setCompanyId(companyId);
+            if (catalogId!=null){
+                PriceGoodsCatalog priceGoodsCatalog = priceGoodsCatalogService.findById(catalogId);
+                purchaseInquiry.setCompanyId(priceGoodsCatalog.getCompanyId());
+            }
+            purchaseInquiry.setGoodsId(goodsId);
             purchaseInquiry.setPrice(price);purchaseInquiry.setAddress(address);
             purchaseInquiry.setPaied(paied);purchaseInquiry.setNumber(number);
             purchaseInquiry.setArrivetime(arrive_Time);
@@ -145,12 +151,8 @@ public class PurchaseInquiryController {
     @RequestMapping(value = "/loadPurchaseInquiry")
     public  String loadPurchaseInquiry(Integer id,HttpServletRequest request){
         if (id != null){
-            //找到所有状态为通过的供应商
-            List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
-            System.out.println("supplierCompanyList : " + supplierCompanyList.toString()+"  Size: "+supplierCompanyList.size());
-            request.setAttribute("supplierCompanyList",supplierCompanyList);
             //物资目录
-            List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll();
+            List<PriceGoodsCatalog> priceGoodsCatalogList = priceGoodsCatalogService.findAll(new PriceGoodsCatalog());
             request.setAttribute("priceGoodsCatalogList",priceGoodsCatalogList);
             PurchaseInquiry purchaseInquiry = purchaseInquiryService.findById(id);
             request.setAttribute("purchaseInquiry",purchaseInquiry);

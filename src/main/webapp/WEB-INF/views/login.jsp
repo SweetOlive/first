@@ -65,7 +65,8 @@
 	<div class="middle-layout">
 		<div class="logo">
 			<a href="#">
-				<img src="${pageContext.request.contextPath}/static/images/young.jpg" alt="" height="120" width="290"/>
+				<%--<img src="${pageContext.request.contextPath}/static/images/young.jpg" alt="" height="120" width="290"/>--%>
+				<h3 style="color:#aeb2c4;">青年之家铁路物资管理系统</h3>
 			</a>
 		</div>
 		<!-- END LOGO -->

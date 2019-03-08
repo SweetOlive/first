@@ -11,6 +11,9 @@ public class PurchaseInquiry {
     @Transient
     private String companyName;
 
+    @Transient
+    private String unit;
+
     private Integer id;
 
     private Integer goodsId;
@@ -175,5 +178,13 @@ public class PurchaseInquiry {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

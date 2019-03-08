@@ -72,12 +72,12 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
-							    <th>物资名</th>
+							    <th width="10%">物资名</th>
 								<th>物资编号</th>
 								<th>价格区间</th>
 								<th>限价时间</th>
-								<th>创建时间</th>
-								<th width="20%">操作</th>
+								<%--<th>创建时间</th>--%>
+								<th width="25%">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -91,7 +91,7 @@
 										-
 										<fmt:formatDate value="${item.endTime}" pattern="yyyy-MM-dd" />
 									</td>
-									<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>
+									<%--<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>--%>
 									<td>
 										<a href="${pageContext.request.contextPath}/priceGoodsLimit/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">
 											<i class="fa fa-asterisk"></i>&nbsp;修改

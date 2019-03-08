@@ -26,9 +26,9 @@ public class PriceGoodsCatalogServiceImpl implements PriceGoodsCatalogService {
     private PriceGoodsContactMapper priceGoodsContactMapper;
 
     @Override
-    public PageList<PriceGoodsCatalog> findAllPage(PriceGoodsCatalog priceGoodsCatalog, Integer pageNum, Integer pageSize) {
+    public PageList<PriceGoodsCatalog> findAllPage(PriceGoodsCatalog priceGoodsCatalog,String companyName, Integer pageNum, Integer pageSize) {
         Page<Object> result = PageHelper.startPage(pageNum,pageSize);
-        List<PriceGoodsCatalog> list = priceGoodsCatalogMapper.findAll(priceGoodsCatalog);
+        List<PriceGoodsCatalog> list = priceGoodsCatalogMapper.findAll(priceGoodsCatalog,companyName);
         Paginator paginator = new Paginator(pageNum, pageSize, (int)result.getTotal());
         PageList<PriceGoodsCatalog> pageList = new PageList<PriceGoodsCatalog>(paginator);
         pageList.setData(list);
@@ -96,8 +96,13 @@ public class PriceGoodsCatalogServiceImpl implements PriceGoodsCatalogService {
     }
 
     @Override
-    public List<PriceGoodsCatalog> findAll(){
-        PriceGoodsCatalog priceGoodsCatalog = new PriceGoodsCatalog();
-        return priceGoodsCatalogMapper.findAll(priceGoodsCatalog);
+    public List<PriceGoodsCatalog> findAll(PriceGoodsCatalog priceGoodsCatalog){
+        String a = "";
+        return priceGoodsCatalogMapper.findAll(priceGoodsCatalog,a);
+    }
+
+    @Override
+    public PriceGoodsCatalog findByCompanyId(Integer companyId){
+        return priceGoodsCatalogMapper.findByCompanyId(companyId);
     }
 }

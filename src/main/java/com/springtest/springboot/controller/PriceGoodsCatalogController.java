@@ -4,10 +4,8 @@ import com.springtest.springboot.BaseException;
 import com.springtest.springboot.Constants;
 import com.springtest.springboot.po.PriceGoodsCatalog;
 import com.springtest.springboot.po.PriceGoodsContact;
-import com.springtest.springboot.service.CodeGeneratorService;
-import com.springtest.springboot.service.FileService;
-import com.springtest.springboot.service.PriceGoodsCatalogService;
-import com.springtest.springboot.service.PriceGoodsContactService;
+import com.springtest.springboot.po.SupplierCompany;
+import com.springtest.springboot.service.*;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
 import net.sf.json.JSONArray;
@@ -40,6 +38,9 @@ public class PriceGoodsCatalogController {
     private  PriceGoodsCatalogService priceGoodsCatalogService;
 
     @Autowired
+    private SupplierCompanyService supplierCompanyService;
+
+    @Autowired
     private CodeGeneratorService codeGeneratorService;
 
     @Autowired
@@ -53,15 +54,20 @@ public class PriceGoodsCatalogController {
     public String list(@ModelAttribute(value = "priceGoodsCatalog") PriceGoodsCatalog priceGoodsCatalog,
                        @RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
                        @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize,
+                       String companyName,
                        HttpServletRequest request){
-        PageList<PriceGoodsCatalog> pageList = priceGoodsCatalogService.findAllPage(priceGoodsCatalog,pageNum,pageSize);
+        PageList<PriceGoodsCatalog> pageList = priceGoodsCatalogService.findAllPage(priceGoodsCatalog,companyName,pageNum,pageSize);
         request.setAttribute("pageList",pageList);
+        request.setAttribute("companyName",companyName);
         return "/priceGoodsCatalog/catalogList";
     }
 
     //物资目录新增修改入口
     @RequestMapping(value = "/load")
     public String load(Integer id,HttpServletRequest request){
+        List<SupplierCompany> supplierCompanyList = supplierCompanyService.findAllWithP();
+        request.setAttribute("supplierCompanyList",supplierCompanyList);
+        System.out.println("supplierCompanyList size: "+supplierCompanyList.size());
         if (id != null){
             PriceGoodsCatalog priceGoodsCatalog = priceGoodsCatalogService.findById(id);
             request.setAttribute("priceGoodsCatalog",priceGoodsCatalog);
@@ -71,12 +77,17 @@ public class PriceGoodsCatalogController {
 
     //物资目录新增修改
     @RequestMapping(value = "/save")
-    public  String save(Integer nowId,Integer id,String name, String introduce,HttpServletRequest request){
+    public  String save(Integer nowId,Integer id,String name, String introduce,Integer companyId,
+                        HttpServletRequest request){
         if(id == null){
             if (priceGoodsCatalogService.findByName(name)!=null){
                 throw new BaseException("0006");
             }
+            if (priceGoodsCatalogService.findByCompanyId(companyId)!=null){
+                throw new BaseException("0025");
+            }
             PriceGoodsCatalog priceGoodsCatalog = new PriceGoodsCatalog();
+            priceGoodsCatalog.setCompanyId(companyId);
             priceGoodsCatalog.setName(name);priceGoodsCatalog.setIntroduce(introduce);
             priceGoodsCatalog.setCreateUserId(nowId);priceGoodsCatalog.setUpdateUserId(nowId);
             priceGoodsCatalog.setCreateTime(new Date());priceGoodsCatalog.setUpdateTime(new Date());
@@ -96,6 +107,15 @@ public class PriceGoodsCatalogController {
                     priceGoodsCatalog.setName(name);
                 }
             }
+            if (priceGoodsCatalog.getCompanyId().equals(companyId)){
+                priceGoodsCatalog.setCompanyId(companyId);
+            }else{
+                if (priceGoodsCatalogService.findByCompanyId(companyId)!=null){
+                    throw new BaseException("0025");
+                }else{
+                    priceGoodsCatalog.setCompanyId(companyId);
+                }
+            }
             priceGoodsCatalog.setIntroduce(introduce);
             priceGoodsCatalog.setUpdateUserId(nowId);priceGoodsCatalog.setUpdateTime(new Date());
             int cnt = priceGoodsCatalogService.update(priceGoodsCatalog);
@@ -112,8 +132,10 @@ public class PriceGoodsCatalogController {
     public  String delete(Integer id,HttpServletRequest request){
         int cnt = priceGoodsCatalogService.delete(id);
         List<PriceGoodsContact> list = priceGoodsContactService.findAllByCatalogId(id);
-        for (PriceGoodsContact priceGoodsContact : list){
-            priceGoodsContactService.detele(priceGoodsContact.getId());
+        if (list!=null && list.size()>0){
+            for (PriceGoodsContact priceGoodsContact : list){
+                priceGoodsContactService.detele(priceGoodsContact.getId());
+            }
         }
         if (cnt == 1){
             System.out.println("删除成功！ ");
@@ -183,6 +205,7 @@ public class PriceGoodsCatalogController {
     @RequestMapping(value = "/goodsSave")
     public String save(Integer nowId,Integer catalogId,Integer id,Integer parentId,
                        String name,String introduce,MultipartFile file,
+                       String size,String unit,Double price,
                        HttpServletRequest request) throws  Exception{
         System.out.println("++++++++++++++++++");
         System.out.println("当前登录用户nowId : "+ nowId);
@@ -198,7 +221,9 @@ public class PriceGoodsCatalogController {
             priceGoodsContact.setName(name);
             priceGoodsContact.setIntroduce(introduce);
             priceGoodsContact.setCatalogId(catalogId);
-            priceGoodsContact.setPrice(0.00);
+            priceGoodsContact.setPrice(price);
+            priceGoodsContact.setUnit(unit);
+            priceGoodsContact.setSize(size);
             priceGoodsContact.setCount(0);
             priceGoodsContact.setCreateUserId(nowId);priceGoodsContact.setUpdateUserId(nowId);
             priceGoodsContact.setCreateTime(new Date());priceGoodsContact.setUpdateTime(new Date());
@@ -221,6 +246,9 @@ public class PriceGoodsCatalogController {
         if (id!=null && parentId !=null){
             PriceGoodsContact priceGoodsContact = priceGoodsContactService.findById(id);
             priceGoodsContact.setName(name);
+            priceGoodsContact.setPrice(price);
+            priceGoodsContact.setUnit(unit);
+            priceGoodsContact.setSize(size);
             priceGoodsContact.setIntroduce(introduce);
             priceGoodsContact.setUpdateUserId(nowId);
             priceGoodsContact.setUpdateTime(new Date());

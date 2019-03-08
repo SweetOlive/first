@@ -41,7 +41,7 @@
     <if test="param.transport != null and param.transport != ''">
       AND s.transport = #{param.transport}
     </if>
-    order by s.create_time desc
+    order by field(s.status,'A','P','S','F'), s.create_time desc
   </select>
 
   <select id="findWithStatus" resultMap="BaseResultMap">

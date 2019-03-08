@@ -2,10 +2,10 @@ package com.springtest.springboot.controller;
 
 import com.springtest.springboot.BaseException;
 import com.springtest.springboot.Constants;
+import com.springtest.springboot.po.PriceGoodsCatalog;
+import com.springtest.springboot.po.PriceGoodsContact;
 import com.springtest.springboot.po.SupplierCompany;
-import com.springtest.springboot.service.CodeGeneratorService;
-import com.springtest.springboot.service.FileService;
-import com.springtest.springboot.service.SupplierCompanyService;
+import com.springtest.springboot.service.*;
 import com.springtest.springboot.util.NUIResponseUtils;
 import com.springtest.springboot.util.page.PageList;
 import org.apache.commons.io.FilenameUtils;
@@ -40,6 +40,12 @@ public class SupplierCompanyController {
 
     @Autowired
     private CodeGeneratorService codeGeneratorService;
+
+    @Autowired
+    private PriceGoodsCatalogService priceGoodsCatalogService;
+
+    @Autowired
+    private PriceGoodsContactService priceGoodsContactService;
 
     @Autowired
     private FileService fileService;
@@ -146,6 +152,18 @@ public class SupplierCompanyController {
     @RequestMapping(value = "/delete")
     public  String delete(Integer id,HttpServletRequest request){
         int cnt = supplierCompanyService.delete(id);
+        PriceGoodsCatalog priceGoodsCatalog = priceGoodsCatalogService.findByCompanyId(id);
+        List<PriceGoodsContact> priceGoodsContactList = priceGoodsContactService.findAllByCatalogId(priceGoodsCatalog.getId());
+        //删除物资目录
+        if (priceGoodsCatalog!=null){
+            priceGoodsCatalogService.delete(priceGoodsCatalog.getId());
+        }
+        //删除物资
+        if (priceGoodsContactList!=null && priceGoodsContactList.size()>0){
+            for (PriceGoodsContact priceGoodsContact : priceGoodsContactList){
+                priceGoodsContactService.detele(priceGoodsContact.getId());
+            }
+        }
         if (cnt == 1){
             System.out.println("删除成功！ ");
         } else{
@@ -157,7 +175,7 @@ public class SupplierCompanyController {
     }
 
     @RequestMapping(value = "/loadSupplierCompany")
-    public  String loadSupplierCompany(Integer id,String s,HttpServletRequest request)throws Exception{
+    public  String loadSupplierCompany(Integer id,String s,String inquiry,HttpServletRequest request)throws Exception{
         if (id != null){
             SupplierCompany supplierCompany = supplierCompanyService.findById(id);
             request.setAttribute("supplierCompany",supplierCompany);
@@ -170,6 +188,8 @@ public class SupplierCompanyController {
         //作废详情
         else if (s.equals("2")){
             return "/supplierCompany/detailFail";
+        }else if (s.equals("3")){
+            return "/supplierCompany/detail";
         }else{
             return "";
         }
@@ -182,6 +202,16 @@ public class SupplierCompanyController {
             supplierCompany.setStatus(status);
             supplierCompany.setUpdateUserId(nowId);supplierCompany.setUpdateTime(new Date());
             int cnt = supplierCompanyService.update(supplierCompany);
+            //供应商审核成功，同时生成物资目录
+            PriceGoodsCatalog priceGoodsCatalog = new PriceGoodsCatalog();
+            priceGoodsCatalog.setCompanyId(supplierCompany.getId());
+            priceGoodsCatalog.setName(supplierCompany.getName());
+            priceGoodsCatalog.setCreateUserId(nowId);priceGoodsCatalog.setUpdateUserId(nowId);
+            priceGoodsCatalog.setCreateTime(new Date());priceGoodsCatalog.setUpdateTime(new Date());
+            priceGoodsCatalog.setStatus("S");
+            priceGoodsCatalog.setCode(codeGeneratorService.gen());
+            priceGoodsCatalogService.add(priceGoodsCatalog);
+
             if (cnt == 1){
                 System.out.println("审核通过成功！ "+supplierCompany.getName());
             } else{
@@ -192,6 +222,10 @@ public class SupplierCompanyController {
             supplierCompany.setStatus(status);
             supplierCompany.setUpdateUserId(nowId);supplierCompany.setUpdateTime(new Date());
             int cnt = supplierCompanyService.update(supplierCompany);
+            //作废，修改物资目录状态
+            PriceGoodsCatalog priceGoodsCatalog = priceGoodsCatalogService.findByCompanyId(supplierCompany.getId());
+            priceGoodsCatalog.setStatus("F");
+            priceGoodsCatalogService.update(priceGoodsCatalog);
             if (cnt == 1){
                 System.out.println("作废成功！ "+supplierCompany.getName());
             } else{

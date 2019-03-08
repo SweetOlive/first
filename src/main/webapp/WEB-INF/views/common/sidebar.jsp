@@ -55,6 +55,23 @@
 					</security:authorize>
 				</ul></li>
         </security:authorize>
+		<security:authorize ifAnyGranted="P_COMPANY">
+			<li class="nav-item">
+				<a href="" class="nav-link nav-toggle"><i class="fa fa-shopping-cart"></i>
+					<span class="title">供应商管理</span><span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<security:authorize ifAnyGranted="P_COMPANY_IN">
+						<li><a href="#${pageContext.request.contextPath}/supplierCompany/list"><i class="fa fa-sign-in"></i>
+							<span class="title">供应商准入管理</span></a></li>
+					</security:authorize>
+					<security:authorize ifAnyGranted="P_COMPANY_ADMIN">
+						<li><a href="#${pageContext.request.contextPath}/supplierCompany/passAndFailList"><i class="fa fa-shopping-cart"></i>
+							<span class="title">供应商管理</span></a></li>
+					</security:authorize>
+				</ul>
+			</li>
+		</security:authorize>
 		<security:authorize ifAnyGranted="P_PRICE">
 			<li class="nav-item">
 			<a href="" class="nav-link nav-toggle"><i class="fa fa-bookmark-o"></i>
@@ -71,40 +88,6 @@
 			</security:authorize>
 			</ul>
 		    </li>
-	   </security:authorize>
-       <security:authorize ifAnyGranted="P_COMPANY">
-			<li class="nav-item">
-				<a href="" class="nav-link nav-toggle"><i class="fa fa-shopping-cart"></i>
-					<span class="title">供应商管理</span><span class="arrow"></span>
-				</a>
-				<ul class="sub-menu">
-		    <security:authorize ifAnyGranted="P_COMPANY_ADMIN">
-					<li><a href="#${pageContext.request.contextPath}/supplierCompany/passAndFailList"><i class="fa fa-shopping-cart"></i>
-						<span class="title">供应商管理</span></a></li>
-			</security:authorize>
-			<security:authorize ifAnyGranted="P_COMPANY_IN">
-				    <li><a href="#${pageContext.request.contextPath}/supplierCompany/list"><i class="fa fa-sign-in"></i>
-						<span class="title">供应商准入管理</span></a></li>
-			</security:authorize>
-				</ul>
-			</li>
-	   </security:authorize>
-       <security:authorize ifAnyGranted="P_BUDGET">
-			<li class="nav-item">
-				<a href="" class="nav-link nav-toggle"><i class="fa fa-hourglass"></i>
-					<span class="title">预算管理</span><span class="arrow"></span>
-				</a>
-				<ul class="sub-menu">
-		    <security:authorize ifAnyGranted="P_BUDGET_ADMIN">
-					<li><a href="#${pageContext.request.contextPath}/budgetManagement/list"><i class="fa fa-hourglass"></i>
-							<span class="title">预算管理</span></a></li>
-			</security:authorize>
-			<security:authorize ifAnyGranted="P_BUDGET_NESS">
-					<li><a href="#${pageContext.request.contextPath}/demandManagement/list"><i class="fa fa-hourglass-o"></i>
-							<span class="title">需求管理</span></a></li>
-			</security:authorize>
-				</ul>
-			</li>
 	   </security:authorize>
        <security:authorize ifAnyGranted="P_BUY">
 			<li class="nav-item">
@@ -144,6 +127,23 @@
 				</ul>
 			</li>
 	   </security:authorize>
+		<security:authorize ifAnyGranted="P_BUDGET">
+			<li class="nav-item">
+				<a href="" class="nav-link nav-toggle"><i class="fa fa-hourglass"></i>
+					<span class="title">预算管理</span><span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<security:authorize ifAnyGranted="P_BUDGET_ADMIN">
+						<li><a href="#${pageContext.request.contextPath}/budgetManagement/list"><i class="fa fa-hourglass"></i>
+							<span class="title">预算管理</span></a></li>
+					</security:authorize>
+					<security:authorize ifAnyGranted="P_BUDGET_NESS">
+						<li><a href="#${pageContext.request.contextPath}/demandManagement/list"><i class="fa fa-hourglass-o"></i>
+							<span class="title">需求管理</span></a></li>
+					</security:authorize>
+				</ul>
+			</li>
+		</security:authorize>
 			<%--<li class="nav-item">--%>
 				<%--<a href="" class="nav-link nav-toggle"><i class="fa fa-paste"></i>--%>
 					<%--<span class="title">合同管理</span><span class="arrow"></span>--%>

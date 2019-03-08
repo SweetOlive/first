@@ -19,6 +19,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="companyName" property="companyName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, department_id, company_id, code, introduce, status, approvers, copiers, 
@@ -27,25 +28,35 @@
   </sql>
 
   <select id="findAll" resultMap="BaseResultMap">
-  SELECT *
-  from price_goods_catalog
-  where 1=1
+  SELECT g.*,s.name companyName
+  from price_goods_catalog g
+  join supplier_company s
+  where s.id = g.company_id
   <if test="param.name != null and param.name != ''">
-    AND name LIKE '%${param.name}%'
+    AND g.name LIKE '%${param.name}%'
   </if>
   <if test="param.code != null and param.code != ''">
-    AND code LIKE '%${param.code}%'
+    AND g.code LIKE '%${param.code}%'
   </if>
   <if test="param.status != null and param.status != ''">
-    AND status = #{param.status}
+    AND g.status = #{param.status}
   </if>
-
+  <if test="companyName != null and companyName != ''">
+    AND s.name LIKE '%${companyName}%'
+  </if>
+    order by g.status desc ,g.create_time desc
 </select>
 
   <select id="findByName" resultMap="BaseResultMap">
     SELECT *
     from price_goods_catalog
     where name = #{name}
+  </select>
+
+  <select id="findByCompanyId" resultMap="BaseResultMap">
+    SELECT *
+    from price_goods_catalog
+    where company_id = #{companyId}
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

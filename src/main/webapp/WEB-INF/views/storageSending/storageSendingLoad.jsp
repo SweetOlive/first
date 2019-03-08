@@ -37,7 +37,7 @@
 								<select id="parentSelect" name="catalogId" class="form-control required">
 									<option value="">-请物资目录-</option>
 									<c:forEach items="${priceGoodsCatalogList}" var="item">
-										<option value="${item.id}" <c:if test="${item.id eq priceGoodsContact.catalogId }">selected</c:if> >${item.name}</option>
+										<option value="${item.id}" <c:if test="${item.id eq priceGoodsContact.catalogId }">selected</c:if> >${item.name}（${item.companyName}）</option>
 									</c:forEach>
 								</select>
 								<div class="form-control-focus"></div>

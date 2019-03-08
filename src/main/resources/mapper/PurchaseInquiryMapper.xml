@@ -20,6 +20,7 @@
 
     <result column="companyName" property="companyName" jdbcType="VARCHAR" />
     <result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, goods_id, company_id, number, price, arriveTime, address, paied, code, create_time, 
@@ -27,7 +28,7 @@
   </sql>
 
   <select id="findAll" resultMap="BaseResultMap">
-    select s.*,c.name companyName,g.name goodsName
+    select s.*,c.name companyName,g.name goodsName,g.unit unit
     from purchase_inquiry s
     join supplier_company c
     join price_goods_contact g
@@ -44,7 +45,7 @@
     <if test="goodsName != null and goodsName != ''">
       AND g.name LIKE '%${goodsName}%'
     </if>
-    order by s.create_time desc
+    order by s.status,s.create_time desc
   </select>
 
   <select id="findByCode" resultMap="BaseResultMap" >

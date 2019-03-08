@@ -83,18 +83,20 @@
 						<thead>
 							<tr>
 							    <th>发料编号</th>
-								<th>物资名</th>
-								<th>接收部门</th>
-								<th>发料状态</th>
+								<th width="10%">物资名</th>
+								<th width="15%">接收部门</th>
+								<th width="10%">发料状态</th>
 								<th>创建时间</th>
-								<th width="30%">操作</th>
+								<th width="22%">操作</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="item" items="${pageList.data}">
 								<tr>
 									<td>${item.code}</td>
-									<td>${item.goodsName}</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/look?id=${item.goodsId}" target="dialog"  rel="page-content">${item.goodsName}</a>
+									</td>
 									<td>${item.departmentName}</td>
 									<td>
 										<c:if test="${item.status eq 'A' }"><span class="font-yellow">审核</span></c:if>

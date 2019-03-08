@@ -46,12 +46,7 @@
                         <label class="col-md-3 control-label">供应商
                         </label>
                         <div class="col-md-8">
-                            <select readonly name="companyId" class="form-control required">
-                                <option value="">-请选择供应商-</option>
-                                <c:forEach items="${supplierCompanyList}" var="item">
-                                    <option value="${item.id}" <c:if test="${purchaseOrder.companyId eq item.id }">selected</c:if> >${item.name}</option>
-                                </c:forEach>
-                            </select>
+                            <input readonly type="text" class="form-control" placeholder="" value="${supplierCompany.name}">
                             <div class="form-control-focus"></div>
                             <span class="help-block"></span>
                         </div>
