@@ -46,4 +46,9 @@ public class StorageSendingServiceImpl implements StorageSendingService {
     public  int  delete(Integer id){
         return storageSendingMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<StorageSending> findByStatus(String status){
+        return storageSendingMapper.findByStatus(status);
+    }
 }

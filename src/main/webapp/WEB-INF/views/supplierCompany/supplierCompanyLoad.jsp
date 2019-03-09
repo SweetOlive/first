@@ -182,9 +182,16 @@
 						},
 
 						submitHandler : function(form) {
-							ajaxSubmitCallback($('#userForm'), dialogAjaxDone);
+							ajaxSubmitCallback($('#userForm'), myDialogAjaxDone);
 						}
 					});
+
+    //处理刷新未处理数目
+    function myDialogAjaxDone(json){
+        dialogAjaxDone(json);
+        refreshSideBarRedPointByType("COMPANY_APPROVER_NUM");
+    }
+
 	$.validator.addMethod("checkName",function(value,element,params){
 		var checkName = /^[ ]*$/;
 		return this.optional(element)||(! checkName.test(value));

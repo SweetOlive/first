@@ -100,7 +100,9 @@
 							<c:forEach var="item" items="${pageList.data}">
 								<tr>
 									<td>${item.name}</td>
-									<td>${item.companyName}</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/supplierCompany/loadSupplierCompany?id=${item.companyId}&s=3" target="dialog">${item.companyName}</a>
+									</td>
 									<td>
 										<c:if test="${item.transport eq 'A' }">铁路</c:if>
 										<c:if test="${item.transport eq 'B' }">公路</c:if>

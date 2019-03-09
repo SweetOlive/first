@@ -60,6 +60,8 @@ public class PriceGoodsLimitController {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String strdate = format.format(priceGoodsLimit.getStartTime())+" ~ "+format.format(priceGoodsLimit.getEndTime());
             request.setAttribute("approvalTime",strdate);
+            PriceGoodsContact priceGoodsContact = priceGoodsContactService.findByCode(priceGoodsLimit.getGoodsCode());
+            request.setAttribute("priceGoodsContact",priceGoodsContact);
         }
         return "/priceGoodsLimit/priceGoodsLimitLoad";
     }

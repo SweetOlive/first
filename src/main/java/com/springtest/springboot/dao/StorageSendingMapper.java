@@ -21,4 +21,6 @@ public interface StorageSendingMapper {
     List<StorageSending> findAll(@Param("param")StorageSending storageSending,
                                   @Param("goodsName") String goodsName,
                                   @Param("departmentName")String departmentName);
+
+    List<StorageSending> findByStatus(@Param("status") String status);
 }

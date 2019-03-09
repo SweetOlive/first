@@ -3,6 +3,8 @@ package com.springtest.springboot.service;
 import com.springtest.springboot.po.StorageIncoming;
 import com.springtest.springboot.util.page.PageList;
 
+import java.util.List;
+
 public interface StorageIncomingService {
 
     public PageList<StorageIncoming> findPage(StorageIncoming storageIncoming, String receivingCode,Integer pageNum, Integer pageSize);
@@ -16,4 +18,6 @@ public interface StorageIncomingService {
     public  int  delete(Integer id);
 
     public StorageIncoming findByReceivingIdAndAPStatus(Integer reId);
+
+    public List<StorageIncoming> findByStatus(String status);
 }

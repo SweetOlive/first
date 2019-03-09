@@ -40,7 +40,7 @@
 						<div class="col-md-8">
 							<textarea class="form-control" name="introduce" rows="3">${demandManagement.introduce}</textarea>
 							<div class="form-control-focus"></div>
-							<span class="help-block">详细的预算介绍</span>
+							<span class="help-block">详细的需求介绍</span>
 						</div>
 					</div>
 					<div class="form-group form-md-line-input ">

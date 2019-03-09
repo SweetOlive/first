@@ -72,8 +72,8 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
-							    <th width="10%">物资名</th>
-								<th>物资编号</th>
+							    <th width="30%">物资名</th>
+								<%--<th>物资编号</th>--%>
 								<th>价格区间</th>
 								<th>限价时间</th>
 								<%--<th>创建时间</th>--%>
@@ -83,8 +83,10 @@
 						<tbody>
 							<c:forEach var="item" items="${pageList.data}">
 								<tr>
-									<td>${item.goodsName}</td>
-									<td>${item.goodsCode}</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/look?id=${item.goodsId}" target="dialog"  rel="page-content">${item.goodsName}</a>
+									</td>
+									<%--<td>${item.goodsCode}</td>--%>
 									<td>${item.priceMin}-${item.priceMax}</td>
 									<td>
 										<fmt:formatDate value="${item.startTime}" pattern="yyyy-MM-dd" />

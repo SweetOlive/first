@@ -67,4 +67,9 @@ public class SupplierCompanyServiceImpl implements SupplierCompanyService {
     public SupplierCompany findByName(String name){
         return supplierCompanyMapper.findByName(name);
     }
+
+    @Override
+    public List<SupplierCompany> findByStatusA(){
+        return supplierCompanyMapper.findByStatusA();
+    }
 }

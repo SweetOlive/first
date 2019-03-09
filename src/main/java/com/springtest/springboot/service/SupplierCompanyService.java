@@ -24,4 +24,6 @@ public interface SupplierCompanyService {
     public List<SupplierCompany> findAllWithP();
 
     public SupplierCompany findByName(String name);
+
+    public List<SupplierCompany> findByStatusA();
 }

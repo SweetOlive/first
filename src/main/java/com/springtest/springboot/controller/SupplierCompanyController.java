@@ -205,7 +205,7 @@ public class SupplierCompanyController {
             //供应商审核成功，同时生成物资目录
             PriceGoodsCatalog priceGoodsCatalog = new PriceGoodsCatalog();
             priceGoodsCatalog.setCompanyId(supplierCompany.getId());
-            priceGoodsCatalog.setName(supplierCompany.getName());
+            priceGoodsCatalog.setName(supplierCompany.getName()+"物资目录");
             priceGoodsCatalog.setCreateUserId(nowId);priceGoodsCatalog.setUpdateUserId(nowId);
             priceGoodsCatalog.setCreateTime(new Date());priceGoodsCatalog.setUpdateTime(new Date());
             priceGoodsCatalog.setStatus("S");

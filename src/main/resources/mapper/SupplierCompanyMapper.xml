@@ -71,6 +71,12 @@
     where s.status = 'P'
   </select>
 
+  <select id="findByStatusA" resultMap="BaseResultMap">
+  select s.*
+  from supplier_company s
+  where s.status = 'A'
+</select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

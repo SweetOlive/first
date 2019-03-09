@@ -51,4 +51,9 @@ public class StorageIncomingServiceImpl implements StorageIncomingService {
     public StorageIncoming findByReceivingIdAndAPStatus(Integer reId){
         return storageIncomingMapper.findByReceivingIdAndAPStatus(reId);
     }
+
+    @Override
+    public List<StorageIncoming> findByStatus(String status){
+        return storageIncomingMapper.findByStatus(status);
+    }
 }

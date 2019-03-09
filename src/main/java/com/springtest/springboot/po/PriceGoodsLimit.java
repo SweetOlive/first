@@ -8,6 +8,9 @@ public class PriceGoodsLimit {
     @Transient
     private String goodsName;
 
+    @Transient
+    private Integer goodsId;
+
     private Integer id;
 
     private String goodsCode;
@@ -124,5 +127,13 @@ public class PriceGoodsLimit {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
+    }
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 }

@@ -70,6 +70,115 @@ $('#updatePasswordToast').click(function () {
 	(function($) {
 		bootbox.setLocale("zh_CN");
 		NUI.init("${pageContext.request.contextPath}/login");
-
+        refreshSideBarRedPoint();
 	})(jQuery);
+
+
+//红点提示
+function initPoints(){
+    var sidebar = $(".page-sidebar");
+    var redPointSums = $(".redPointSums",sidebar);
+    redPointSums.each(function() {
+        var $this = $(this);
+        var redPoints = $(".redPoint",$this);
+        var redPointSum = $(".redPointSum",$this);
+        var sum=0;
+        redPoints.each(function() {
+            var $redPoint = $(this);
+            var n = parseInt($redPoint.html());
+            if (!isNaN(n))
+            {
+                sum =sum +n;
+            }
+
+        });
+        if(sum>0){
+            redPointSum.html(sum);
+        }else{
+            redPointSum.html("");
+        }
+
+    });
+}
+
+function refreshSideBarRedPoint(){
+    var sidebar = $(".page-sidebar");
+    var redPoints = $(".redPoint",sidebar);
+
+    $.ajax({
+        type : 'GET',
+        url : '${pageContext.request.contextPath}/admin/refreshSideBarRedPoint',
+        cache : false,
+        success : function(response) {
+            var json = NUI.jsonEval(response);
+
+            if(json){
+
+                //clear
+                redPoints.each(function() {
+                    var $this = $(this);
+                    $this.html("");
+                });
+
+                /* for(var rp : json){
+                    var redPoint = $("#"+rp.key,redPoints);
+                    redPoint.html(rp.value);
+                }
+                 */
+                for(var key in json){
+
+                    var redPoint = $("#"+key);
+                    var value = json[key];
+                    if(value>0||isNaN(value)){
+                        redPoint.html(json[key]);
+                    }
+
+                }
+                initPoints();
+            }
+
+        },
+        error : NUI.ajaxError,
+        statusCode : {
+            503 : function(xhr, ajaxOptions, thrownError) {
+                alert(NUI.msg("statusCode_503") || thrownError);
+            }
+        }
+    });
+
+}
+
+function refreshSideBarRedPointByType(type){
+    $.ajax({
+        type : 'GET',
+        url : '${pageContext.request.contextPath}/admin/refreshSideBarRedPoint?type='+type,
+        cache : false,
+        success : function(response) {
+            var json = NUI.jsonEval(response);
+
+            if(json){
+
+                for(var key in json){
+                    var redPoint = $("#"+key);
+                    var value = json[key];
+                    if(value>0||isNaN(value)){
+                        redPoint.html(json[key]);
+                    }else{
+                        redPoint.html("");
+                    }
+                }
+                initPoints();
+            }
+
+        },
+        error : NUI.ajaxError,
+        statusCode : {
+            503 : function(xhr, ajaxOptions, thrownError) {
+                alert(NUI.msg("statusCode_503") || thrownError);
+            }
+        }
+    });
+
+}
+
 </script>

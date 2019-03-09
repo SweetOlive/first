@@ -21,4 +21,6 @@ public interface StorageIncomingMapper {
     List<StorageIncoming> findAll(@Param("param")StorageIncoming storageIncoming,@Param("receivingCode") String receivingCode);
 
     StorageIncoming findByReceivingIdAndAPStatus(@Param("reId") Integer reId);
+
+    List<StorageIncoming> findByStatus(@Param("status") String status);
 }

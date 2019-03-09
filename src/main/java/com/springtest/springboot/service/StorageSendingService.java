@@ -3,6 +3,8 @@ package com.springtest.springboot.service;
 import com.springtest.springboot.po.StorageSending;
 import com.springtest.springboot.util.page.PageList;
 
+import java.util.List;
+
 public interface StorageSendingService {
 
     public PageList<StorageSending> findPage(StorageSending storageSending, String goodsName,String departmentName, Integer pageNum, Integer pageSize);
@@ -14,4 +16,6 @@ public interface StorageSendingService {
     public  int update(StorageSending  storageSending);
 
     public  int  delete(Integer id);
+
+    public List<StorageSending> findByStatus(String status);
 }

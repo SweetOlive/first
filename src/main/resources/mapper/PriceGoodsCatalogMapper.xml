@@ -44,7 +44,7 @@
   <if test="companyName != null and companyName != ''">
     AND s.name LIKE '%${companyName}%'
   </if>
-    order by g.status desc ,g.create_time desc
+    order by g.status desc ,g.create_time ASC
 </select>
 
   <select id="findByName" resultMap="BaseResultMap">

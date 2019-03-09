@@ -74,9 +74,9 @@ public class PurchaseOrderController {
                         String introduce ,String remark,HttpServletRequest request){
         PurchaseInquiry purchaseInquiry = purchaseInquiryService.findByCode(code);
         if(id == null){
-            if (purchaseOrderService.findByName(name)!=null){
-                throw new BaseException("0010");
-            }
+//            if (purchaseOrderService.findByName(name)!=null){
+//                throw new BaseException("0010");
+//            }
             PurchaseOrder purchaseOrder = new PurchaseOrder();
             if (purchaseInquiry!=null){
                 purchaseOrder.setInquiryId(purchaseInquiry.getId());
@@ -98,15 +98,16 @@ public class PurchaseOrderController {
             else{ System.out.println("新增失败！ "+purchaseOrder.getName()); }
         }else {
             PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
-            if (purchaseOrder.getName().equals(name)){
-                purchaseOrder.setName(name);
-            }else{
-                if (purchaseOrderService.findByName(name)!=null){
-                    throw new BaseException("0010");
-                }else {
-                    purchaseOrder.setName(name);
-                }
-            }
+//            if (purchaseOrder.getName().equals(name)){
+//                purchaseOrder.setName(name);
+//            }else{
+//                if (purchaseOrderService.findByName(name)!=null){
+//                    throw new BaseException("0010");
+//                }else {
+//                    purchaseOrder.setName(name);
+//                }
+//            }
+            purchaseOrder.setName(name);
             if (purchaseInquiry!=null){
                 purchaseOrder.setInquiryId(purchaseInquiry.getId());
                 purchaseOrder.setCompanyId(purchaseInquiry.getCompanyId());

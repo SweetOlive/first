@@ -68,9 +68,10 @@
 						<thead>
 							<tr>
 							    <th>标题</th>
-								<th>预算资金</th>
+								<th width="10%">预算资金</th>
+								<th width="25%">预算内容</th>
 								<th>创建时间</th>
-								<th width="30%">操作</th>
+								<th width="23%">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -78,6 +79,7 @@
 								<tr>
 									<td>${item.name}</td>
 									<td>${item.budgetCapital}</td>
+									<td>${item.introduce}</td>
 									<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:ss" /></td>
 									<td>
 										<a href="${pageContext.request.contextPath}/budgetManagement/load?id=${item.id}" target="dialog" class="btn yellow btn-sm">

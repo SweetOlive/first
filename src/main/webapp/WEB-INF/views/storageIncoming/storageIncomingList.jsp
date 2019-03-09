@@ -89,7 +89,9 @@
 							<c:forEach var="item" items="${pageList.data}">
 								<tr>
 									<td>${item.code}</td>
-									<td>${item.receivingCode}</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/purchaseReceiving/loadPurchaseReceiving?id=${item.receivingId}" target="dialog">${item.receivingCode}</a>
+									</td>
 									<td>
 										<c:if test="${item.status eq 'A' }"><span class="font-yellow">审核</span></c:if>
 										<c:if test="${item.status eq 'P' }"><span class="font-green">通过</span></c:if>

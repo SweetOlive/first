@@ -25,4 +25,6 @@ public interface SupplierCompanyMapper {
     List<SupplierCompany> findAllWithP();
 
     SupplierCompany findByName(@Param("name") String name);
+
+    List<SupplierCompany> findByStatusA();
 }

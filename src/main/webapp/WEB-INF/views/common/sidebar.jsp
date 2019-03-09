@@ -56,14 +56,17 @@
 				</ul></li>
         </security:authorize>
 		<security:authorize ifAnyGranted="P_COMPANY">
-			<li class="nav-item">
+			<li class="nav-item  redPointSums">
 				<a href="" class="nav-link nav-toggle"><i class="fa fa-shopping-cart"></i>
 					<span class="title">供应商管理</span><span class="arrow"></span>
+					<span class="badge badge-warning redPointSum"></span>
 				</a>
 				<ul class="sub-menu">
 					<security:authorize ifAnyGranted="P_COMPANY_IN">
 						<li><a href="#${pageContext.request.contextPath}/supplierCompany/list"><i class="fa fa-sign-in"></i>
-							<span class="title">供应商准入管理</span></a></li>
+							<span class="title">供应商准入管理</span>
+							<span class="badge badge-danger redPoint" id="COMPANY_APPROVER_NUM"></span></a>
+						</li>
 					</security:authorize>
 					<security:authorize ifAnyGranted="P_COMPANY_ADMIN">
 						<li><a href="#${pageContext.request.contextPath}/supplierCompany/passAndFailList"><i class="fa fa-shopping-cart"></i>
@@ -90,9 +93,10 @@
 		    </li>
 	   </security:authorize>
        <security:authorize ifAnyGranted="P_BUY">
-			<li class="nav-item">
+			<li class="nav-item  redPointSums">
 				<a href="" class="nav-link nav-toggle"><i class="fa fa-dollar"></i>
 					<span class="title">采购管理</span><span class="arrow"></span>
+					<span class="badge badge-warning redPointSum"></span>
 				</a>
 				<ul class="sub-menu">
 		    <security:authorize ifAnyGranted="P_BUY_XUN">
@@ -101,28 +105,37 @@
 			</security:authorize>
 			<security:authorize ifAnyGranted="P_BUY_ORDER">
 					<li><a href="#${pageContext.request.contextPath}/purchaseOrder/list"><i class="fa fa-list-alt"></i>
-							<span class="title">订单管理</span></a></li>
+							<span class="title">订单管理</span>
+						    <span class="badge badge-danger redPoint" id="ORDER_APPROVER_NUM"></span>
+					</a></li>
 			</security:authorize>
 			<security:authorize ifAnyGranted="P_BUY_INCOME">
 					<li><a href="#${pageContext.request.contextPath}/purchaseReceiving/list"><i class="fa fa-table"></i>
-							<span class="title">收料管理</span></a></li>
+							<span class="title">收料管理</span>
+						    <span class="badge badge-danger redPoint" id="RECEIVING_APPROVER_NUM"></span>
+					</a></li>
 			</security:authorize>
 				</ul>
 			</li>
 	   </security:authorize>
        <security:authorize ifAnyGranted="P_SAVE">
-			<li class="nav-item">
+			<li class="nav-item  redPointSums">
 				<a href="" class="nav-link nav-toggle"><i class="fa fa-rocket"></i>
 					<span class="title">仓储管理</span><span class="arrow"></span>
+					<span class="badge badge-warning redPointSum"></span>
 				</a>
 				<ul class="sub-menu">
 		    <security:authorize ifAnyGranted="P_SAVE_INSERT">
 					<li><a href="#${pageContext.request.contextPath}/storageIncoming/list"><i class="fa fa-print"></i>
-							<span class="title">进库料管理</span></a></li>
+							<span class="title">进库料管理</span>
+						    <span class="badge badge-danger redPoint" id="INCOMING_APPROVER_NUM"></span>
+					</a></li>
 			</security:authorize>
 			<security:authorize ifAnyGranted="P_SAVE_SEND">
 					<li><a href="#${pageContext.request.contextPath}/storageSending/list"><i class="fa fa-random"></i>
-							<span class="title">发料管理</span></a></li>
+							<span class="title">发料管理</span>
+						    <span class="badge badge-danger redPoint" id="SEND_APPROVER_NUM"></span>
+					</a></li>
 			</security:authorize>
 				</ul>
 			</li>
