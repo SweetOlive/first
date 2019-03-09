@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include.inc.jsp"%>
 
 <!-- Content Header (Page header) -->
@@ -105,7 +105,7 @@
 										<c:if test="${item.status eq 'F' }"><span class="font-red">作废</span></c:if>
 									</td>
 									<td>
-										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/loadCatalog?id=${item.id}" target="ajax" class="btn blue btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;目录详情</a>
+										<a href="${pageContext.request.contextPath}/priceGoodsCatalog/loadCatalog?id=${item.id}" target="ajax" class="btn purple btn-sm" rel="page-content"><i class="fa fa-edit"></i>&nbsp;目录详情</a>
 										<c:if test="${item.status eq 'S' }">
 										    <a href="${pageContext.request.contextPath}/priceGoodsCatalog/load?id=${item.id}" target="dialog" class="btn yellow btn-sm"><i class="fa fa-asterisk"></i>&nbsp;修改</a>
 										</c:if>
