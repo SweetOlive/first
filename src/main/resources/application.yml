@@ -35,6 +35,9 @@ spring:
     view:
       suffix: .jsp
       prefix: /WEB-INF/views/
+    favicon:
+      enabled: false
+
 ##配置国际资源文件
   messages:
     encoding: UTF-8

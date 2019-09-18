@@ -1,4 +1,4 @@
-
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
         <link href="${pageContext.request.contextPath}/static/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="${pageContext.request.contextPath}/static/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
         <link href="${pageContext.request.contextPath}/static/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />

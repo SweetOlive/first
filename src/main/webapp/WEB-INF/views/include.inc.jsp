@@ -3,3 +3,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="/WEB-INF/security.tld" prefix="security" %>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
