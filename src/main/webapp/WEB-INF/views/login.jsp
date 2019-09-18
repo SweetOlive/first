@@ -57,6 +57,15 @@
 }
 
 </style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e1359e896ec5e81b1540336cdd19f894";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
 </head>
 <!-- END HEAD -->
 
@@ -139,7 +148,8 @@
 		<!-- END LOGIN -->
 		<!-- BEGIN COPYRIGHT -->
 		<div class="copyright">
-			&copy; 2018 <a href="#">青年之家铁路物资管理系统</a>版权所有.
+			<div>备案信息：粤ICP备19117182号</div>
+			&copy; 2019 <a href="#">青年之家铁路物资管理系统</a>版权所有.
 		</div>
 	</div>
 	<!-- END COPYRIGHT -->
