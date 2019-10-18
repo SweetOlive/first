@@ -11,15 +11,7 @@
 
     <%@ include file="include.inc.jsp"%>
     <%@ include file="include.css.jsp"%>
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?e1359e896ec5e81b1540336cdd19f894";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+   
 
 </head>
 
